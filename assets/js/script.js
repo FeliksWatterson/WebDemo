@@ -1,9 +1,4 @@
 "use strict";
-
-/**
- * add event on element
- */
-
 const addEventOnElem = function (elem, type, callback) {
   if (elem.length > 1) {
     for (let i = 0; i < elem.length; i++) {
@@ -14,10 +9,7 @@ const addEventOnElem = function (elem, type, callback) {
   }
 };
 
-/**
- * navbar toggle
- */
-
+// --- NAVBAR TOGGLE ---
 const navbar = document.querySelector("[data-navbar]");
 const navTogglers = document.querySelectorAll("[data-nav-toggler]");
 const navLinks = document.querySelectorAll("[data-nav-link]");
@@ -37,10 +29,7 @@ const closeNavbar = function () {
 
 addEventOnElem(navLinks, "click", closeNavbar);
 
-/**
- * header active when scroll down to 100px
- */
-
+// --- HEADER & BACK TOP BTN ACTIVE ON SCROLL ---
 const header = document.querySelector("[data-header]");
 const backTopBtn = document.querySelector("[data-back-top-btn]");
 

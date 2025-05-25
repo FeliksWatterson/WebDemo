@@ -1,7 +1,6 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- DOM Elements ---
   const timeElement = document.getElementById("time");
   const currentQuestionNumberElement = document.getElementById(
     "current-question-number"
@@ -16,13 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const testSelectionArea = document.querySelector(".test-selection-area");
   const testListContainer = document.getElementById("test-list-container");
   const testHeaderTitle = document.querySelector(".test-header .section-title");
-
-  // --- Test Data (Sample) ---
-  // In a real application, this would come from a server or a larger local data structure.
   const tests = {
     de_toan_01: {
       name: "Đề thi thử Toán THPT Quốc Gia 2025 - Đề 01",
-      timeLimit: 90 * 60, // 90 minutes in seconds
+      timeLimit: 90 * 60,
       questions: [
         {
           text: "Trong không gian Oxyz, cho mặt cầu (S) có phương trình $x^2 + y^2 + z^2 - 2x + 4y - 6z - 11 = 0$. Tâm của (S) có tọa độ là:",
@@ -44,12 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
           options: ["3", "2", "11", "7"],
           answer: "11",
         },
-        // Add more questions for this test
       ],
     },
     de_ly_01: {
       name: "Đề thi thử Lý THPT Quốc Gia 2025 - Đề 01",
-      timeLimit: 50 * 60, // 50 minutes in seconds
+      timeLimit: 50 * 60,
       questions: [
         {
           text: "Một con lắc lò xo dao động điều hòa với tần số góc $omega$. Đại lượng $T = 2pi/omega$ được gọi là gì?",
@@ -66,10 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
           ],
           answer: "$Z_C = 1/(omega C)$",
         },
-        // Add more questions
       ],
     },
-    // Add more tests
   };
 
   let currentTestId = null;
@@ -82,12 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ? testHeaderTitle.innerHTML
     : 'Chọn một<span class="span"> bộ đề</span> để bắt đầu';
 
-  // --- Functions ---
-
   function loadTestList() {
     if (!testListContainer || !testSelectionArea) return;
 
-    testListContainer.innerHTML = ""; // Clear existing list
+    testListContainer.innerHTML = "";
     if (Object.keys(tests).length === 0) {
       testSelectionArea.innerHTML =
         '<p class="section-text">Hiện tại chưa có bộ đề nào.</p>';
@@ -98,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const testId in tests) {
       const test = tests[testId];
       const testItem = document.createElement("li");
-      // Using category-card style for consistency
       const cardColor = testId.includes("toan")
         ? "170, 75%, 41%"
         : testId.includes("ly")
@@ -195,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const optionTextSpan = document.createElement("span");
       optionTextSpan.className = "option-text";
-      optionTextSpan.innerHTML = option; // Use innerHTML for potential LaTeX
+      optionTextSpan.innerHTML = option;
 
       label.appendChild(radioInput);
       label.appendChild(optionTextSpan);
@@ -229,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       submitTestButton.style.display = "flex";
     } else {
       nextQuestionButton.style.display = "flex";
-      nextQuestionButton.disabled = false; // Ensure it's enabled if not last question
+      nextQuestionButton.disabled = false;
       submitTestButton.style.display = "none";
     }
   }
@@ -305,8 +295,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const backButton = document.getElementById("back-to-selection-btn");
     if (backButton) {
       backButton.addEventListener("click", () => {
-        // Instead of reload, reset the test interface content to its original structure
-        // This is a simplified reset. For a more robust SPA, you'd have templates or functions to rebuild the view.
         const originalInterfaceHTML = `
                     <div class="test-info">
                         <div class="timer">Thời gian còn lại: <span id="time">00:00</span></div>
@@ -331,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         </button>
                     </div>`;
         testInterface.innerHTML = originalInterfaceHTML;
-        // Re-assign DOM elements for the test interface as they were removed
         assignTestInterfaceDOMElements();
         loadTestList();
       });
@@ -353,18 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function assignTestInterfaceDOMElements() {
-    // Re-query for elements if the interface was rebuilt
-    // Note: This is needed if you dynamically replace testInterface.innerHTML
-    // timeElement = document.getElementById('time');
-    // currentQuestionNumberElement = document.getElementById('current-question-number');
-    // totalQuestionsElement = document.getElementById('total-questions');
-    // questionTextElement = document.getElementById('question-text');
-    // optionsContainer = document.getElementById('options-container');
-    // prevQuestionButton = document.getElementById('prev-question-btn');
-    // nextQuestionButton = document.getElementById('next-question-btn');
-    // submitTestButton = document.getElementById('submit-test-btn');
-
-    // Re-attach event listeners if elements were recreated
     if (prevQuestionButton) {
       prevQuestionButton.addEventListener("click", () => {
         if (currentQuestionIndex > 0) {
@@ -392,23 +367,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- Event Listeners (Initial setup for buttons that might be recreated) ---
-  // Event listeners for prev, next, submit are attached when test starts or interface is rebuilt.
-  // The assignTestInterfaceDOMElements function handles re-attaching if needed.
-
-  // --- Initialization ---
   if (testInterface && testSelectionArea) {
-    loadTestList(); // Load list of tests first
-    assignTestInterfaceDOMElements(); // Assign initial listeners if elements are static
+    loadTestList();
+    assignTestInterfaceDOMElements();
   } else {
     console.error(
       "Một số phần tử giao diện Luyện đề không tìm thấy. Vui lòng kiểm tra cấu trúc HTML."
     );
   }
 });
-
-// Add MathJax configuration if you plan to use LaTeX
-// You'll also need to include the MathJax script in your HTML, typically in the <head>
 
 window.MathJax = {
   tex: {
