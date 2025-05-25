@@ -1,0 +1,108 @@
+.practice-test-section {
+  padding: var(--section-padding); /* */
+  padding-top: calc(
+    var(--section-padding) + 80px
+  ); /* Account for fixed header */ /* */
+}
+
+.test-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  background-color: var(--isabelline); /* */
+  padding: 15px 20px;
+  border-radius: var(--radius-5); /* */
+  box-shadow: var(--shadow-1); /* */
+}
+
+.test-info .timer,
+.test-info .question-count {
+  font-family: var(--ff-league_spartan); /* */
+  font-size: var(--fs-4); /* */
+  color: var(--eerie-black-1); /* */
+}
+
+.question-area {
+  background-color: var(--white); /* */
+  padding: 30px;
+  border-radius: var(--radius-10); /* */
+  box-shadow: var(--shadow-2); /* */
+  margin-bottom: 30px;
+}
+
+.question-title {
+  font-family: var(--ff-league_spartan); /* */
+  font-size: var(--fs-3); /* */
+  color: var(--eerie-black-1); /* */
+  margin-bottom: 20px;
+}
+
+.options-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.options-list li {
+  margin-bottom: 15px;
+}
+
+.options-list label {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border: 1px solid var(--platinum); /* */
+  border-radius: var(--radius-5); /* */
+  cursor: pointer;
+  transition: var(--transition-1); /* */
+}
+
+.options-list label:hover {
+  background-color: var(--kappel_15); /* */
+  border-color: var(--kappel); /* */
+}
+
+.options-list input[type="radio"] {
+  margin-right: 10px;
+  width: auto; /* Override default input width */
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.btn-submit-test {
+  background-color: var(--radical-red); /* */
+}
+.btn-submit-test:is(:hover, :focus)::before {
+  background-image: linear-gradient(
+    -90deg,
+    hsl(351, 83%, 50%) 0%,
+    hsl(351, 83%, 70%) 100%
+  );
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+  .test-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .navigation-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
