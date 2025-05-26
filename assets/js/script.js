@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const iframe = document.createElement("iframe");
         iframe.setAttribute("width", "100%");
         iframe.setAttribute("height", "100%");
-        const correctedIframeSrc = `https://www.youtube.com/embed/$${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1&iv_load_policy=3&fs=1&color=white&controls=1`;
+        const correctedIframeSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&controls=1&modestbranding=1&iv_load_policy=3&fs=1&color=white`;
         console.log(
           "URL iframe ĐANG ĐƯỢC TẠO (với www.youtube.com/embed):",
           correctedIframeSrc
@@ -89,9 +89,5 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
     });
-  } else {
-    console.error(
-      "Không tìm thấy một hoặc nhiều phần tử DOM cần thiết cho video player."
-    );
   }
 });
