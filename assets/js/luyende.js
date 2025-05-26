@@ -1,20 +1,25 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const timeElement = document.getElementById("time");
-  const currentQuestionNumberElement = document.getElementById(
-    "current-question-number"
-  );
-  const totalQuestionsElement = document.getElementById("total-questions");
-  const questionTextElement = document.getElementById("question-text");
-  const optionsContainer = document.getElementById("options-container");
-  const prevQuestionButton = document.getElementById("prev-question-btn");
-  const nextQuestionButton = document.getElementById("next-question-btn");
-  const submitTestButton = document.getElementById("submit-test-btn");
+  // DOM Elements
   const testInterface = document.querySelector(".test-interface");
   const testSelectionArea = document.querySelector(".test-selection-area");
-  const testListContainer = document.getElementById("test-list-container");
   const testHeaderTitle = document.querySelector(".test-header .section-title");
+  const originalTestHeaderTitle = testHeaderTitle
+    ? testHeaderTitle.innerHTML
+    : 'Chọn một<span class="span"> bộ đề</span> để bắt đầu';
+  const testListContainer = document.getElementById("test-list-container");
+
+  let timeElement,
+    currentQuestionNumberElement,
+    totalQuestionsElement,
+    questionTextElement,
+    optionsContainer,
+    prevQuestionButton,
+    nextQuestionButton,
+    submitTestButton;
+
+  // Test Data (Sample)
   const tests = {
     de_toan_01: {
       name: "Đề thi thử Toán THPT Quốc Gia 2025 - Đề 01",
@@ -22,23 +27,28 @@ document.addEventListener("DOMContentLoaded", () => {
       questions: [
         {
           text: "Trong không gian Oxyz, cho mặt cầu (S) có phương trình $x^2 + y^2 + z^2 - 2x + 4y - 6z - 11 = 0$. Tâm của (S) có tọa độ là:",
-          options: ["(-1, 2, -3)", "(1, -2, 3)", "(2, -4, 6)", "(-2, 4, -6)"],
-          answer: "(1, -2, 3)",
+          options: [
+            "$(-1, 2, -3)$",
+            "$(1, -2, 3)$",
+            "$(2, -4, 6)$",
+            "$(-2, 4, -6)$",
+          ],
+          answer: "$(1, -2, 3)$",
         },
         {
           text: "Cho hàm số $y = x^3 - 3x + 2$. Mệnh đề nào dưới đây đúng?",
           options: [
-            "Hàm số đồng biến trên khoảng $(-infty, -1)$",
+            "Hàm số đồng biến trên khoảng $(-\\infty, -1)$",
             "Hàm số nghịch biến trên khoảng $(-1, 1)$",
-            "Hàm số đồng biến trên khoảng $(1, +infty)$",
+            "Hàm số đồng biến trên khoảng $(1, +\\infty)$",
             "Cả B và C đều đúng",
           ],
           answer: "Cả B và C đều đúng",
         },
         {
-          text: "Giá trị lớn nhất của hàm số $f(x) = x^4 - 2x^2 + 3$ trên đoạn [0, 2] là:",
-          options: ["3", "2", "11", "7"],
-          answer: "11",
+          text: "Giá trị lớn nhất của hàm số $f(x) = x^4 - 2x^2 + 3$ trên đoạn $[0, 2]$ là:",
+          options: ["$3$", "$2$", "$11$", "$7$"],
+          answer: "$11$",
         },
       ],
     },
@@ -47,19 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
       timeLimit: 50 * 60,
       questions: [
         {
-          text: "Một con lắc lò xo dao động điều hòa với tần số góc $omega$. Đại lượng $T = 2pi/omega$ được gọi là gì?",
+          text: "Một con lắc lò xo dao động điều hòa với tần số góc $\\omega$. Đại lượng $T = 2\\pi/\\omega$ được gọi là gì?",
           options: ["Tần số", "Chu kỳ", "Biên độ", "Pha ban đầu"],
           answer: "Chu kỳ",
         },
         {
-          text: "Đặt điện áp xoay chiều $u = U_0 cos(omega t)$ vào hai đầu đoạn mạch chỉ có tụ điện. Dung kháng của tụ điện được tính bằng công thức nào?",
+          text: "Đặt điện áp xoay chiều $u = U_0 \\cos(\\omega t)$ vào hai đầu đoạn mạch chỉ có tụ điện. Dung kháng của tụ điện được tính bằng công thức nào?",
           options: [
-            "$Z_C = omega C$",
-            "$Z_C = 1/(omega C)$",
-            "$Z_L = omega L$",
-            "$Z_L = 1/(omega L)$",
+            "$Z_C = \\omega C$",
+            "$Z_C = 1/(\\omega C)$",
+            "$Z_L = \\omega L$",
+            "$Z_L = 1/(\\omega L)$",
           ],
-          answer: "$Z_C = 1/(omega C)$",
+          answer: "$Z_C = 1/(\\omega C)$",
         },
       ],
     },
@@ -71,18 +81,70 @@ document.addEventListener("DOMContentLoaded", () => {
   let userAnswers = [];
   let timerInterval;
   let timeLeft = 0;
-  const originalTestHeaderTitle = testHeaderTitle
-    ? testHeaderTitle.innerHTML
-    : 'Chọn một<span class="span"> bộ đề</span> để bắt đầu';
+
+  //Core Functions
+  function assignTestInterfaceDOMElements() {
+    timeElement = document.getElementById("time");
+    currentQuestionNumberElement = document.getElementById(
+      "current-question-number"
+    );
+    totalQuestionsElement = document.getElementById("total-questions");
+    questionTextElement = document.getElementById("question-text");
+    optionsContainer = document.getElementById("options-container");
+    prevQuestionButton = document.getElementById("prev-question-btn");
+    nextQuestionButton = document.getElementById("next-question-btn");
+    submitTestButton = document.getElementById("submit-test-btn");
+
+    if (prevQuestionButton) {
+      prevQuestionButton.replaceWith(prevQuestionButton.cloneNode(true));
+      prevQuestionButton = document.getElementById("prev-question-btn");
+      prevQuestionButton.addEventListener("click", () => {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          loadQuestion(currentQuestionIndex);
+          updateNavigationButtons();
+        }
+      });
+    }
+    if (nextQuestionButton) {
+      nextQuestionButton.replaceWith(nextQuestionButton.cloneNode(true));
+      nextQuestionButton = document.getElementById("next-question-btn");
+      nextQuestionButton.addEventListener("click", () => {
+        if (currentQuestionIndex < currentQuestions.length - 1) {
+          currentQuestionIndex++;
+          loadQuestion(currentQuestionIndex);
+          updateNavigationButtons();
+        }
+      });
+    }
+    if (submitTestButton) {
+      submitTestButton.replaceWith(submitTestButton.cloneNode(true));
+      submitTestButton = document.getElementById("submit-test-btn");
+      submitTestButton.addEventListener("click", () => {
+        if (confirm("Bạn có chắc chắn muốn nộp bài không?")) {
+          submitTest();
+        }
+      });
+    }
+  }
 
   function loadTestList() {
-    if (!testListContainer || !testSelectionArea) return;
+    if (
+      !testListContainer ||
+      !testSelectionArea ||
+      !testInterface ||
+      !testHeaderTitle
+    ) {
+      console.error("Missing core elements for loadTestList");
+      return;
+    }
 
     testListContainer.innerHTML = "";
     if (Object.keys(tests).length === 0) {
       testSelectionArea.innerHTML =
         '<p class="section-text">Hiện tại chưa có bộ đề nào.</p>';
-      if (testInterface) testInterface.style.display = "none";
+      testInterface.style.display = "none";
+      testHeaderTitle.innerHTML = originalTestHeaderTitle;
       return;
     }
 
@@ -112,15 +174,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.querySelectorAll(".select-test-btn").forEach((button) => {
+      button.replaceWith(button.cloneNode(true));
+    });
+    document.querySelectorAll(".select-test-btn").forEach((button) => {
       button.addEventListener("click", (e) => {
         const selectedTestId = e.currentTarget.dataset.testId;
         startTest(selectedTestId);
       });
     });
 
-    if (testInterface) testInterface.style.display = "none";
+    testInterface.style.display = "none";
     testSelectionArea.style.display = "block";
-    if (testHeaderTitle) testHeaderTitle.innerHTML = originalTestHeaderTitle;
+    testHeaderTitle.innerHTML = originalTestHeaderTitle;
   }
 
   function startTest(testId) {
@@ -128,16 +193,17 @@ document.addEventListener("DOMContentLoaded", () => {
       !tests[testId] ||
       !testInterface ||
       !testSelectionArea ||
-      !totalQuestionsElement ||
       !testHeaderTitle
     )
       return;
+
+    assignTestInterfaceDOMElements();
 
     currentTestId = testId;
     currentQuestions = tests[testId].questions;
     if (currentQuestions.length === 0) {
       alert("Bộ đề này hiện chưa có câu hỏi nào.");
-      loadTestList(); // Go back to list
+      loadTestList();
       return;
     }
     timeLeft = tests[testId].timeLimit;
@@ -151,7 +217,14 @@ document.addEventListener("DOMContentLoaded", () => {
     loadQuestion(currentQuestionIndex);
     startTimer();
     updateNavigationButtons();
-    totalQuestionsElement.textContent = currentQuestions.length;
+    if (totalQuestionsElement)
+      totalQuestionsElement.textContent = currentQuestions.length;
+    if (currentQuestionNumberElement)
+      currentQuestionNumberElement.textContent = 1;
+    if (timeElement)
+      timeElement.textContent = `${Math.floor(timeLeft / 60)}:${
+        timeLeft % 60 < 10 ? "0" : ""
+      }${timeLeft % 60}`;
   }
 
   function loadQuestion(index) {
@@ -165,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
 
     const question = currentQuestions[index];
+    // Không cần .replace(/</g, "&lt;").replace(/>/g, "&gt;") cho text vì MathJax sẽ xử lý $...$
     questionTextElement.innerHTML = `Câu hỏi ${index + 1}: ${question.text}`;
     optionsContainer.innerHTML = "";
 
@@ -174,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const radioInput = document.createElement("input");
       radioInput.type = "radio";
       radioInput.name = "option";
-      radioInput.value = option;
+      radioInput.value = option; // Giá trị value là chuỗi LaTeX gốc
       radioInput.id = inputId;
       if (userAnswers[index] === option) {
         radioInput.checked = true;
@@ -185,6 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const optionTextSpan = document.createElement("span");
       optionTextSpan.className = "option-text";
+      // Không cần .replace(/</g, "&lt;").replace(/>/g, "&gt;") cho option vì MathJax sẽ xử lý $...$
       optionTextSpan.innerHTML = option;
 
       label.appendChild(radioInput);
@@ -199,21 +274,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentQuestionNumberElement.textContent = index + 1;
 
-    if (window.MathJax) {
+    if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
       window.MathJax.typesetPromise([
         questionTextElement,
         optionsContainer,
       ]).catch(function (err) {
-        console.error("MathJax typesetting error: " + err);
+        console.error("MathJax typesetting error: " + err.message);
       });
+    } else if (
+      window.MathJax &&
+      typeof window.MathJax.Hub !== "undefined" &&
+      typeof window.MathJax.Hub.Queue === "function"
+    ) {
+      // For MathJax v2
+      window.MathJax.Hub.Queue([
+        "Typeset",
+        window.MathJax.Hub,
+        questionTextElement,
+      ]);
+      window.MathJax.Hub.Queue([
+        "Typeset",
+        window.MathJax.Hub,
+        optionsContainer,
+      ]);
     }
   }
 
   function updateNavigationButtons() {
     if (!prevQuestionButton || !nextQuestionButton || !submitTestButton) return;
-
     prevQuestionButton.disabled = currentQuestionIndex === 0;
-
     if (currentQuestionIndex === currentQuestions.length - 1) {
       nextQuestionButton.style.display = "none";
       submitTestButton.style.display = "flex";
@@ -248,6 +337,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
+  function submitTest() {
+    clearInterval(timerInterval);
+    let score = 0;
+    userAnswers.forEach((answer, index) => {
+      if (
+        currentQuestions[index] &&
+        answer === currentQuestions[index].answer
+      ) {
+        score++;
+      }
+    });
+    renderResults(score);
+  }
+
   function renderResults(score) {
     if (
       !testInterface ||
@@ -256,6 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
       !testHeaderTitle
     )
       return;
+    clearInterval(timerInterval);
 
     let resultHTML = `
             <div class="test-results" style="text-align: center; padding: 40px 20px; background: var(--isabelline); border-radius: var(--radius-10);">
@@ -263,22 +367,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p class="section-text" style="font-size: var(--fs-3); margin-block: 20px 30px;">
                     Bạn đã trả lời đúng <span class="span" style="color: var(--kappel);">${score}</span>/${currentQuestions.length} câu.
                 </p>
-                <ul style="list-style: none; padding: 0; margin-top: 20px; text-align: left;">`;
+                <ul style="list-style: none; padding: 0; margin-top: 20px; text-align: left; max-height: 300px; overflow-y: auto;">`;
 
     currentQuestions.forEach((q, index) => {
+      // Giữ nguyên chuỗi LaTeX gốc để MathJax xử lý sau khi chèn vào HTML
+      const userAnswerDisplay = userAnswers[index] || "Chưa trả lời";
+      const correctAnswerDisplay = q.answer;
+      const questionTextDisplay = q.text;
+
       resultHTML += `
                 <li style="padding: 10px; border-bottom: 1px solid var(--platinum); ${
                   userAnswers[index] === q.answer
                     ? "color: green;"
                     : "color: red;"
                 }">
-                    <strong>Câu ${index + 1}:</strong> ${q.text} <br>
-                    <em>Bạn chọn: ${
-                      userAnswers[index] || "Chưa trả lời"
-                    }</em> <br>
-                    <em>Đáp án đúng: ${q.answer}</em>
-                </li>
-            `;
+                    <strong>Câu ${
+                      index + 1
+                    }:</strong> ${questionTextDisplay} <br>
+                    <em>Bạn chọn: ${userAnswerDisplay}</em> <br>
+                    <em>Đáp án đúng: ${correctAnswerDisplay}</em>
+                </li>`;
     });
 
     resultHTML += `
@@ -287,15 +395,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="span">Chọn đề khác</span>
                     <ion-icon name="refresh-outline" aria-hidden="true"></ion-icon>
                 </button>
-            </div>
-        `;
+            </div>`;
     testInterface.innerHTML = resultHTML;
     testHeaderTitle.innerHTML = `Kết quả: <span class="span">${tests[currentTestId].name}</span>`;
 
+    // Gọi MathJax để render công thức trong kết quả
+    if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
+      window.MathJax.typesetPromise([testInterface]).catch(function (err) {
+        // Typeset toàn bộ testInterface chứa kết quả
+        console.error("MathJax typesetting error in results: " + err.message);
+      });
+    } else if (
+      window.MathJax &&
+      typeof window.MathJax.Hub !== "undefined" &&
+      typeof window.MathJax.Hub.Queue === "function"
+    ) {
+      // For MathJax v2
+      window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, testInterface]);
+    }
+
     const backButton = document.getElementById("back-to-selection-btn");
     if (backButton) {
-      backButton.addEventListener("click", () => {
-        const originalInterfaceHTML = `
+      backButton.replaceWith(backButton.cloneNode(true));
+      document
+        .getElementById("back-to-selection-btn")
+        .addEventListener("click", () => {
+          currentTestId = null;
+          currentQuestions = [];
+          currentQuestionIndex = 0;
+          userAnswers = [];
+          timeLeft = 0;
+
+          const originalInterfaceHTML = `
                     <div class="test-info">
                         <div class="timer">Thời gian còn lại: <span id="time">00:00</span></div>
                         <div class="question-count">Câu <span id="current-question-number">1</span>/<span id="total-questions">0</span></div>
@@ -318,84 +449,19 @@ document.addEventListener("DOMContentLoaded", () => {
                             <ion-icon name="checkmark-done-outline" aria-hidden="true"></ion-icon>
                         </button>
                     </div>`;
-        testInterface.innerHTML = originalInterfaceHTML;
-        assignTestInterfaceDOMElements();
-        loadTestList();
-      });
+          if (testInterface) testInterface.innerHTML = originalInterfaceHTML;
+
+          assignTestInterfaceDOMElements();
+          loadTestList();
+        });
     }
   }
 
-  function submitTest() {
-    clearInterval(timerInterval);
-    let score = 0;
-    userAnswers.forEach((answer, index) => {
-      if (
-        currentQuestions[index] &&
-        answer === currentQuestions[index].answer
-      ) {
-        score++;
-      }
-    });
-    renderResults(score);
-  }
-
-  function assignTestInterfaceDOMElements() {
-    if (prevQuestionButton) {
-      prevQuestionButton.addEventListener("click", () => {
-        if (currentQuestionIndex > 0) {
-          currentQuestionIndex--;
-          loadQuestion(currentQuestionIndex);
-          updateNavigationButtons();
-        }
-      });
-    }
-    if (nextQuestionButton) {
-      nextQuestionButton.addEventListener("click", () => {
-        if (currentQuestionIndex < currentQuestions.length - 1) {
-          currentQuestionIndex++;
-          loadQuestion(currentQuestionIndex);
-          updateNavigationButtons();
-        }
-      });
-    }
-    if (submitTestButton) {
-      submitTestButton.addEventListener("click", () => {
-        if (confirm("Bạn có chắc chắn muốn nộp bài không?")) {
-          submitTest();
-        }
-      });
-    }
-  }
-
+  // --- Initialization ---
   if (testInterface && testSelectionArea) {
-    loadTestList();
     assignTestInterfaceDOMElements();
+    loadTestList();
   } else {
-    console.error(
-      "Một số phần tử giao diện Luyện đề không tìm thấy. Vui lòng kiểm tra cấu trúc HTML."
-    );
+    console.error("ERROR!");
   }
 });
-
-window.MathJax = {
-  tex: {
-    inlineMath: [
-      ["$", "$"],
-      ["\\(", "\\)"],
-    ],
-    displayMath: [
-      ["$$", "$$"],
-      ["\\[", "\\]"],
-    ],
-  },
-  svg: {
-    fontCache: "global",
-  },
-};
-
-(function () {
-  var script = document.createElement("script");
-  script.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js";
-  script.async = true;
-  document.head.appendChild(script);
-})();

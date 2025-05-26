@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luyện Đề - EduWeb</title>
+    <title>Thi Thử Đánh Giá Năng Lực - EduWeb</title>
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
-
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/luyende.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,7 +26,6 @@
             alt="EduWeb logo"
           />
         </a>
-
         <nav class="navbar" data-navbar>
           <div class="wrapper">
             <a href="./index.html" class="logo">
@@ -48,7 +46,7 @@
           </div>
           <ul class="navbar-list">
             <li class="navbar-item">
-              <a href="index.html" class="navbar-link" data-nav-link
+              <a href="./index.html" class="navbar-link" data-nav-link
                 >Trang chủ
               </a>
             </li>
@@ -109,62 +107,35 @@
       <article>
         <section
           class="section practice-test-section"
-          id="practice-test"
-          aria-label="practice test"
+          id="assessment-test"
+          aria-label="assessment test"
         >
           <div class="container">
             <div class="test-header">
-              <p class="section-subtitle">Luyện đề Online</p>
+              <p class="section-subtitle">Đánh giá năng lực</p>
               <h2 class="h2 section-title">
-                Chọn một <span class="span">bộ đề</span> để bắt đầu
+                Chọn bài <span class="span">kiểm tra</span> để bắt đầu
               </h2>
             </div>
 
             <div class="test-interface" style="display: none">
               <div class="test-info">
                 <div class="timer">
-                  Thời gian còn lại: <span id="time">60:00</span>
+                  Thời gian còn lại: <span id="time">15:00</span>
                 </div>
                 <div class="question-count">
                   Câu <span id="current-question-number">1</span>/<span
                     id="total-questions"
-                    >20</span
+                    >10</span
                   >
                 </div>
               </div>
-
               <div class="question-area">
                 <h3 class="question-title" id="question-text">
-                  Câu hỏi 1: Nội dung câu hỏi sẽ được hiển thị ở đây?
+                  Câu hỏi sẽ hiển thị ở đây...
                 </h3>
-                <ul class="options-list" id="options-container">
-                  <li>
-                    <label>
-                      <input type="radio" name="option" value="A" />
-                      <span class="option-text">Lựa chọn A</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="radio" name="option" value="B" />
-                      <span class="option-text">Lựa chọn B</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="radio" name="option" value="C" />
-                      <span class="option-text">Lựa chọn C</span>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="radio" name="option" value="D" />
-                      <span class="option-text">Lựa chọn D</span>
-                    </label>
-                  </li>
-                </ul>
+                <ul class="options-list" id="options-container"></ul>
               </div>
-
               <div class="navigation-buttons">
                 <button class="btn has-before" id="prev-question-btn" disabled>
                   <ion-icon
@@ -194,14 +165,54 @@
               </div>
             </div>
 
+            <div
+              class="assessment-results-area"
+              id="assessment-results-area"
+              style="
+                display: none;
+                margin-top: 40px;
+                padding: 30px;
+                background-color: var(--isabelline);
+                border-radius: var(--radius-10);
+              "
+            >
+              <h2 class="h2 section-title" id="assessment-result-title">
+                Kết quả đánh giá
+              </h2>
+              <div id="assessment-score"></div>
+              <div id="ai-analysis" style="margin-top: 20px; text-align: left">
+                <h3 class="h3" style="margin-bottom: 10px">
+                  Phân tích và Đề xuất từ AI:
+                </h3>
+                <p id="ai-strengths"></p>
+                <p id="ai-weaknesses"></p>
+                <p id="ai-learning-style"></p>
+                <h4 class="h4" style="margin-top: 15px; margin-bottom: 5px">
+                  Lộ trình học tập đề xuất:
+                </h4>
+                <ul
+                  id="ai-recommendations-list"
+                  style="list-style-type: disc; margin-left: 20px"
+                ></ul>
+              </div>
+              <button
+                class="btn has-before"
+                id="back-to-assessment-selection-btn"
+                style="margin-top: 30px"
+              >
+                <span class="span">Làm bài đánh giá khác</span>
+                <ion-icon name="refresh-outline" aria-hidden="true"></ion-icon>
+              </button>
+            </div>
+
             <div class="test-selection-area" style="margin-top: 50px">
               <h3
                 class="h3 section-title"
                 style="text-align: left; margin-bottom: 20px"
               >
-                Các bộ đề có sẵn:
+                Chọn môn học hoặc kỹ năng để đánh giá (10-15 phút):
               </h3>
-              <ul class="grid-list" id="test-list-container"></ul>
+              <ul class="grid-list" id="assessment-list-container"></ul>
             </div>
           </div>
         </section>
@@ -245,11 +256,11 @@
             </div>
           </div>
           <ul class="footer-list">
+            <li><p class="footer-list-title">Online Platform</p></li>
+            <li><a href="./index.html#about" class="footer-link">About</a></li>
             <li>
-              <p class="footer-list-title">Online Platform</p>
+              <a href="./index.html#courses" class="footer-link">Courses</a>
             </li>
-            <li><a href="#" class="footer-link">About</a></li>
-            <li><a href="./luyende.html" class="footer-link">Courses</a></li>
             <li><a href="#" class="footer-link">Instructor</a></li>
             <li><a href="#" class="footer-link">Events</a></li>
             <li><a href="#" class="footer-link">Instructor Profile</a></li>
@@ -319,8 +330,8 @@
       <div class="footer-bottom">
         <div class="container">
           <p class="copyright">
-            Copyright 20255 All Rights Reserved by
-            <a href="#" class="copyright-link">@spencer</a>
+            Copyright 2022 All Rights Reserved by
+            <a href="#" class="copyright-link">codewithsadee</a>
           </p>
         </div>
       </div>
@@ -344,8 +355,7 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
     <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/luyende.js" defer></script>
-
+    <script src="./assets/js/thithu.js" defer></script>
     <script>
       window.MathJax = {
         tex: {

@@ -103,3 +103,24 @@
     justify-content: center;
   }
 }
+
+.test-info .question-count {
+  font-family: var(--ff-league_spartan);
+  font-size: var(--fs-4);
+  color: var(--eerie-black-1);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 0.25em;
+}
+
+.test-results .section-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.test-results .section-text .span {
+  display: inline-block;
+}
