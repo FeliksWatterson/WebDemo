@@ -1125,3 +1125,19 @@ body {
     left: 0;
     z-index: 2;
 }
+
+.score-display {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em; 
+  font-size: var(--fs-3); 
+  margin-block: 20px 30px; 
+  text-align: center;
+  color: var(--eerie-black-1); 
+}
+
+.score-display .score-value {
+  color: var(--radical-red);
+  font-weight: bold;
+}

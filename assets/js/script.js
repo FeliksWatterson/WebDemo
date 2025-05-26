@@ -61,10 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         iframe.setAttribute("width", "100%");
         iframe.setAttribute("height", "100%");
         const correctedIframeSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&controls=1&modestbranding=1&iv_load_policy=3&fs=1&color=white`;
-        console.log(
-          "URL iframe ĐANG ĐƯỢC TẠO (với www.youtube.com/embed):",
-          correctedIframeSrc
-        );
         iframe.setAttribute("src", correctedIframeSrc);
         iframe.setAttribute("frameborder", "0");
         iframe.setAttribute(
@@ -83,10 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         videoPlayerContainer.innerHTML = "";
         videoPlayerContainer.appendChild(iframe);
-      } else {
-        console.error(
-          "Không tìm thấy data-youtube-id trên nút play hoặc videoId không hợp lệ."
-        );
       }
     });
   }

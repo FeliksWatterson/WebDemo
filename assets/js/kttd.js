@@ -405,7 +405,12 @@ document.addEventListener("DOMContentLoaded", () => {
     assessmentHeaderTitle.innerHTML = `Kết quả: <span class="span">${assessments[currentAssessmentId].name}</span>`;
 
     if (assessmentScoreDisplay) {
-      assessmentScoreDisplay.innerHTML = `<p class="section-text" style="font-size: var(--fs-3); margin-block: 20px 30px;">Bạn đã trả lời đúng <span class="span" style="color: var(--kappel);">${score}</span>/${currentAssessmentQuestions.length} câu.</p>`;
+      assessmentScoreDisplay.innerHTML = `
+    <p class="score-display">
+        <span>Bạn đã trả lời đúng </span>
+        <span class="score-value">${score}</span>
+        <span>/${currentAssessmentQuestions.length} câu.</span>
+    </p>`;
     }
 
     // AI DEMO
