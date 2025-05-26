@@ -456,8 +456,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
   }
-
-  // --- Initialization ---
   if (testInterface && testSelectionArea) {
     assignTestInterfaceDOMElements();
     loadTestList();
@@ -465,3 +463,19 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("ERROR!");
   }
 });
+
+const urlParams = new URLSearchParams(window.location.search);
+const currentSubject = urlParams.get("subject");
+
+if (currentSubject) {
+  for (const testId in tests) {
+    if (
+      tests[testId].subject &&
+      tests[testId].subject.toLowerCase() === currentSubject.toLowerCase()
+    ) {
+      filteredTests[testId] = tests[testId];
+    }
+  }
+} else {
+  filteredTests = tests;
+}

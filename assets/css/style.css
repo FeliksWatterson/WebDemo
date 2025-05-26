@@ -24,8 +24,8 @@
     hsl(214, 89%, 45%) 100%
   );
 
-  --ff-league_spartan: "League Spartan", sans-serif;
-  --ff-poppins: "Poppins", sans-serif;
+  --ff-league_spartan: "Montserrat", sans-serif; 
+  --ff-poppins: "Montserrat", sans-serif;
 
   --fs-1: 4.2rem;
   --fs-2: 3.2rem;
@@ -1140,4 +1140,101 @@ body {
 .score-display .score-value {
   color: var(--radical-red);
   font-weight: bold;
+}
+
+/* --- Dropdown Menu Styling --- */
+.navbar-item.has-dropdown {
+  position: relative;
+}
+
+.navbar-item.has-dropdown > .navbar-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-item.has-dropdown .dropdown-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-menu {
+  display: none; /* QUAN TRỌNG: Ẩn menu thả xuống ban đầu */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background-color: var(--eerie-black-2);
+  border-radius: var(--radius-10);
+  padding: 10px 0;
+  box-shadow: var(--shadow-3);
+  z-index: 1000;
+  list-style: none;
+  margin-top: 5px;
+  /* Thêm các thuộc tính sau để kiểm soát hiệu ứng xuất hiện tốt hơn */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px); /* Hiệu ứng trượt nhẹ từ trên xuống */
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-item .dropdown-link {
+  display: block;
+  padding: 10px 20px;
+  color: var(--white);
+  font-size: var(--fs-6);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+
+.dropdown-item .dropdown-link:hover,
+.dropdown-item .dropdown-link:focus {
+  background-color: var(--kappel);
+  color: var(--white);
+}
+
+
+@media (min-width: 1200px) {
+  .navbar-list .navbar-item.has-dropdown:hover > .dropdown-menu,
+  .navbar-list .navbar-item.has-dropdown:focus-within > .dropdown-menu {
+    display: block; 
+    opacity: 1; 
+    visibility: visible; 
+    transform: translateY(0);
+  }
+
+  .navbar-list .navbar-item.has-dropdown:hover > .navbar-link .dropdown-arrow,
+  .navbar-list .navbar-item.has-dropdown:focus-within > .navbar-link .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+}
+
+.navbar.active .navbar-item.has-dropdown .dropdown-menu {
+    display: block;
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    padding-left: 25px;
+    border-radius: 0;
+    min-width: auto;
+    margin-top: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.navbar.active .navbar-item.has-dropdown .dropdown-item .dropdown-link {
+    color: var(--eerie-black-1);
+    padding: 8px 0;
+}
+.navbar.active .navbar-item.has-dropdown .dropdown-item .dropdown-link:hover,
+.navbar.active .navbar-item.has-dropdown .dropdown-item .dropdown-link:focus {
+    background-color: transparent;
+    color: var(--kappel);
+}
+
+.navbar.active .navbar-item.has-dropdown > .navbar-link .dropdown-arrow {
+   transform: rotate(90deg);
 }

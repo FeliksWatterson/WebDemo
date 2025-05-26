@@ -11,7 +11,7 @@
     />
     <meta
       name="description"
-      content="This is an education html template made by codewithsadee"
+      content="This is an education web made by lehoangducmanh"
     />
 
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
@@ -20,8 +20,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&family=Poppins:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -72,10 +74,52 @@
               <a href="#about" class="navbar-link" data-nav-link>Khóa học</a>
             </li>
 
-            <li class="navbar-item">
-              <a href="./luyende.html" class="navbar-link" data-nav-link
-                >Luyện đề</a
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./luyende.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
               >
+                Luyện đề
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề THPTQG</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=ielts"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề IELTS</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=toeic"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề TOEIC</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./luyende.html" class="dropdown-link" role="menuitem"
+                    >Tất cả đề</a
+                  >
+                </li>
+              </ul>
             </li>
 
             <li class="navbar-item">
@@ -103,7 +147,7 @@
           </button>
 
           <a href="./kttd.html" class="btn has-before">
-            <span class="span">Kiểm tra trình độ</span>
+            <span class="span">Bắt đầu</span>
             <ion-icon
               name="arrow-forward-outline"
               aria-hidden="true"
@@ -140,8 +184,8 @@
               <p class="hero-text">
                 Thuận tiện kiểm tra quá trình và bám sát kế hoạch học tập
               </p>
-              <a href="#" class="btn has-before">
-                <span class="span">Khám phá ngay</span>
+              <a href="./kttd.html" class="btn has-before">
+                <span class="span">Kiểm tra trình độ ngay</span>
                 <ion-icon
                   name="arrow-forward-outline"
                   aria-hidden="true"
@@ -188,7 +232,7 @@
 
         <section class="section category" aria-label="category">
           <div class="container">
-            <p class="section-subtitle">Category</p>
+            <p class="section-subtitle">LỘ TRÌNH</p>
             <h2 class="h2 section-title">
               Lựa chọn <span class="span">lộ trình học tập</span> phù hợp với
               bản thân

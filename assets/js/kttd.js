@@ -429,29 +429,27 @@ document.addEventListener("DOMContentLoaded", () => {
     let weaknesses = [];
     let learningStyleHints = [
       "Nên kết hợp nhiều phương pháp học tập để đạt hiệu quả tốt nhất.",
-    ]; // Đặt giá trị mặc định
+    ];
     let recommendations = [];
 
     const topicStats = {};
-    let correctAnswersCount = 0; // Biến để đếm số câu đúng
-    let totalAnsweredQuestions = 0; // Biến để đếm số câu đã trả lời
+    let correctAnswersCount = 0;
+    let totalAnsweredQuestions = 0;
 
     answers.forEach((ans) => {
-      if (!ans || ans.answer === null) return; // Bỏ qua nếu không có câu trả lời
-      totalAnsweredQuestions++; // Tăng số câu đã trả lời
+      if (!ans || ans.answer === null) return;
+      totalAnsweredQuestions++;
 
       if (ans.topic) {
-        // Chỉ xử lý nếu có topic
         if (!topicStats[ans.topic]) {
           topicStats[ans.topic] = { correct: 0, total: 0 };
         }
         topicStats[ans.topic].total++;
         if (ans.isCorrect) {
           topicStats[ans.topic].correct++;
-          correctAnswersCount++; // Tăng số câu đúng
+          correctAnswersCount++;
         }
       } else if (ans.isCorrect) {
-        // Trường hợp câu hỏi không có topic nhưng vẫn tính điểm
         correctAnswersCount++;
       }
     });
@@ -476,8 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // SỬA Ở ĐÂY: Sử dụng correctAnswersCount và currentAssessmentQuestions.length
-    // currentAssessmentQuestions là biến toàn cục, cần đảm bảo nó có giá trị đúng
+    // currentAssessmentQuestions là biến toàn cục
     let overallAccuracy = 0;
     if (currentAssessmentQuestions && currentAssessmentQuestions.length > 0) {
       overallAccuracy = correctAnswersCount / currentAssessmentQuestions.length;
@@ -488,11 +485,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (overallAccuracy > 0.6) {
       learningStyleHints.unshift(
-        // Thêm vào đầu mảng
         "Có vẻ bạn tiếp thu kiến thức khá nhanh qua dạng bài tập trắc nghiệm."
       );
     } else if (totalAnsweredQuestions > 0) {
-      // Chỉ đưa ra gợi ý này nếu có câu trả lời
       learningStyleHints.unshift(
         "Hãy thử đa dạng hóa cách học: xem video bài giảng, đọc thêm tài liệu, và làm thêm bài tập tự luận."
       );
@@ -583,9 +578,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //Initialization
   if (assessmentInterface && assessmentSelectionArea) {
-    assignDOMElements(); // Gán DOM elements và listener ban đầu
+    assignDOMElements();
     loadAssessmentList();
   } else {
     console.error(
