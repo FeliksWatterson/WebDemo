@@ -1109,15 +1109,3 @@ body {
   height: 100%;
   border: none; 
 }
-
-#video-player-container.showing-banner-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: var(--black_30); 
-  z-index: 1; 
-}
-
-#video-player-container .play-btn {
-   z-index: 2; 
-}
