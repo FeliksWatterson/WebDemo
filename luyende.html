@@ -58,10 +58,52 @@
               <a href="#about" class="navbar-link" data-nav-link>Khóa học</a>
             </li>
 
-            <li class="navbar-item">
-              <a href="./luyende.html" class="navbar-link" data-nav-link
-                >Luyện đề</a
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./luyende.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
               >
+                Luyện đề
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề THPTQG</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=ielts"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề IELTS</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=toeic"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề TOEIC</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./luyende.html" class="dropdown-link" role="menuitem"
+                    >Tất cả đề</a
+                  >
+                </li>
+              </ul>
             </li>
 
             <li class="navbar-item">

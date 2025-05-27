@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "back-to-assessment-selection-btn"
   );
 
-  // Assessment Data (Sample)
+  // Assessment Data
   const assessments = {
     toan_dg: {
       name: "Đánh giá nhanh Toán",
@@ -71,9 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
           answer: "26cm",
           topic: "Hình học phẳng",
         },
-        // Thêm 7-12 câu nữa cho đủ bài 10-15 phút
       ],
-      // P=Phân tích AI
+      //Phân tích AI
       aiAnalysisRules: [
         {
           topic: "Biểu thức số học",

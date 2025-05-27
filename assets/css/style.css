@@ -1159,7 +1159,7 @@ body {
 }
 
 .dropdown-menu {
-  display: none; /* QUAN TRỌNG: Ẩn menu thả xuống ban đầu */
+  display: none; 
   position: absolute;
   top: 100%;
   left: 0;
@@ -1170,11 +1170,10 @@ body {
   box-shadow: var(--shadow-3);
   z-index: 1000;
   list-style: none;
-  margin-top: 5px;
-  /* Thêm các thuộc tính sau để kiểm soát hiệu ứng xuất hiện tốt hơn */
+  margin-top: 0px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px); /* Hiệu ứng trượt nhẹ từ trên xuống */
+  transform: translateY(10px);
   transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
 }
 
@@ -1237,4 +1236,165 @@ body {
 
 .navbar.active .navbar-item.has-dropdown > .navbar-link .dropdown-arrow {
    transform: rotate(90deg);
+}
+
+
+.login-section {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - var(--header-height, 200px)); 
+}
+
+.login-container {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: var(--isabelline);
+  border-radius: var(--radius-10);
+  box-shadow: var(--shadow-2);
+}
+
+.login-container .section-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.input-field-wrapper {
+  margin-bottom: 20px;
+}
+
+.input-field-wrapper .input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: var(--fw-500);
+  color: var(--eerie-black-1);
+}
+
+.login-container .input-field { 
+  background-color: var(--white);
+  padding: 12px 15px;
+  border-radius: var(--radius-5);
+  border: 1px solid var(--platinum);
+  width: 100%; 
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: var(--fs-6);
+}
+
+.form-options label {
+  display: flex;
+  align-items: center;
+  color: var(--gray-web);
+  cursor: pointer;
+}
+
+.form-options input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.form-options .forgot-password-link {
+  color: var(--kappel);
+  text-decoration: none; 
+}
+.form-options .forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.login-container .btn { 
+    width: 100%;
+    justify-content: center;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 30px;
+  font-size: var(--fs-6);
+  color: var(--gray-web);
+}
+
+.register-link a {
+  color: var(--kappel);
+  font-weight: var(--fw-500);
+  text-decoration: none; 
+}
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.input-field-wrapper .error-message {
+    color: var(--radical-red); 
+    font-size: var(--fs-7);   
+    margin-top: 5px;
+    display: block; 
+}
+
+
+.register-section {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - var(--header-height, 200px));
+}
+
+.register-container { 
+  max-width: 500px; 
+  margin: 0 auto;
+  padding: 40px;
+  background-color: var(--isabelline);
+  border-radius: var(--radius-10);
+  box-shadow: var(--shadow-2);
+}
+
+.register-container .section-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
+.register-container .form-options label {
+  display: flex;
+  align-items: flex-start;
+  color: var(--gray-web);
+  cursor: pointer;
+  font-size: var(--fs-6);
+}
+
+.register-container .form-options input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+  margin-top: 4px; 
+}
+
+.register-container .form-options a {
+  color: var(--kappel);
+  text-decoration: none;
+}
+.register-container .form-options a:hover {
+  text-decoration: underline;
+}
+
+.register-container .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+.login-page-link { 
+  text-align: center;
+  margin-top: 30px;
+  font-size: var(--fs-6);
+  color: var(--gray-web);
+}
+
+.login-page-link a {
+  color: var(--kappel);
+  font-weight: var(--fw-500);
+  text-decoration: none;
+}
+.login-page-link a:hover {
+    text-decoration: underline;
 }

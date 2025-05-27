@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thi Thử Đánh Giá Năng Lực - EduWeb</title>
+    <title>Đăng nhập - EduWeb</title>
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/luyende.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,6 +25,7 @@
             alt="EduWeb logo"
           />
         </a>
+
         <nav class="navbar" data-navbar>
           <div class="wrapper">
             <a href="./index.html" class="logo">
@@ -49,13 +47,14 @@
           <ul class="navbar-list">
             <li class="navbar-item">
               <a href="./index.html" class="navbar-link" data-nav-link
-                >Trang chủ
-              </a>
+                >Trang chủ</a
+              >
             </li>
             <li class="navbar-item">
-              <a href="#about" class="navbar-link" data-nav-link>Khóa học</a>
+              <a href="./index.html#about" class="navbar-link" data-nav-link
+                >Khóa học</a
+              >
             </li>
-
             <li class="navbar-item has-dropdown">
               <a
                 href="./luyende.html"
@@ -103,13 +102,15 @@
                 </li>
               </ul>
             </li>
-
             <li class="navbar-item">
-              <a href="#" class="navbar-link" data-nav-link>Thi thử</a>
+              <a href="./kttd.html" class="navbar-link" data-nav-link
+                >Thi thử</a
+              >
             </li>
-
             <li class="navbar-item">
-              <a href="#" class="navbar-link" data-nav-link>Blog</a>
+              <a href="./index.html#blog" class="navbar-link" data-nav-link
+                >Blog</a
+              >
             </li>
           </ul>
         </nav>
@@ -122,14 +123,12 @@
           >
             <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
           </button>
-
           <button class="header-action-btn" aria-label="cart" title="Cart">
             <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
             <span class="btn-badge">0</span>
           </button>
-
-          <a href="./kttd.html" class="btn has-before">
-            <span class="span">Bắt đầu ngay</span>
+          <a href="dangki.html" class="btn has-before">
+            <span class="span">Đăng kí</span>
             <ion-icon
               name="arrow-forward-outline"
               aria-hidden="true"
@@ -150,113 +149,151 @@
     <main>
       <article>
         <section
-          class="section practice-test-section"
-          id="assessment-test"
-          aria-label="assessment test"
+          class="section login-section"
+          style="
+            padding-top: calc(var(--section-padding) + 80px);
+            padding-bottom: var(--section-padding);
+          "
         >
           <div class="container">
-            <div class="test-header">
-              <p class="section-subtitle">Đánh giá năng lực</p>
-              <h2 class="h2 section-title">
-                Chọn bài <span class="span">kiểm tra</span> để bắt đầu
-              </h2>
-            </div>
-
-            <div class="test-interface" style="display: none">
-              <div class="test-info">
-                <div class="timer">
-                  Thời gian còn lại: <span id="time">15:00</span>
-                </div>
-                <div class="question-count">
-                  Câu <span id="current-question-number">1</span>/<span
-                    id="total-questions"
-                    >10</span
-                  >
-                </div>
-              </div>
-              <div class="question-area">
-                <h3 class="question-title" id="question-text">
-                  Câu hỏi sẽ hiển thị ở đây...
-                </h3>
-                <ul class="options-list" id="options-container"></ul>
-              </div>
-              <div class="navigation-buttons">
-                <button class="btn has-before" id="prev-question-btn" disabled>
-                  <ion-icon
-                    name="arrow-back-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                  <span class="span">Câu trước</span>
-                </button>
-                <button class="btn has-before" id="next-question-btn">
-                  <span class="span">Câu sau</span>
-                  <ion-icon
-                    name="arrow-forward-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                </button>
-                <button
-                  class="btn has-before btn-submit-test"
-                  id="submit-test-btn"
-                  style="display: none"
-                >
-                  <span class="span">Nộp bài</span>
-                  <ion-icon
-                    name="checkmark-done-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                </button>
-              </div>
-            </div>
-
             <div
-              class="assessment-results-area"
-              id="assessment-results-area"
+              class="login-container"
               style="
-                display: none;
-                margin-top: 40px;
-                padding: 30px;
+                max-width: 450px;
+                margin: 0 auto;
+                padding: 40px;
                 background-color: var(--isabelline);
                 border-radius: var(--radius-10);
+                box-shadow: var(--shadow-2);
               "
             >
-              <h2 class="h2 section-title" id="assessment-result-title">
-                Kết quả đánh giá
+              <h2
+                class="h2 section-title"
+                style="text-align: center; margin-bottom: 30px"
+              >
+                Đăng nhập
               </h2>
-              <div id="assessment-score"></div>
-              <div id="ai-analysis" style="margin-top: 20px; text-align: left">
-                <h3 class="h3" style="margin-bottom: 10px">
-                  Phân tích và Đề xuất:
-                </h3>
-                <p id="ai-strengths"></p>
-                <p id="ai-weaknesses"></p>
-                <p id="ai-learning-style"></p>
-                <h4 class="h4" style="margin-top: 15px; margin-bottom: 5px">
-                  Lộ trình học tập đề xuất:
-                </h4>
-                <ul
-                  id="ai-recommendations-list"
-                  style="list-style-type: disc; margin-left: 20px"
-                ></ul>
-              </div>
-              <button
-                class="btn has-before"
-                id="back-to-assessment-selection-btn"
-                style="margin-top: 30px"
-              >
-                <span class="span">Làm bài đánh giá khác</span>
-                <ion-icon name="refresh-outline" aria-hidden="true"></ion-icon>
-              </button>
-            </div>
+              <form action="#" method="POST">
+                <div class="input-field-wrapper" style="margin-bottom: 20px">
+                  <label
+                    for="username"
+                    class="input-label"
+                    style="
+                      display: block;
+                      margin-bottom: 8px;
+                      font-weight: var(--fw-500);
+                      color: var(--eerie-black-1);
+                    "
+                    >Tên đăng nhập hoặc Email</label
+                  >
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    required
+                    class="input-field"
+                    placeholder="Nhập tên đăng nhập hoặc email"
+                    style="
+                      background-color: var(--white);
+                      padding: 12px 15px;
+                      border-radius: var(--radius-5);
+                      border: 1px solid var(--platinum);
+                    "
+                  />
+                </div>
 
-            <div class="test-selection-area" style="margin-top: 50px">
-              <h3
-                class="h3 section-title"
-                style="text-align: left; margin-bottom: 20px"
+                <div class="input-field-wrapper" style="margin-bottom: 20px">
+                  <label
+                    for="password"
+                    class="input-label"
+                    style="
+                      display: block;
+                      margin-bottom: 8px;
+                      font-weight: var(--fw-500);
+                      color: var(--eerie-black-1);
+                    "
+                    >Mật khẩu</label
+                  >
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
+                    class="input-field"
+                    placeholder="Nhập mật khẩu"
+                    style="
+                      background-color: var(--white);
+                      padding: 12px 15px;
+                      border-radius: var(--radius-5);
+                      border: 1px solid var(--platinum);
+                    "
+                  />
+                </div>
+
+                <div
+                  class="form-options"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 30px;
+                    font-size: var(--fs-6);
+                  "
+                >
+                  <label
+                    for="remember-me"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      color: var(--gray-web);
+                      cursor: pointer;
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      name="remember-me"
+                      id="remember-me"
+                      style="width: auto; margin-right: 8px"
+                    />
+                    Ghi nhớ tôi
+                  </label>
+                  <a
+                    href="#"
+                    class="forgot-password-link"
+                    style="color: var(--kappel); text-decoration: underline"
+                    >Quên mật khẩu?</a
+                  >
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn has-before"
+                  style="width: 100%; justify-content: center"
+                >
+                  <span class="span">Đăng nhập</span>
+                  <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </form>
+              <p
+                class="register-link"
+                style="
+                  text-align: center;
+                  margin-top: 30px;
+                  font-size: var(--fs-6);
+                  color: var(--gray-web);
+                "
               >
-                Chọn môn học hoặc kỹ năng để đánh giá (10-15 phút):
-              </h3>
-              <ul class="grid-list" id="assessment-list-container"></ul>
+                Chưa có tài khoản?
+                <a
+                  href="./dangki.html"
+                  style="
+                    color: var(--kappel);
+                    font-weight: var(--fw-500);
+                    text-decoration: underline;
+                  "
+                  >Tạo tài khoản mới</a
+                >
+              </p>
             </div>
           </div>
         </section>
@@ -299,6 +336,7 @@
               >
             </div>
           </div>
+
           <ul class="footer-list">
             <li><p class="footer-list-title">Online Platform</p></li>
             <li><a href="./index.html#about" class="footer-link">About</a></li>
@@ -310,6 +348,7 @@
             <li><a href="#" class="footer-link">Instructor Profile</a></li>
             <li><a href="#" class="footer-link">Purchase Guide</a></li>
           </ul>
+
           <ul class="footer-list">
             <li><p class="footer-list-title">Links</p></li>
             <li><a href="#" class="footer-link">Contact Us</a></li>
@@ -319,6 +358,7 @@
             <li><a href="#" class="footer-link">Sign In/Registration</a></li>
             <li><a href="#" class="footer-link">Coming Soon</a></li>
           </ul>
+
           <div class="footer-list">
             <p class="footer-list-title">Contacts</p>
             <p class="footer-list-text">
@@ -371,6 +411,7 @@
           </div>
         </div>
       </div>
+
       <div class="footer-bottom">
         <div class="container">
           <p class="copyright">
@@ -384,12 +425,13 @@
     <a
       href="#top"
       class="back-top-btn"
-      aria-label="back to top"
+      aria-label="back top top"
       data-back-top-btn
     >
       <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
     </a>
 
+    <script src="./assets/js/script.js" defer></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -398,30 +440,6 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-    <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/kttd.js" defer></script>
-    <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [
-            ["$", "$"],
-            ["\\(", "\\)"],
-          ],
-          displayMath: [
-            ["$$", "$$"],
-            ["\\[", "\\]"],
-          ],
-        },
-        svg: {
-          fontCache: "global",
-        },
-      };
-    </script>
-    <script
-      type="text/javascript"
-      id="MathJax-script"
-      async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
-    ></script>
+    <script src="./assets/js/login.js" defer></script>
   </body>
 </html>
