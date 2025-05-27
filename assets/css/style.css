@@ -233,6 +233,7 @@ body {
 .grid-list {
   display: grid;
   gap: 30px;
+  justify-items: center;
 }
 .category-card,
 .stats-card {
@@ -625,7 +626,7 @@ body {
 /* #STATS */
 .stats-card {
   text-align: center;
-  padding: 25px;
+    padding: 40px 20px;
   border-radius: var(--radius-10);
 }
 .stats-card :is(.card-title, .card-text) {
@@ -838,7 +839,7 @@ body {
     padding: 25px;
   }
   .stats-card {
-    padding: 40px 30px;
+    padding: 40px 20px;
   }
   .footer-brand,
   .footer-list:last-child {
@@ -1397,4 +1398,16 @@ body {
 }
 .login-page-link a:hover {
     text-decoration: underline;
+}
+
+.login-container .btn[type="submit"] { 
+    width: 100%;
+    max-width: none; 
+    justify-content: center; 
+}
+
+.register-container .btn[type="submit"] { 
+    width: 100%;
+    max-width: none; 
+    justify-content: center; 
 }
