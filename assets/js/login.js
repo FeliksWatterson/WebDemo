@@ -63,10 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // });
 
         // thong bao chua co backend
-        alert(
-          "Đã gửi thông tin đăng nhập (chức năng backend chưa được triển khai)!"
-        );
-        // loginForm.reset(); // Xóa các trường sau khi submit (tùy chọn)
+        alert("T chưa làm backend nên chưa đăng nhập được đâu :v");
+        // loginForm.reset();
       } else {
         console.log("Form không hợp lệ.");
       }
