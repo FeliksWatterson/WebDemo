@@ -50,10 +50,60 @@
                 >Trang chủ</a
               >
             </li>
-            <li class="navbar-item">
-              <a href="./index.html#about" class="navbar-link" data-nav-link
-                >Khóa học</a
-              >
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./courses.html"  class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Khóa học
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=thptqg" class="dropdown-link"
+                    role="menuitem"
+                    >Ôn thi THPT Quốc gia</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=vao10" class="dropdown-link"
+                    role="menuitem"
+                    >Ôn thi vào 10 THPT</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=ielts" class="dropdown-link"
+                    role="menuitem"
+                    >IELTS</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=toeic" class="dropdown-link"
+                    role="menuitem"
+                    >TOEIC</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=daihoc" class="dropdown-link"
+                    role="menuitem"
+                    >Đại học - Cao đẳng</a
+                  >
+                </li>
+                 <li class="dropdown-item" role="none">
+                  <a href="./courses.html" class="dropdown-link" role="menuitem"
+                    >Tất cả khóa học</a
+                  > </li>
+              </ul>
             </li>
             <li class="navbar-item has-dropdown">
               <a
@@ -476,15 +526,6 @@
       </div>
     </footer>
 
-    <a
-      href="#top"
-      class="back-top-btn"
-      aria-label="back top top"
-      data-back-top-btn
-    >
-      <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-    </a>
-
     <script src="./assets/js/script.js" defer></script>
     <script
       type="module"
@@ -495,4 +536,22 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
   </body>
+  <div id="chatbot-icon">
+    <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
+  </div>
+
+  <div id="chatbot-window">
+    <div id="chatbot-header">
+      <span>Trợ lý ảo</span>
+      <button id="close-chatbot-btn">&times;</button>
+    </div>
+    <div id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Xin chào! Tôi có thể giúp gì cho bạn?</p>
+      </div>
+    </div>
+    <div id="chatbot-input-area">
+      <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
+      <button id="chatbot-send-btn">Gửi</button>
+    </div>
 </html>

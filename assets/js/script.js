@@ -83,3 +83,156 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Chatbot ElmElm
+  const chatbotIcon = document.getElementById("chatbot-icon");
+  const chatbotWindow = document.getElementById("chatbot-window");
+  const closeChatbotBtn = document.getElementById("close-chatbot-btn");
+  const chatbotMessages = document.getElementById("chatbot-messages");
+  const chatbotInput = document.getElementById("chatbot-input");
+  const chatbotSendBtn = document.getElementById("chatbot-send-btn");
+
+  // Check element trước khi thêm event listener
+  if (chatbotIcon) {
+    chatbotIcon.addEventListener("click", () => {
+      if (chatbotWindow) {
+        chatbotWindow.classList.toggle("active");
+      }
+    });
+  }
+
+  if (closeChatbotBtn) {
+    closeChatbotBtn.addEventListener("click", () => {
+      if (chatbotWindow) {
+        chatbotWindow.classList.remove("active");
+      }
+    });
+  }
+
+  const addMessageToChat = (message, sender) => {
+    if (!chatbotMessages) return;
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message");
+    messageDiv.classList.add(
+      sender === "user" ? "user-message" : "bot-message"
+    );
+
+    const p = document.createElement("p");
+    p.textContent = message;
+    messageDiv.appendChild(p);
+
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  };
+
+  const handleSendMessage = async () => {
+    if (!chatbotInput || !chatbotSendBtn) return;
+    const messageText = chatbotInput.value.trim();
+    if (messageText === "") return;
+
+    addMessageToChat(messageText, "user");
+    chatbotInput.value = "";
+    chatbotSendBtn.disabled = true;
+
+    // GỌI API GPT
+    try {
+      const typingIndicator = addMessageToChat(
+        "Bot đang soạn tin...",
+        "bot-typing"
+      );
+
+      // endpoint API backend
+      const response = await fetch("/api/chatgpt", {
+        //ENDPOINT BACKEND
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: messageText }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Lỗi khi gọi API chatbot");
+      }
+
+      const data = await response.json();
+      const botReply = data.reply;
+
+      if (typingIndicator && typingIndicator.parentNode) {
+      }
+
+      addMessageToChat(botReply, "bot");
+    } catch (error) {
+      console.error("Lỗi chatbot:", error);
+      addMessageToChat("T chưa làm backend nên chưa dùng được đâu :v", "bot");
+    } finally {
+      chatbotSendBtn.disabled = false;
+    }
+  };
+
+  if (chatbotSendBtn) {
+    chatbotSendBtn.addEventListener("click", handleSendMessage);
+  }
+
+  if (chatbotInput) {
+    chatbotInput.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        handleSendMessage();
+      }
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ... (Code JavaScript hiện tại của bạn) ...
+
+  // Intersection Observer cho hiệu ứng "active" của sticky steps
+  const stickyStepItems = document.querySelectorAll(".step-item-sticky");
+
+  if (stickyStepItems.length > 0) {
+    const observerOptions = {
+      root: null, // Quan sát so với viewport
+      rootMargin: "0px",
+      threshold: 0.6, // Kích hoạt khi 60% item hiển thị
+    };
+
+    const activateStep = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Xóa class active khỏi tất cả các item khác trước
+          // stickyStepItems.forEach(item => item.classList.remove('is-active-step'));
+          // Chỉ active item hiện tại
+          // entry.target.classList.add('is-active-step');
+
+          // Thay vì active/deactive, chúng ta sẽ làm cho frame hiện tại nổi bật
+          // và các frame khác mờ đi hoặc lùi lại một chút.
+          // Với z-index, hiệu ứng "tiến lên" đã tự nhiên rồi.
+          // Có thể thêm hiệu ứng scale nhẹ cho frame của item đang active.
+          stickyStepItems.forEach((item) => {
+            if (item === entry.target) {
+              item.querySelector(".step-frame").style.transform = "scale(1)";
+              item.querySelector(".step-frame").style.opacity = "1";
+            } else {
+              // item.querySelector('.step-frame').style.transform = 'scale(0.95)';
+              // item.querySelector('.step-frame').style.opacity = '0.7';
+            }
+          });
+        } else {
+          // entry.target.classList.remove('is-active-step');
+          // Khi không intersecting, có thể cho nó mờ đi nếu không phải là item đầu tiên
+          // if (entry.target !== stickyStepItems[0]) { // Giữ item đầu tiên luôn rõ
+          //    entry.target.querySelector('.step-frame').style.transform = 'scale(0.95)';
+          //    entry.target.querySelector('.step-frame').style.opacity = '0.7';
+          // }
+        }
+      });
+    };
+
+    const stepObserver = new IntersectionObserver(
+      activateStep,
+      observerOptions
+    );
+    stickyStepItems.forEach((item) => stepObserver.observe(item));
+  }
+});

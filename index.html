@@ -70,8 +70,67 @@
             <li class="navbar-item">
               <a href="#home" class="navbar-link" data-nav-link>Trang chủ </a>
             </li>
-            <li class="navbar-item">
-              <a href="#about" class="navbar-link" data-nav-link>Khóa học</a>
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./courses.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Khóa học
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Ôn thi THPT Quốc gia</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=vao10"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Ôn thi vào 10 THPT</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=ielts"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >IELTS</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=toeic"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >TOEIC</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=daihoc"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Đại học - Cao đẳng</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./courses.html" class="dropdown-link" role="menuitem"
+                    >Tất cả khóa học</a
+                  >
+                </li>
+              </ul>
             </li>
 
             <li class="navbar-item has-dropdown">
@@ -328,85 +387,80 @@
           </div>
         </section>
 
-        <section class="section about" id="about" aria-label="about">
-          <div class="container">
-            <figure class="about-banner">
-              <div class="img-holder" style="--width: 520; --height: 370">
-                <img
-                  src="./assets/images/about-banner.jpg"
-                  width="520"
-                  height="370"
-                  loading="lazy"
-                  alt="about banner"
-                  class="img-cover"
-                />
+        <section class="section steps-section-sticky" id="how-it-works-sticky">
+          <div class="sticky-scroll-wrapper">
+            <div class="step-item-sticky">
+              <div class="step-frame container">
+                <div class="step-content-sticky">
+                  <div class="step-text-content">
+                    <h3 class="h1 step-number-sticky">Bước 1</h3>
+                    <h4 class="h3 step-title-sticky">
+                      Thiết kế lộ trình học cá nhân hóa
+                    </h4>
+                    <p class="step-description-sticky">
+                      Lộ trình học được "may đo" theo "thông số riêng" của bạn
+                      và đặc biệt phù hợp với mục tiêu, kế hoạch của chính bạn.
+                    </p>
+                  </div>
+                  <figure class="step-figure-sticky">
+                    <img
+                      src="./assets/images/step-1-image.png"
+                      alt="Thiết kế lộ trình học"
+                      class="step-image-sticky"
+                    />
+                  </figure>
+                </div>
               </div>
-              <img
-                src="./assets/images/about-shape-1.svg"
-                width="360"
-                height="420"
-                loading="lazy"
-                alt=""
-                class="shape about-shape-1"
-              />
-              <img
-                src="./assets/images/about-shape-2.svg"
-                width="371"
-                height="220"
-                loading="lazy"
-                alt=""
-                class="shape about-shape-2"
-              />
-              <img
-                src="./assets/images/about-shape-3.png"
-                width="722"
-                height="528"
-                loading="lazy"
-                alt=""
-                class="shape about-shape-3"
-              />
-            </figure>
-            <div class="about-content">
-              <p class="section-subtitle">About Us</p>
-              <h2 class="h2 section-title">
-                Over 10 Years in <span class="span">Distant learning</span> for
-                Skill Development
-              </h2>
-              <p class="section-text">
-                Lorem ipsum dolor sit amet consectur adipiscing elit sed eiusmod
-                ex tempor incididunt labore dolore magna aliquaenim ad minim.
-              </p>
-              <ul class="about-list">
-                <li class="about-item">
-                  <ion-icon
-                    name="checkmark-done-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                  <span class="span">Expert Trainers</span>
-                </li>
-                <li class="about-item">
-                  <ion-icon
-                    name="checkmark-done-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                  <span class="span">Online Remote Learning</span>
-                </li>
-                <li class="about-item">
-                  <ion-icon
-                    name="checkmark-done-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                  <span class="span">Lifetime Access</span>
-                </li>
-              </ul>
-              <img
-                src="./assets/images/about-shape-4.svg"
-                width="100"
-                height="100"
-                loading="lazy"
-                alt=""
-                class="shape about-shape-4"
-              />
+            </div>
+
+            <div class="step-item-sticky">
+              <div class="step-frame container">
+                <div class="step-content-sticky step-content-reverse">
+                  <figure class="step-figure-sticky">
+                    <img
+                      src="./assets/images/step-2-image.png"
+                      alt="Theo dõi tiến bộ"
+                      class="step-image-sticky"
+                    />
+                  </figure>
+                  <div class="step-text-content">
+                    <h3 class="h1 step-number-sticky">Bước 2</h3>
+                    <h4 class="h3 step-title-sticky">
+                      Học và theo dõi tiến bộ
+                    </h4>
+                    <p class="step-description-sticky">
+                      Học tập, thực hành, chấm chữa toàn diện và phân tích, theo
+                      dõi sự tiến bộ qua từng ngày.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-item-sticky">
+              <div class="step-frame container">
+                <div class="step-content-sticky">
+                  <div class="step-text-content">
+                    <h3 class="h1 step-number-sticky">Bước 3</h3>
+                    <h4 class="h3 step-title-sticky">
+                      Hỗ trợ đăng ký thi, báo điểm, nhận quà vinh danh
+                    </h4>
+                    <p class="step-description-sticky">
+                      EduWeb sẵn sàng hỗ trợ học viên đăng ký thi với ưu đãi tốt
+                      nhất. Bạn còn nhận được những phần quà siêu xịn khi đủ
+                      điều kiện là học viên điểm cao và được Vinh danh trên cộng
+                      đồng.
+                    </p>
+                  </div>
+                  <figure class="step-figure-sticky">
+                    <img
+                      src="./assets/images/step-3-image.png"
+                      alt="Hỗ trợ và vinh danh"
+                      class="step-image-sticky"
+                    />
+                  </figure>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -1001,15 +1055,6 @@
       </div>
     </footer>
 
-    <a
-      href="#top"
-      class="back-top-btn"
-      aria-label="back top top"
-      data-back-top-btn
-    >
-      <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-    </a>
-
     <script src="./assets/js/script.js" defer></script>
 
     <script
@@ -1021,4 +1066,23 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
   </body>
+  <div id="chatbot-icon">
+    <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
+  </div>
+
+  <div id="chatbot-window">
+    <div id="chatbot-header">
+      <span>Trợ lý ảo</span>
+      <button id="close-chatbot-btn">&times;</button>
+    </div>
+    <div id="chatbot-messages">
+      <div class="message bot-message">
+        <p>Xin chào! Tôi có thể giúp gì cho bạn?</p>
+      </div>
+    </div>
+    <div id="chatbot-input-area">
+      <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
+      <button id="chatbot-send-btn">Gửi</button>
+    </div>
+  </div>
 </html>

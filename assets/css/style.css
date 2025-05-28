@@ -1557,3 +1557,185 @@ body {
 #chatbot-send-btn:hover {
   background-color: hsl(210, 82%, 55%); 
 }
+
+.steps-section-sticky {
+  padding-block: 0;
+  background-color: #f0f4f8; 
+  position: relative; 
+}
+
+.sticky-scroll-wrapper {
+  position: relative;
+}
+
+.step-item-sticky {
+  height: 100vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+}
+
+.step-item-sticky:nth-child(1) { z-index: 1; }
+.step-item-sticky:nth-child(2) { z-index: 2; }
+.step-item-sticky:nth-child(3) { z-index: 3; }
+
+.step-frame {
+  background-image: linear-gradient(135deg, hsl(var(--hue-kappel, 210), 75%, 40%), hsl(var(--hue-kappel, 210), 85%, 55%));
+  /* background-image: linear-gradient(to right bottom, hsl(var(--hue-kappel, 210), 82%, 45%), hsl(var(--hue-kappel, 210), 70%, 35%)); */
+
+  color: var(--white);
+  padding: clamp(30px, 5vw, 60px) clamp(20px, 4vw, 50px); 
+  border-radius: 30px; 
+  box-shadow: 0 25px 50px -12px hsla(var(--hue-kappel, 210), 50%, 20%, 0.35); 
+
+  width: 100%;
+  max-width: 1100px; 
+  height: auto; 
+  min-height: 75vh; 
+  max-height: 85vh; 
+  aspect-ratio: 16 / 7.5; 
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.step-item-sticky.is-active-step .step-frame {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+} */
+
+.step-frame .step-number-sticky,
+.step-frame .step-title-sticky,
+.step-frame .step-description-sticky {
+  color: var(--white) !important;
+}
+.step-frame .step-number-sticky {
+  opacity: 0.8;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+.step-frame .step-title-sticky {
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+
+.step-content-sticky {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 30px 60px;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+.step-content-sticky.step-content-reverse .step-text-content {
+  order: 2;
+}
+.step-content-sticky.step-content-reverse .step-figure-sticky {
+  order: 1;
+}
+
+.step-text-content {
+  text-align: left;
+}
+.step-content-sticky.step-content-reverse .step-text-content {
+  text-align: left; 
+}
+
+
+.step-number-sticky {
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  line-height: 1;
+  margin-bottom: 10px; 
+}
+
+.step-title-sticky {
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  margin-bottom: 20px;
+  font-weight: var(--fw-600);
+  line-height: 1.25;
+}
+
+.step-description-sticky {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.7;
+  max-width: 480px;
+  opacity: 0.9;
+}
+
+.step-figure-sticky {
+  border-radius: var(--radius-10);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-image-sticky {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: var(--radius-5);
+}
+
+@media (max-width: 992px) {
+  .step-item-sticky {
+    height: auto; 
+    min-height: 80vh; 
+    padding: 50px 0;
+    top: calc(var(--header-height, 70px) + 15px); 
+  }
+  .step-frame {
+    padding: clamp(30px, 5vw, 50px) clamp(20px, 4vw, 40px);
+    min-height: auto;
+    max-height: 90vh;
+    aspect-ratio: unset;
+    border-radius: 20px;
+  }
+  .step-content-sticky,
+  .step-content-sticky.step-content-reverse {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  .step-content-sticky.step-content-reverse .step-text-content,
+  .step-content-sticky.step-content-reverse .step-figure-sticky {
+    order: initial;
+  }
+  .step-text-content {
+    text-align: center;
+  }
+  .step-description-sticky {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+  }
+  .step-figure-sticky {
+    max-width: 70%;
+    margin-inline: auto;
+    margin-top: 20px;
+  }
+  .step-item-sticky .step-content-reverse .step-figure-sticky {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .step-frame {
+    border-radius: 15px;
+  }
+  .step-figure-sticky {
+    max-width: 80%;
+  }
+   .step-item-sticky {
+     padding: 30px 0;
+  }
+}
