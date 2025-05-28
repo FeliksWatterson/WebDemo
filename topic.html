@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết chủ đề - EduWeb</title>
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/blog.css" />
+    <link rel="stylesheet" href="./assets/css/topic.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="top">
+    <header class="header" data-header>
+      <div class="container">
+        <a href="./index.html" class="logo"
+          ><img
+            src="./assets/images/logo.svg"
+            width="162"
+            height="50"
+            alt="EduWeb logo"
+        /></a>
+        <nav class="navbar" data-navbar>
+          <div class="wrapper">
+            <a href="./index.html" class="logo"
+              ><img
+                src="./assets/images/logo.svg"
+                width="162"
+                height="50"
+                alt="EduWeb logo" /></a
+            ><button
+              class="nav-close-btn"
+              aria-label="close menu"
+              data-nav-toggler
+            >
+              <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+          <ul class="navbar-list">
+            <li class="navbar-item">
+              <a href="./index.html" class="navbar-link" data-nav-link
+                >Trang chủ</a
+              >
+            </li>
+            <li class="navbar-item">
+              <a href="./index.html#about" class="navbar-link" data-nav-link
+                >Khóa học</a
+              >
+            </li>
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./luyende.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Luyện đề
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề THPTQG</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=ielts"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề IELTS</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=toeic"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề TOEIC</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./luyende.html" class="dropdown-link" role="menuitem"
+                    >Tất cả đề</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="navbar-item">
+              <a href="index.html" class="navbar-link" data-nav-link>Thi thử</a>
+            </li>
+            <li class="navbar-item">
+              <a href="./blog.html" class="navbar-link" data-nav-link
+                >Diễn đàn</a
+              >
+            </li>
+            <li class="navbar-item">
+              <a href="./login.html" class="navbar-link" data-nav-link
+                >Đăng nhập</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button
+            class="header-action-btn"
+            aria-label="toggle search"
+            title="Search"
+          >
+            <ion-icon
+              name="search-outline"
+              aria-hidden="true"
+            ></ion-icon></button
+          ><button class="header-action-btn" aria-label="cart" title="Cart">
+            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon
+            ><span class="btn-badge">0</span></button
+          ><a href="login.html" class="btn has-before"
+            ><span class="span">Bắt đầu ngay</span
+            ><ion-icon
+              name="arrow-forward-outline"
+              aria-hidden="true"
+            ></ion-icon></a
+          ><button
+            class="header-action-btn"
+            aria-label="open menu"
+            data-nav-toggler
+          >
+            <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+        <div class="overlay" data-nav-toggler data-overlay></div>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <section class="section topic-detail-section" aria-label="topic detail">
+          <div class="container">
+            <div
+              class="breadcrumbs"
+              style="margin-bottom: 20px; font-size: var(--fs-6)"
+            >
+              <a href="./blog.html" style="color: var(--kappel)">Diễn đàn</a>
+              &raquo;
+              <span class="current-topic-title"
+                >Thắc mắc về cách giải bài tập XYZ...</span
+              >
+            </div>
+
+            <div class="original-post-container">
+              <h1
+                class="h1 section-title topic-full-title"
+                style="text-align: left; margin-bottom: 15px"
+              >
+                Thắc mắc về cách giải bài tập XYZ trong đề Toán 01
+              </h1>
+              <div class="post-meta original-post-meta">
+                <img
+                  src="./assets/images/default-avatar.png"
+                  alt="Avatar"
+                  class="author-avatar-small"
+                />
+                Đăng bởi <a href="#" class="post-author">NguyenVanA</a> -
+                <span class="post-date">26/05/2025 lúc 08:15</span>
+                <span class="post-views" style="margin-left: 15px"
+                  ><ion-icon name="eye-outline"></ion-icon> 120 lượt xem</span
+                >
+              </div>
+              <div class="post-content original-post-content">
+                <p>Chào mọi người,</p>
+                <p>
+                  Mình đang làm đề thi thử Toán THPT Quốc Gia 2025 - Đề 01 và có
+                  một bài tập XYZ (câu số 5) mình chưa hiểu rõ cách giải. Đề bài
+                  như sau:
+                </p>
+                <blockquote>
+                  "Cho hàm số $f(x) = x^3 - 3x^2 + mx - 1$. Tìm tất cả các giá
+                  trị của tham số m để hàm số có hai điểm cực trị."
+                </blockquote>
+                <p>
+                  Mình đã thử tính đạo hàm $f'(x) = 3x^2 - 6x + m$. Để hàm số có
+                  hai điểm cực trị thì phương trình $f'(x) = 0$ phải có hai
+                  nghiệm phân biệt, tức là $\Delta' > 0$.
+                </p>
+                <p>$\Delta' = (-3)^2 - 3m = 9 - 3m$.</p>
+                <p>Cho $9 - 3m > 0 \Rightarrow 3m < 9 \Rightarrow m < 3$.</p>
+                <p>
+                  Vậy kết quả của mình là $m < 3$. Tuy nhiên, đáp án của đề lại
+                  là một khoảng khác. Mọi người có thể xem giúp mình sai ở đâu
+                  hoặc có cách tiếp cận nào khác không ạ? Mình cảm ơn!
+                </p>
+                <p><em>#Toán #THPTQG #HỏiBài</em></p>
+              </div>
+              <div class="post-actions original-post-actions">
+                <button class="btn-action reply-to-topic-btn">
+                  <ion-icon name="arrow-undo-outline"></ion-icon> Trả lời chủ đề
+                </button>
+                <button class="btn-action report-btn">
+                  <ion-icon name="flag-outline"></ion-icon> Báo cáo
+                </button>
+              </div>
+            </div>
+
+            <div class="comments-section">
+              <h3 class="h3 comments-title">
+                Bình luận (<span id="comment-count">2</span>)
+              </h3>
+
+              <div class="comment-item">
+                <div class="comment-author-info">
+                  <img
+                    src="./assets/images/default-avatar-2.png"
+                    alt="Avatar"
+                    class="author-avatar-small"
+                  />
+                  <a href="#" class="comment-author">TranThiB</a>
+                  <span class="comment-date">27/05/2025 lúc 10:30</span>
+                </div>
+                <div class="comment-content">
+                  <p>
+                    Chào bạn, mình nghĩ bạn giải đúng đến bước $m < 3$ rồi đó.
+                    Có thể đáp án của đề bị nhầm lẫn chăng? Bạn thử kiểm tra lại
+                    với các nguồn khác xem sao.
+                  </p>
+                  <p>
+                    Hoặc có thể bài toán có yêu cầu gì thêm mà bạn bỏ sót không?
+                  </p>
+                </div>
+                <div class="comment-actions">
+                  <button class="btn-action reply-to-comment-btn">
+                    <ion-icon name="arrow-undo-outline"></ion-icon> Trả lời
+                  </button>
+                  <button class="btn-action like-btn">
+                    <ion-icon name="thumbs-up-outline"></ion-icon>
+                    <span class="like-count">5</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="comment-item">
+                <div class="comment-author-info">
+                  <img
+                    src="./assets/images/default-avatar-3.png"
+                    alt="Avatar"
+                    class="author-avatar-small"
+                  />
+                  <a href="#" class="comment-author">AdminEduWeb</a>
+                  <span class="comment-role">[Quản trị viên]</span>
+                  <span class="comment-date">27/05/2025 lúc 11:00</span>
+                </div>
+                <div class="comment-content">
+                  <p>
+                    Chào @NguyenVanA, cách giải của bạn là chính xác cho yêu cầu
+                    tìm m để hàm số có hai điểm cực trị. Đáp án $m<3$ là đúng.
+                  </p>
+                  <p>
+                    Nếu đáp án trong tài liệu của bạn khác, vui lòng cung cấp
+                    thêm thông tin để chúng tôi có thể kiểm tra lại. Cảm ơn bạn
+                    đã đặt câu hỏi!
+                  </p>
+                </div>
+                <div class="comment-actions">
+                  <button class="btn-action reply-to-comment-btn">
+                    <ion-icon name="arrow-undo-outline"></ion-icon> Trả lời
+                  </button>
+                  <button class="btn-action like-btn">
+                    <ion-icon name="thumbs-up-outline"></ion-icon>
+                    <span class="like-count">10</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="new-comment-form-container">
+              <h3 class="h3 new-comment-title">Viết bình luận của bạn</h3>
+              <form id="newCommentForm">
+                <textarea
+                  name="commentContent"
+                  id="commentContent"
+                  rows="5"
+                  placeholder="Nhập nội dung bình luận..."
+                  required
+                  class="input-field"
+                ></textarea>
+                <button
+                  type="submit"
+                  class="btn has-before"
+                  style="margin-top: 15px"
+                >
+                  <span class="span">Gửi bình luận</span>
+                  <ion-icon name="send-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer
+      class="footer"
+      style="background-image: url('./assets/images/footer-bg.png')"
+    >
+      <div class="footer-top section">
+        <div class="container grid-list">
+          <div class="footer-brand">
+            <a href="./index.html" class="logo"
+              ><img
+                src="./assets/images/logo-light.svg"
+                width="162"
+                height="50"
+                alt="EduWeb logo"
+            /></a>
+            <p class="footer-brand-text">
+              Lorem ipsum dolor amet consecto adi pisicing elit sed eiusm tempor
+              incidid unt labore dolore.
+            </p>
+            <div class="wrapper">
+              <span class="span">Add:</span>
+              <address class="address">70-80 Upper St Norwich NR2</address>
+            </div>
+            <div class="wrapper">
+              <span class="span">Call:</span
+              ><a href="tel:+011234567890" class="footer-link"
+                >+01 123 4567 890</a
+              >
+            </div>
+            <div class="wrapper">
+              <span class="span">Email:</span
+              ><a href="mailto:info@eduweb.com" class="footer-link"
+                >info@eduweb.com</a
+              >
+            </div>
+          </div>
+          <ul class="footer-list">
+            <li><p class="footer-list-title">Online Platform</p></li>
+            <li><a href="./index.html#about" class="footer-link">About</a></li>
+            <li>
+              <a href="./index.html#courses" class="footer-link">Courses</a>
+            </li>
+            <li><a href="#" class="footer-link">Instructor</a></li>
+            <li><a href="#" class="footer-link">Events</a></li>
+            <li><a href="#" class="footer-link">Instructor Profile</a></li>
+            <li><a href="#" class="footer-link">Purchase Guide</a></li>
+          </ul>
+          <ul class="footer-list">
+            <li><p class="footer-list-title">Links</p></li>
+            <li><a href="#" class="footer-link">Contact Us</a></li>
+            <li><a href="#" class="footer-link">Gallery</a></li>
+            <li><a href="#" class="footer-link">News & Articles</a></li>
+            <li><a href="#" class="footer-link">FAQ's</a></li>
+            <li>
+              <a href="./login.html" class="footer-link"
+                >Sign In/Registration</a
+              >
+            </li>
+            <li><a href="#" class="footer-link">Coming Soon</a></li>
+          </ul>
+          <div class="footer-list">
+            <p class="footer-list-title">Contacts</p>
+            <p class="footer-list-text">
+              Enter your email address to register to our newsletter
+              subscription
+            </p>
+            <form action="" class="newsletter-form">
+              <input
+                type="email"
+                name="email_address"
+                placeholder="Your email"
+                required
+                class="input-field"
+              /><button type="submit" class="btn has-before">
+                <span class="span">Subscribe</span
+                ><ion-icon
+                  name="arrow-forward-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+              </button>
+            </form>
+            <ul class="social-list">
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-facebook"></ion-icon
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-linkedin"></ion-icon
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-instagram"></ion-icon
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-twitter"></ion-icon
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-youtube"></ion-icon
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="copyright">
+            Copyright 2025 All Rights Reserved by
+            <a href="#" class="copyright-link">lehoangducmanh</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      href="#top"
+      class="back-top-btn"
+      aria-label="back to top"
+      data-back-top-btn
+    >
+      <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="./assets/js/script.js" defer></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+        },
+        svg: { fontCache: "global" },
+      };
+    </script>
+    <script
+      type="text/javascript"
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+  </body>
+</html>

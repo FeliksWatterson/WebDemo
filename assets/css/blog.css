@@ -1,0 +1,214 @@
+.forum-section {
+  padding-top: calc(var(--section-padding) + 60px);
+  padding-bottom: var(--section-padding);
+  background-color: var(--white);
+}
+.forum-header {
+  border-bottom: 1px solid var(--platinum);
+  padding-bottom: 20px;
+}
+
+.forum-topic-list {
+  margin-top: 30px;
+  list-style: none;
+  padding: 0;
+}
+
+.topic-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  padding: 20px 15px;
+  border: 1px solid var(--platinum);
+  border-radius: var(--radius-5);
+  background-color: var(--isabelline);
+  margin-bottom: 15px;
+  box-shadow: var(--shadow-1);
+  transition: var(--transition-1);
+}
+
+.topic-item:hover {
+  border-color: var(--kappel);
+  box-shadow: var(--shadow-2);
+}
+
+.topic-icon-container {
+  font-size: 2.5rem;
+  color: var(--kappel);
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topic-content .topic-title {
+  font-size: var(--fs-4);
+  margin-bottom: 5px;
+}
+
+.topic-content .topic-title a {
+  color: var(--eerie-black-1);
+  transition: var(--transition-1);
+}
+
+.topic-content .topic-title a:hover {
+  color: var(--kappel);
+}
+
+.topic-meta {
+  font-size: var(--fs-6);
+  color: var(--gray-web);
+}
+
+.topic-meta .topic-author {
+  color: var(--radical-red);
+  font-weight: var(--fw-500);
+}
+.topic-meta .topic-author:hover {
+  text-decoration: underline;
+}
+
+.topic-stats {
+  text-align: right;
+  font-size: var(--fs-6);
+  color: var(--gray-web);
+  white-space: nowrap;
+  padding-left: 15px;
+}
+.topic-stats span {
+  display: block;
+}
+
+.topic-last-reply {
+  font-size: var(--fs-7);
+  color: var(--gray-web);
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 15px;
+}
+.topic-last-reply .topic-author {
+  color: var(--kappel);
+  font-weight: var(--fw-500);
+}
+.topic-last-reply .topic-author:hover {
+  text-decoration: underline;
+}
+
+/* Pagination styles (basic) */
+.forum-pagination .page-item .page-link {
+  color: var(--kappel);
+  padding: 8px 12px;
+  text-decoration: none;
+  border: 1px solid var(--platinum);
+  border-radius: var(--radius-3);
+  transition: var(--transition-1);
+  margin: 0 2px; /* Khoảng cách giữa các nút phân trang */
+}
+
+.forum-pagination .page-item.active .page-link,
+.forum-pagination .page-item .page-link:hover {
+  background-color: var(--kappel);
+  color: var(--white);
+  border-color: var(--kappel);
+}
+
+.forum-pagination .page-item.disabled .page-link {
+  color: var(--gray-x-11);
+  pointer-events: none;
+  border-color: var(--platinum);
+}
+
+/* Responsive adjustments for topic items */
+@media (max-width: 992px) {
+  .topic-item {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "icon content stats"
+      "icon content last-reply";
+    align-items: start;
+    .topic-icon-container {
+      grid-area: icon;
+      align-self: center;
+    }
+    .topic-content {
+      grid-area: content;
+    }
+    .topic-stats {
+      grid-area: stats;
+      text-align: left;
+      padding-left: 0;
+      margin-top: 5px;
+    }
+    .topic-last-reply {
+      grid-area: last-reply;
+      text-align: left;
+      padding-left: 0;
+      margin-top: 5px;
+    }
+
+    .topic-stats span,
+    .topic-last-reply p {
+      display: inline;
+      margin-right: 10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .forum-header {
+      flex-direction: column;
+      gap: 15px;
+      align-items: stretch;
+    }
+    .forum-header .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .topic-item {
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        "icon content"
+        "icon stats"
+        "icon last-reply";
+      gap: 10px;
+    }
+    .topic-stats,
+    .topic-last-reply {
+      padding-top: 5px;
+      border-top: 1px dashed var(--platinum);
+      margin-top: 10px;
+    }
+    .topic-stats span,
+    .topic-last-reply p {
+      display: block;
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .topic-item {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "icon"
+        "content"
+        "stats"
+        "last-reply";
+      text-align: center;
+    }
+    .topic-icon-container {
+      padding-right: 0;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+    .topic-content,
+    .topic-stats,
+    .topic-last-reply {
+      text-align: center;
+    }
+    .topic-stats span,
+    .topic-last-reply p {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+}
