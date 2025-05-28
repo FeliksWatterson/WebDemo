@@ -185,54 +185,90 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ... (Code JavaScript hiện tại của bạn) ...
-
-  // Intersection Observer cho hiệu ứng "active" của sticky steps
   const stickyStepItems = document.querySelectorAll(".step-item-sticky");
 
-  if (stickyStepItems.length > 0) {
+  if (
+    stickyStepItems.length > 0 &&
+    window.matchMedia("(min-width: 993px)").matches
+  ) {
     const observerOptions = {
-      root: null, // Quan sát so với viewport
-      rootMargin: "0px",
-      threshold: 0.6, // Kích hoạt khi 60% item hiển thị
+      root: null,
+      rootMargin: `-${
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--header-height-desktop"
+        ) || "80px"
+      } 0px -30% 0px`,
+      threshold: 0.5,
     };
 
-    const activateStep = (entries, observer) => {
+    const handleStepIntersection = (entries, observer) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Xóa class active khỏi tất cả các item khác trước
-          // stickyStepItems.forEach(item => item.classList.remove('is-active-step'));
-          // Chỉ active item hiện tại
-          // entry.target.classList.add('is-active-step');
+        const frame = entry.target.querySelector(".step-frame");
+        if (!frame) return;
 
-          // Thay vì active/deactive, chúng ta sẽ làm cho frame hiện tại nổi bật
-          // và các frame khác mờ đi hoặc lùi lại một chút.
-          // Với z-index, hiệu ứng "tiến lên" đã tự nhiên rồi.
-          // Có thể thêm hiệu ứng scale nhẹ cho frame của item đang active.
-          stickyStepItems.forEach((item) => {
-            if (item === entry.target) {
-              item.querySelector(".step-frame").style.transform = "scale(1)";
-              item.querySelector(".step-frame").style.opacity = "1";
-            } else {
-              // item.querySelector('.step-frame').style.transform = 'scale(0.95)';
-              // item.querySelector('.step-frame').style.opacity = '0.7';
-            }
-          });
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-fully-visible");
         } else {
-          // entry.target.classList.remove('is-active-step');
-          // Khi không intersecting, có thể cho nó mờ đi nếu không phải là item đầu tiên
-          // if (entry.target !== stickyStepItems[0]) { // Giữ item đầu tiên luôn rõ
-          //    entry.target.querySelector('.step-frame').style.transform = 'scale(0.95)';
-          //    entry.target.querySelector('.step-frame').style.opacity = '0.7';
-          // }
+          entry.target.classList.remove("is-fully-visible");
         }
       });
     };
 
     const stepObserver = new IntersectionObserver(
-      activateStep,
+      handleStepIntersection,
       observerOptions
     );
-    stickyStepItems.forEach((item) => stepObserver.observe(item));
+    stickyStepItems.forEach((item) => {
+      stepObserver.observe(item);
+    });
+
+    if (stickyStepItems[0]) {
+      stickyStepItems[0].classList.add("is-fully-visible");
+      const firstFrame = stickyStepItems[0].querySelector(".step-frame");
+      if (firstFrame) {
+      }
+    }
+  } else if (stickyStepItems.length > 0) {
+    stickyStepItems.forEach((item) => {
+      const frame = item.querySelector(".step-frame");
+      if (frame) {
+        item.classList.remove("is-fully-visible");
+      }
+    });
   }
+});
+
+const stickyStepNavDots = document.querySelectorAll(
+  ".sticky-steps-navigation .dot"
+);
+stickyStepNavDots.forEach((dot) => {
+  dot.addEventListener("click", function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute("data-step-target");
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      let headerOffset = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--header-height-desktop"
+        ) || "80px",
+        10
+      );
+      if (window.innerWidth <= 992) {
+        headerOffset = parseInt(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--header-height-mobile"
+          ) || "70px",
+          10
+        );
+      }
+      const elementPosition =
+        targetElement.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  });
 });
