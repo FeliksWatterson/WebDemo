@@ -1,0 +1,421 @@
+/* assets/css/thithu.css */
+
+/* === CSS CHO TRANG THITHU.HTML (Liệt kê phòng) === */
+.study-rooms-section {
+  padding-top: calc(var(--section-padding) + 60px);
+  padding-bottom: var(--section-padding);
+  background-color: var(--white);
+}
+
+.study-rooms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--platinum);
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.study-room-list {
+  margin-top: 30px;
+  list-style: none;
+  padding: 0;
+}
+
+.study-room-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  padding: 20px 15px;
+  border: 1px solid var(--platinum);
+  border-radius: var(--radius-10);
+  background-color: var(--isabelline);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-1);
+  transition: var(--transition-1);
+  gap: 15px;
+}
+
+.study-room-item:hover {
+  border-color: var(--kappel);
+  box-shadow: var(--shadow-2);
+}
+
+.room-icon-container {
+  font-size: 3rem;
+  color: var(--kappel);
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-content .room-title {
+  font-size: var(--fs-3);
+  margin-bottom: 8px;
+}
+
+.room-content .room-title a {
+  color: var(--eerie-black-1);
+  transition: var(--transition-1);
+}
+
+.room-content .room-title a:hover {
+  color: var(--kappel);
+}
+
+.room-meta {
+  font-size: var(--fs-6);
+  color: var(--gray-web);
+  margin-bottom: 5px;
+}
+.room-meta span {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.room-stats {
+  font-size: var(--fs-6);
+  color: var(--gray-web);
+  text-align: right;
+  padding-left: 15px;
+}
+
+.room-join-action .btn {
+  font-size: var(--fs-5);
+  white-space: nowrap;
+}
+
+/* Điều chỉnh responsive cho thithu.html */
+@media (max-width: 992px) {
+  .study-room-item {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "icon content join"
+      "icon meta join"
+      "icon stats join";
+    align-items: center;
+  }
+  .room-icon-container {
+    grid-area: icon;
+    align-self: center;
+  }
+  .room-content {
+    grid-area: content;
+  }
+  .room-meta {
+    grid-area: meta;
+    font-size: var(--fs-7);
+  }
+  .room-stats {
+    grid-area: stats;
+    text-align: left;
+    padding-left: 0;
+    margin-top: 5px;
+  }
+  .room-join-action {
+    grid-area: join;
+    align-self: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .study-rooms-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  .study-rooms-header .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .study-room-item {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "icon"
+      "content"
+      "meta"
+      "stats"
+      "join";
+    text-align: center;
+    gap: 10px;
+  }
+  .room-icon-container {
+    padding-right: 0;
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+  .room-content,
+  .room-meta,
+  .room-stats,
+  .room-join-action {
+    text-align: center;
+  }
+  .room-join-action .btn {
+    margin: 15px auto 0;
+  }
+}
+
+/* === CSS CHO TRANG PHONGHOC_CHITIET.HTML (Chi tiết phòng) === */
+.room-detail-section {
+  padding-top: calc(var(--section-padding) + 60px);
+  padding-bottom: var(--section-padding);
+}
+
+.room-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--platinum);
+}
+.room-header-bar .h2 {
+  margin-bottom: 0;
+}
+.room-header-bar .btn-outline {
+  background-color: var(--radical-red);
+  border: 1px solid var(--radical-red);
+  color: var(--white);
+}
+.room-header-bar .btn-outline:hover {
+  background-color: hsl(351, 83%, 50%);
+  border-color: hsl(351, 83%, 50%);
+}
+.room-header-bar .btn-outline ion-icon {
+  margin-right: 5px;
+}
+
+.room-layout {
+  display: flex;
+  gap: 20px;
+  min-height: 70vh;
+}
+
+.main-content-area {
+  flex: 3;
+  background-color: var(--isabelline);
+  border-radius: var(--radius-10);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid var(--platinum);
+}
+.main-content-area .placeholder-icon {
+  font-size: 5rem;
+  color: var(--gray-web);
+  margin-bottom: 15px;
+}
+
+.participant-and-chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */ /* Sẽ dùng margin-bottom cho .participants-list thay vì gap ở đây */
+  min-width: 300px;
+  max-width: 400px;
+  min-height: 0;
+}
+
+.participants-list {
+  background-color: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: var(--radius-10);
+  padding: 15px;
+  box-shadow: var(--shadow-1);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-bottom: 20px; /* THÊM KHOẢNG CÁCH VỚI MODULE CHAT BÊN DƯỚI */
+}
+
+.participants-list h4 {
+  font-size: var(--fs-4);
+  color: var(--eerie-black-1);
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--platinum);
+}
+
+.participants-list h4 span#participant-count {
+  display: inline;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.participants-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.participants-list li {
+  padding: 8px 0;
+  font-size: var(--fs-6);
+  border-bottom: 1px dashed var(--platinum);
+}
+.participants-list li:last-child {
+  border-bottom: none;
+}
+
+.chat-module {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background-color: var(--white); /* Nền trắng cho module chat */
+  /* border: 1px solid var(--platinum); */ /* BỎ VIỀN NGOÀI CỦA MODULE CHAT */
+  border-radius: var(--radius-10);
+  box-shadow: var(--shadow-1); /* Giữ lại bóng đổ nhẹ */
+  overflow: hidden;
+}
+
+.chat-module h4 {
+  /* Tiêu đề "Chat phòng" */
+  font-size: var(--fs-4);
+  color: var(--eerie-black-1);
+  margin: 0;
+  padding: 15px 15px 10px 15px;
+  border-bottom: 1px solid var(--platinum); /* Giữ viền dưới cho tiêu đề */
+  flex-shrink: 0;
+  background-color: var(
+    --white
+  ); /* Đảm bảo tiêu đề có nền trắng nếu .chat-module không có */
+}
+
+.chat-messages {
+  height: 250px; /* Đặt một chiều cao cố định */
+  /* Các thuộc tính min-height, max-height, height: auto có thể bỏ nếu dùng height cố định */
+  overflow-y: auto;
+
+  padding: 10px;
+  background-color: var(--isabelline); /* Nền cho vùng chứa tin nhắn */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Cho phép vùng này chiếm không gian còn lại trong .chat-module */
+}
+
+.chat-messages .message {
+  padding: 8px 12px;
+  border-radius: var(--radius-10);
+  max-width: 85%;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  font-size: var(--fs-6);
+  word-wrap: break-word;
+  /* border: 1px solid transparent; */ /* Có thể bỏ nếu không muốn border cho từng tin nhắn */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.chat-messages .message p {
+  margin: 0;
+}
+
+.chat-messages .user-message {
+  background-color: var(--kappel);
+  color: var(--white);
+  align-self: flex-end;
+  margin-left: auto;
+  margin-right: 5px;
+  border-top-right-radius: var(--radius-3);
+  border-color: var(--kappel);
+}
+
+.chat-messages .other-message {
+  background-color: var(--white);
+  color: var(--eerie-black-1);
+  align-self: flex-start;
+  margin-right: auto;
+  margin-left: 5px;
+  border-top-left-radius: var(--radius-3);
+  border: 1px solid var(--platinum);
+}
+.chat-messages .other-message strong {
+  display: block;
+  font-size: var(--fs-7);
+  color: var(--gray-web);
+  margin-bottom: 3px;
+  font-weight: var(--fw-600);
+}
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px 15px 15px;
+  border-top: 1px solid var(--platinum);
+  background-color: var(--white);
+  flex-shrink: 0;
+}
+
+.chat-input-area input[type="text"] {
+  flex-grow: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--platinum);
+  border-radius: var(--radius-5);
+  margin-right: 10px;
+  font-size: var(--fs-6);
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.chat-input-area input[type="text"]:focus {
+  outline: none;
+  border-color: var(--kappel);
+  box-shadow: 0 0 0 2px var(--kappel_15);
+}
+
+.chat-input-area button {
+  background-color: var(--kappel);
+  color: var(--white);
+  padding: 0 15px;
+  height: 40px;
+  border-radius: var(--radius-5);
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-1);
+  flex-shrink: 0;
+}
+.chat-input-area button ion-icon {
+  font-size: 1.2em;
+}
+
+.chat-input-area button:hover {
+  background-color: hsl(var(--hue-kappel), 70%, 45%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .room-layout {
+    flex-direction: column;
+  }
+  .participant-and-chat-area {
+    min-width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+  }
+  .chat-messages {
+    height: 200px;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .room-header-bar {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .room-header-bar .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

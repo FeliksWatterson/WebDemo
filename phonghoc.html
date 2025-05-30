@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng ký - EduWeb</title>
+    <title>Phòng Thi Thử Trực Tuyến - EduWeb</title>
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/phonghoc.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,7 +26,6 @@
             alt="EduWeb logo"
           />
         </a>
-
         <nav class="navbar" data-navbar>
           <div class="wrapper">
             <a href="./index.html" class="logo">
@@ -52,7 +52,8 @@
             </li>
             <li class="navbar-item has-dropdown">
               <a
-                href="./courses.html"  class="navbar-link"
+                href="./courses.html"
+                class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
                 aria-expanded="false"
@@ -66,43 +67,49 @@
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=thptqg" class="dropdown-link"
+                    href="./courses.html?category=thptqg"
+                    class="dropdown-link"
                     role="menuitem"
                     >Ôn thi THPT Quốc gia</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=vao10" class="dropdown-link"
+                    href="./courses.html?category=vao10"
+                    class="dropdown-link"
                     role="menuitem"
                     >Ôn thi vào 10 THPT</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=ielts" class="dropdown-link"
+                    href="./courses.html?category=ielts"
+                    class="dropdown-link"
                     role="menuitem"
                     >IELTS</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=toeic" class="dropdown-link"
+                    href="./courses.html?category=toeic"
+                    class="dropdown-link"
                     role="menuitem"
                     >TOEIC</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=daihoc" class="dropdown-link"
+                    href="./courses.html?category=daihoc"
+                    class="dropdown-link"
                     role="menuitem"
                     >Đại học - Cao đẳng</a
                   >
                 </li>
-                 <li class="dropdown-item" role="none">
+                <li class="dropdown-item" role="none">
                   <a href="./courses.html" class="dropdown-link" role="menuitem"
                     >Tất cả khóa học</a
-                  > </li>
+                  >
+                </li>
               </ul>
             </li>
             <li class="navbar-item has-dropdown">
@@ -130,22 +137,6 @@
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./luyende.html?subject=ielts"
-                    class="dropdown-link"
-                    role="menuitem"
-                    >Luyện đề IELTS</a
-                  >
-                </li>
-                <li class="dropdown-item" role="none">
-                  <a
-                    href="./luyende.html?subject=toeic"
-                    class="dropdown-link"
-                    role="menuitem"
-                    >Luyện đề TOEIC</a
-                  >
-                </li>
-                <li class="dropdown-item" role="none">
                   <a href="./luyende.html" class="dropdown-link" role="menuitem"
                     >Tất cả đề</a
                   >
@@ -153,18 +144,47 @@
               </ul>
             </li>
             <li class="navbar-item">
-              <a href="./kttd.html" class="navbar-link" data-nav-link
+              <a href="./thithu.html" class="navbar-link active" data-nav-link
                 >Thi thử</a
               >
             </li>
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./blog.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Diễn đàn
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a href="./blog.html" class="dropdown-link" role="menuitem"
+                    >Diễn đàn trao đổi</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Phòng học</a
+                  >
+                </li>
+              </ul>
+            </li>
             <li class="navbar-item">
-              <a href="./index.html#blog" class="navbar-link" data-nav-link
-                >Diễn đàn</a
+              <a href="./login.html" class="navbar-link" data-nav-link
+                >Đăng nhập</a
               >
             </li>
           </ul>
         </nav>
-
         <div class="header-actions">
           <button
             class="header-action-btn"
@@ -174,16 +194,16 @@
             <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
           </button>
           <button class="header-action-btn" aria-label="cart" title="Cart">
-            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-            <span class="btn-badge">0</span>
+            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon
+            ><span class="btn-badge">0</span>
           </button>
-          <a href="login.html" class="btn has-before">
-            <span class="span">Đăng nhập</span>
-            <ion-icon
+          <a href="./login.html" class="btn has-before"
+            ><span class="span">Bắt đầu ngay</span
+            ><ion-icon
               name="arrow-forward-outline"
               aria-hidden="true"
-            ></ion-icon>
-          </a>
+            ></ion-icon
+          ></a>
           <button
             class="header-action-btn"
             aria-label="open menu"
@@ -198,203 +218,84 @@
 
     <main>
       <article>
-        <section
-          class="section register-section"
-          style="
-            padding-top: calc(var(--section-padding) + 60px);
-            padding-bottom: var(--section-padding);
-          "
-        >
+        <section class="section study-rooms-section" aria-label="study rooms">
           <div class="container">
-            <div
-              class="register-container"
-              style="
-                max-width: 500px;
-                margin: 0 auto;
-                padding: 40px;
-                background-color: var(--isabelline);
-                border-radius: var(--radius-10);
-                box-shadow: var(--shadow-2);
-              "
-            >
-              <h2
-                class="h2 section-title"
-                style="text-align: center; margin-bottom: 30px"
-              >
-                Tạo tài khoản
+            <div class="study-rooms-header">
+              <h2 class="h2 section-title" style="text-align: left">
+                Phòng Học Trực Tuyến
               </h2>
-              <form action="#" method="POST" id="registerForm">
-                <div class="input-field-wrapper" style="margin-bottom: 20px">
-                  <label
-                    for="fullName"
-                    class="input-label"
-                    style="
-                      display: block;
-                      margin-bottom: 8px;
-                      font-weight: var(--fw-500);
-                      color: var(--eerie-black-1);
-                    "
-                    >Họ và tên</label
-                  >
-                  <input
-                    type="text"
-                    name="fullName"
-                    id="fullName"
-                    required
-                    class="input-field"
-                    placeholder="Nhập họ và tên của bạn"
-                    style="
-                      background-color: var(--white);
-                      padding: 12px 15px;
-                      border-radius: var(--radius-5);
-                      border: 1px solid var(--platinum);
-                    "
-                  />
-                </div>
-
-                <div class="input-field-wrapper" style="margin-bottom: 20px">
-                  <label
-                    for="email"
-                    class="input-label"
-                    style="
-                      display: block;
-                      margin-bottom: 8px;
-                      font-weight: var(--fw-500);
-                      color: var(--eerie-black-1);
-                    "
-                    >Email</label
-                  >
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    required
-                    class="input-field"
-                    placeholder="Nhập địa chỉ email"
-                    style="
-                      background-color: var(--white);
-                      padding: 12px 15px;
-                      border-radius: var(--radius-5);
-                      border: 1px solid var(--platinum);
-                    "
-                  />
-                </div>
-
-                <div class="input-field-wrapper" style="margin-bottom: 20px">
-                  <label
-                    for="regPassword"
-                    class="input-label"
-                    style="
-                      display: block;
-                      margin-bottom: 8px;
-                      font-weight: var(--fw-500);
-                      color: var(--eerie-black-1);
-                    "
-                    >Mật khẩu</label
-                  >
-                  <input
-                    type="password"
-                    name="regPassword"
-                    id="regPassword"
-                    required
-                    class="input-field"
-                    placeholder="Nhập mật khẩu (ít nhất 6 ký tự)"
-                    style="
-                      background-color: var(--white);
-                      padding: 12px 15px;
-                      border-radius: var(--radius-5);
-                      border: 1px solid var(--platinum);
-                    "
-                  />
-                </div>
-
-                <div class="input-field-wrapper" style="margin-bottom: 20px">
-                  <label
-                    for="confirmPassword"
-                    class="input-label"
-                    style="
-                      display: block;
-                      margin-bottom: 8px;
-                      font-weight: var(--fw-500);
-                      color: var(--eerie-black-1);
-                    "
-                    >Xác nhận mật khẩu</label
-                  >
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    required
-                    class="input-field"
-                    placeholder="Nhập lại mật khẩu"
-                    style="
-                      background-color: var(--white);
-                      padding: 12px 15px;
-                      border-radius: var(--radius-5);
-                      border: 1px solid var(--platinum);
-                    "
-                  />
-                </div>
-
-                <div class="form-options" style="margin-bottom: 30px">
-                  <label
-                    for="agreeTerms"
-                    style="
-                      display: flex;
-                      align-items: start;
-                      color: var(--gray-web);
-                      cursor: pointer;
-                      font-size: var(--fs-6);
-                    "
-                  >
-                    <input
-                      type="checkbox"
-                      name="agreeTerms"
-                      id="agreeTerms"
-                      required
-                      style="width: auto; margin-right: 8px; margin-top: 4px"
-                    />
-                    Tôi đồng ý với&nbsp;<a
-                      href="#"
-                      style="color: var(--kappel); text-decoration: underline"
-                      >điều khoản dịch vụ</a
-                    >&nbsp;và&nbsp;<a
-                      href="#"
-                      style="color: var(--kappel); text-decoration: underline"
-                      >chính sách bảo mật</a
-                    >.
-                  </label>
-                </div>
-
-                <button type="submit" class="btn has-before">
-                  <span class="span">Đăng ký</span>
-                  <ion-icon
-                    name="person-add-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                </button>
-              </form>
-              <p
-                class="login-page-link"
-                style="
-                  text-align: center;
-                  margin-top: 30px;
-                  font-size: var(--fs-6);
-                  color: var(--gray-web);
-                "
-              >
-                Đã có tài khoản?
-                <a
-                  href="./login.html"
-                  style="
-                    color: var(--kappel);
-                    font-weight: var(--fw-500);
-                    text-decoration: underline;
-                  "
-                  >Đăng nhập ngay</a
-                >
-              </p>
+              <a href="#" class="btn has-before" id="create-room-btn">
+                <span class="span">Tạo phòng mới</span>
+                <ion-icon
+                  name="add-circle-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+              </a>
             </div>
+
+            <ul class="study-room-list">
+              <li class="study-room-item">
+                <div class="room-icon-container">
+                  <ion-icon name="easel-outline"></ion-icon>
+                </div>
+                <div class="room-content">
+                  <h3 class="h3 room-title">
+                    <a
+                      href="./phonghocchitiet.html?room_id=toan001&name=Luyện Đề Toán THPTQG - Nhóm A"
+                      >Luyện Đề Toán THPTQG - Nhóm A</a
+                    >
+                  </h3>
+                  <p class="room-meta">
+                    <span>Môn học: Toán THPT Quốc Gia</span>
+                    <span>Giáo viên: Cô Mai Anh</span>
+                    <span>Lịch học: 19:00 - 21:00 Thứ 3 hàng tuần</span>
+                  </p>
+                </div>
+                <div class="room-stats">
+                  <span class="participants-count">18/30 người</span>
+                </div>
+                <div class="room-join-action">
+                  <a
+                    href="./phonghocchitiet.html?room_id=toan001&name=Luyện Đề Toán THPTQG - Nhóm A"
+                    class="btn has-before"
+                  >
+                    <span class="span">Tham gia</span>
+                    <ion-icon name="log-in-outline"></ion-icon>
+                  </a>
+                </div>
+              </li>
+
+              <li class="study-room-item">
+                <div class="room-icon-container">
+                  <ion-icon name="mic-outline"></ion-icon>
+                </div>
+                <div class="room-content">
+                  <h3 class="h3 room-title">
+                    <a
+                      href="./phonghocchitiet.html?room_id=ielts_speak01&name=IELTS Speaking Practice - Level 7+"
+                      >IELTS Speaking Practice - Level 7+</a
+                    >
+                  </h3>
+                  <p class="room-meta">
+                    <span>Kỹ năng: IELTS Speaking</span>
+                    <span>Chủ trì: Mr. Feliks Watterson</span>
+                    <span>Lịch học: 10:00 - 11:30 Thứ 5, Chủ Nhật</span>
+                  </p>
+                </div>
+                <div class="room-stats">
+                  <span class="participants-count">8/15 người</span>
+                </div>
+                <div class="room-join-action">
+                  <a
+                    href="./phonghocchitiet.html?room_id=ielts_speak01&name=IELTS Speaking Practice - Level 7+"
+                    class="btn has-before"
+                  >
+                    <span class="span">Tham gia</span>
+                    <ion-icon name="log-in-outline"></ion-icon>
+                  </a>
+                </div>
+              </li>
+            </ul>
           </div>
         </section>
       </article>
@@ -502,6 +403,25 @@
       </div>
     </footer>
 
+    <div id="chatbot-icon">
+      <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
+    </div>
+    <div id="chatbot-window">
+      <div id="chatbot-header">
+        <span>Trợ lý ảo EduBot</span>
+        <button id="close-chatbot-btn">&times;</button>
+      </div>
+      <div id="chatbot-messages">
+        <div class="message bot-message">
+          <p>Xin chào! Tôi có thể giúp gì cho bạn hôm nay?</p>
+        </div>
+      </div>
+      <div id="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
+        <button id="chatbot-send-btn">Gửi</button>
+      </div>
+    </div>
+
     <script src="./assets/js/script.js" defer></script>
     <script
       type="module"
@@ -512,22 +432,4 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
   </body>
-  <div id="chatbot-icon">
-    <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
-  </div>
-
-  <div id="chatbot-window">
-    <div id="chatbot-header">
-      <span>Trợ lý ảo</span>
-      <button id="close-chatbot-btn">&times;</button>
-    </div>
-    <div id="chatbot-messages">
-      <div class="message bot-message">
-        <p>Xin chào! Tôi có thể giúp gì cho bạn?</p>
-      </div>
-    </div>
-    <div id="chatbot-input-area">
-      <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
-      <button id="chatbot-send-btn">Gửi</button>
-    </div>
 </html>

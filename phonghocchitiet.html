@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi Tiết Phòng Học - EduWeb</title>
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/phonghoc.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body id="top">
+    <header class="header" data-header>
+      <div class="container">
+        <a href="./index.html" class="logo">
+          <img
+            src="./assets/images/logo.svg"
+            width="162"
+            height="50"
+            alt="EduWeb logo"
+          />
+        </a>
+        <nav class="navbar" data-navbar>
+          <div class="wrapper">
+            <a href="./index.html" class="logo">
+              <img
+                src="./assets/images/logo.svg"
+                width="162"
+                height="50"
+                alt="EduWeb logo"
+              />
+            </a>
+            <button
+              class="nav-close-btn"
+              aria-label="close menu"
+              data-nav-toggler
+            >
+              <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+          <ul class="navbar-list">
+            <li class="navbar-item">
+              <a href="./index.html" class="navbar-link" data-nav-link
+                >Trang chủ</a
+              >
+            </li>
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./courses.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Khóa học
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./courses.html?category=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Ôn thi THPT Quốc gia</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./courses.html" class="dropdown-link" role="menuitem"
+                    >Tất cả khóa học</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./luyende.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Luyện đề
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./luyende.html?subject=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Luyện đề THPTQG</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./luyende.html" class="dropdown-link" role="menuitem"
+                    >Tất cả đề</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="navbar-item">
+              <a href="./thithu.html" class="navbar-link active" data-nav-link
+                >Thi thử</a
+              >
+            </li>
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./blog.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Diễn đàn
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a href="./blog.html" class="dropdown-link" role="menuitem"
+                    >Diễn đàn trao đổi</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Phòng học</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="navbar-item">
+              <a href="./login.html" class="navbar-link" data-nav-link
+                >Đăng nhập</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button
+            class="header-action-btn"
+            aria-label="toggle search"
+            title="Search"
+          >
+            <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+          </button>
+          <button class="header-action-btn" aria-label="cart" title="Cart">
+            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon
+            ><span class="btn-badge">0</span>
+          </button>
+          <a href="./login.html" class="btn has-before">
+            <span class="span">Bắt đầu ngay</span>
+            <ion-icon
+              name="arrow-forward-outline"
+              aria-hidden="true"
+            ></ion-icon>
+          </a>
+          <button
+            class="header-action-btn"
+            aria-label="open menu"
+            data-nav-toggler
+          >
+            <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+        <div class="overlay" data-nav-toggler data-overlay></div>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <section class="section room-detail-section" aria-label="room detail">
+          <div class="container">
+            <div class="room-header-bar">
+              <h2
+                class="h2 section-title"
+                id="room-dynamic-title"
+                style="text-align: left"
+              >
+                Tên Phòng Học
+              </h2>
+              <a href="./phonghoc.html" class="btn btn-outline has-before">
+                <ion-icon name="log-out-outline"></ion-icon>
+                <span class="span">Rời phòng</span>
+              </a>
+            </div>
+
+            <div class="room-layout">
+              <div class="main-content-area">
+                <ion-icon
+                  name="desktop-outline"
+                  class="placeholder-icon"
+                ></ion-icon>
+                <p class="section-text">
+                  Khu vực chia sẻ màn hình hoặc mở cam gì đó.
+                </p>
+                <p class="section-text" style="font-size: var(--fs-6)">
+                  (Sau chỗ này làm sau)
+                </p>
+              </div>
+
+              <div class="participant-and-chat-area">
+                <div class="participants-list">
+                  <h4>
+                    Người tham gia (<span id="participant-count">0</span>)
+                  </h4>
+                  <ul id="room-participant-list"></ul>
+                </div>
+                <div class="chat-module">
+                  <h4>Chat phòng</h4>
+                  <div class="chat-messages" id="room-chat-messages">
+                    <div class="message other-message">
+                      <p>
+                        <strong>EduBot:</strong> Chào mừng mọi người đến với
+                        phòng học!
+                      </p>
+                    </div>
+                  </div>
+                  <div class="chat-input-area">
+                    <input
+                      type="text"
+                      id="room-chat-input"
+                      placeholder="Nhập tin nhắn..."
+                    />
+                    <button id="room-chat-send-btn" aria-label="Gửi tin nhắn">
+                      <ion-icon name="send-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer
+      class="footer"
+      style="background-image: url('./assets/images/footer-bg.png')"
+    >
+      <div class="footer-top section">
+        <div class="container grid-list">
+          <div class="footer-brand">
+            <a href="./index.html" class="logo"
+              ><img
+                src="./assets/images/logo-light.svg"
+                width="162"
+                height="50"
+                alt="EduWeb logo"
+            /></a>
+            <p class="footer-brand-text">
+              Nền tảng học tập trực tuyến hàng đầu, đồng hành cùng bạn trên con
+              đường chinh phục tri thức.
+            </p>
+          </div>
+          <ul class="footer-list">
+            <li><p class="footer-list-title">Nền tảng</p></li>
+            <li>
+              <a href="./index.html#about" class="footer-link">Về EduWeb</a>
+            </li>
+          </ul>
+          <ul class="footer-list">
+            <li><p class="footer-list-title">Liên kết nhanh</p></li>
+            <li><a href="#" class="footer-link">Liên hệ</a></li>
+          </ul>
+          <div class="footer-list">
+            <p class="footer-list-title">Đăng ký nhận tin</p>
+            <form action="" class="newsletter-form">
+              <input
+                type="email"
+                name="email_address"
+                placeholder="Email của bạn"
+                required
+                class="input-field"
+              /><button type="submit" class="btn has-before">
+                <span class="span">Đăng ký</span
+                ><ion-icon
+                  name="arrow-forward-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="copyright">
+            Bản quyền © 2025 EduWeb bởi
+            <a href="#" class="copyright-link">lehoangducmanh</a>. Đã đăng ký
+            bản quyền.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="chatbot-icon">
+      <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
+    </div>
+    <div id="chatbot-window">
+      <div id="chatbot-header">
+        <span>Trợ lý ảo EduBot</span>
+        <button id="close-chatbot-btn">&times;</button>
+      </div>
+      <div id="chatbot-messages">
+        <div class="message bot-message">
+          <p>Xin chào! Tôi có thể giúp gì cho bạn hôm nay?</p>
+        </div>
+      </div>
+      <div id="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
+        <button id="chatbot-send-btn">Gửi</button>
+      </div>
+    </div>
+
+    <script src="./assets/js/script.js" defer></script>
+    <script src="./assets/js/phonghoc.js" defer></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

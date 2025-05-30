@@ -142,9 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "bot-typing"
       );
 
-      // endpoint API backend
       const response = await fetch("/api/chatgpt", {
-        //ENDPOINT BACKEND
         method: "POST",
         headers: {
           "Content-Type": "application/json",
