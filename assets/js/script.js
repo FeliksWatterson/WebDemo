@@ -159,30 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "bot-typing"
       );
 
-      // --- START CHATGPT API CALL INTEGRATION ---
-      // IMPORTANT:
-      // 1. Replace 'YOUR_CHATGPT_API_ENDPOINT' with your actual API endpoint.
-      //    This might be a direct API endpoint or, preferably, your own backend proxy.
-      // 2. API KEY HANDLING: For security, API keys should NOT be stored or used
-      //    directly in client-side JavaScript in a production environment.
-      //    The request should be made to your backend, which then securely calls the
-      //    ChatGPT API with the key.
-      // 3. The 'body' and response parsing (e.g., 'data.reply') might need
-      //    adjustment based on the specific API you are using.
-
-      const API_ENDPOINT = "YOUR_CHATGPT_API_ENDPOINT"; // Replace this!
-      // Example: const API_ENDPOINT = "/api/chatgpt"; // If you have a backend proxy
+      const API_ENDPOINT = "https://demodautien.netlify.app/";
 
       const response = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // If your API (or backend proxy) requires an Authorization header:
-          // "Authorization": "Bearer YOUR_API_KEY_OR_TOKEN", // Again, key management is crucial
         },
-        // The structure of the body depends on what your API endpoint expects.
-        // For OpenAI, it's usually more complex, involving a messages array.
-        // This is a simplified example assuming your endpoint takes a simple message.
         body: JSON.stringify({ message: messageText }),
       });
 

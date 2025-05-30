@@ -1,9 +1,4 @@
 [build]
-  # Lệnh build cho front-end của bạn (nếu có)
-  # command = "npm run build" 
-  # Thư mục chứa các file đã build của front-end
-  # publish = "dist" # Hoặc "build", "public", tùy theo cấu hình dự án của bạn
-
+  # publish = "/" # Hoặc thư mục publish của bạn nếu có build step
 [functions]
-  directory = "netlify/functions/" 
-  node_bundler = "esbuild" 
+  directory = "netlify/functions/"
