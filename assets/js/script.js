@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
       //    adjustment based on the specific API you are using.
 
       const API_ENDPOINT =
-        "https://app.netlify.com/projects/demodautien/configuration/env#CHATGPT_API_KEY";
+        "https://demodautien.netlify.app/.netlify/functions/gpt";
       // Example: const API_ENDPOINT = "/api/chatgpt"; // If you have a backend proxy
 
       const response = await fetch(API_ENDPOINT, {
