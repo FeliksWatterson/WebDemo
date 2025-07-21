@@ -4,11 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luyện Đề - EduWeb</title>
+    <title>Web Demo</title>
+    <meta
+      name="title"
+      content="EduWeb - The Best Program to Enroll for Exchange"
+    />
+    <meta
+      name="description"
+      content="This is an education web made by lehoangducmanh"
+    />
+
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
 
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/luyende.css" />
+    <link rel="stylesheet" href="assets\css\style.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,11 +26,18 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <link rel="preload" as="image" href="./assets/images/hero-bg.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-1.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-2.png" />
   </head>
+
   <body id="top">
     <header class="header" data-header>
       <div class="container">
-        <a href="./index.html" class="logo">
+        <a href="#" class="logo">
           <img
             src="./assets/images/logo.svg"
             width="162"
@@ -32,7 +48,7 @@
 
         <nav class="navbar" data-navbar>
           <div class="wrapper">
-            <a href="./index.html" class="logo">
+            <a href="#" class="logo">
               <img
                 src="./assets/images/logo.svg"
                 width="162"
@@ -40,6 +56,7 @@
                 alt="EduWeb logo"
               />
             </a>
+
             <button
               class="nav-close-btn"
               aria-label="close menu"
@@ -48,15 +65,15 @@
               <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
             </button>
           </div>
+
           <ul class="navbar-list">
             <li class="navbar-item">
-              <a href="index.html" class="navbar-link" data-nav-link
-                >Trang chủ
-              </a>
+              <a href="index.html" class="navbar-link" data-nav-link>Trang chủ </a>
             </li>
             <li class="navbar-item has-dropdown">
               <a
-                href="./courses.html"  class="navbar-link"
+                href="./courses.html"
+                class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
                 aria-expanded="false"
@@ -70,43 +87,49 @@
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=thptqg" class="dropdown-link"
+                    href="./courses.html?category=thptqg"
+                    class="dropdown-link"
                     role="menuitem"
                     >Ôn thi THPT Quốc gia</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=vao10" class="dropdown-link"
+                    href="./courses.html?category=vao10"
+                    class="dropdown-link"
                     role="menuitem"
                     >Ôn thi vào 10 THPT</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=ielts" class="dropdown-link"
+                    href="./courses.html?category=ielts"
+                    class="dropdown-link"
                     role="menuitem"
                     >IELTS</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=toeic" class="dropdown-link"
+                    href="./courses.html?category=toeic"
+                    class="dropdown-link"
                     role="menuitem"
                     >TOEIC</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./courses.html?category=daihoc" class="dropdown-link"
+                    href="./courses.html?category=daihoc"
+                    class="dropdown-link"
                     role="menuitem"
                     >Đại học - Cao đẳng</a
                   >
                 </li>
-                 <li class="dropdown-item" role="none">
+                <li class="dropdown-item" role="none">
                   <a href="./courses.html" class="dropdown-link" role="menuitem"
                     >Tất cả khóa học</a
-                  > </li>
+                  >
+                </li>
               </ul>
             </li>
 
@@ -118,7 +141,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Luyện đề
+                Luyện tập
                 <ion-icon
                   name="chevron-down-outline"
                   class="dropdown-arrow"
@@ -131,7 +154,7 @@
                     href="./luyende.html?subject=thptqg"
                     class="dropdown-link"
                     role="menuitem"
-                    >Luyện đề THPTQG</a
+                    >Tạo đề thông minh</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
@@ -139,36 +162,20 @@
                     href="./luyende.html?subject=ielts"
                     class="dropdown-link"
                     role="menuitem"
-                    >Luyện đề IELTS</a
-                  >
-                </li>
-                <li class="dropdown-item" role="none">
-                  <a
-                    href="./luyende.html?subject=toeic"
-                    class="dropdown-link"
-                    role="menuitem"
-                    >Luyện đề TOEIC</a
-                  >
-                </li>
-                <li class="dropdown-item" role="none">
-                  <a href="./luyende.html" class="dropdown-link" role="menuitem"
-                    >Tất cả đề</a
+                    >Thi thử</a
                   >
                 </li>
               </ul>
             </li>
 
-            <li class="navbar-item">
-              <a href="index.html" class="navbar-link" data-nav-link>Thi thử</a>
-            </li>
-
-             <li class="navbar-item has-dropdown">
+            <li class="navbar-item has-dropdown">
               <a
-                href="./blog.html" class="navbar-link"
+                href="./blog.html"
+                class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
                 aria-expanded="false"
-                >Diễn đàn
+                >Góc học tập
                 <ion-icon
                   name="chevron-down-outline"
                   class="dropdown-arrow"
@@ -177,26 +184,86 @@
               ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./blog.html" class="dropdown-link"
-                    role="menuitem"
-                    >Diễn đàn trao đổi</a
+                  <a href="./blog.html" class="dropdown-link" role="menuitem"
+                    >Tổng quan</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
                   <a
-                    href="./thithu.html" class="dropdown-link"
+                    href="./phonghoc.html"
+                    class="dropdown-link"
                     role="menuitem"
-                    >Phòng học</a
+                    >Kế hoạch học tập</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Phân tích & tiến độ</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Thành tích học tập</a
                   >
                 </li>
               </ul>
             </li>
 
+            <li class="navbar-item has-dropdown">
+              <a
+                href="./blog.html"
+                class="navbar-link"
+                data-nav-link
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Cộng đồng
+                <ion-icon
+                  name="chevron-down-outline"
+                  class="dropdown-arrow"
+                  aria-hidden="true"
+                ></ion-icon
+              ></a>
+              <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-item" role="none">
+                  <a href="./blog.html" class="dropdown-link" role="menuitem"
+                    >Diễn đàn</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Học nhóm</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Tìm bạn học ngay</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
+                    >Bảng xếp hạng thành tích học tậ
+                    <p></p
+                  ></a>
+                </li>
+              </ul>
+            </li>
             <li class="navbar-item">
-              <a href="./login.html" class="navbar-link" data-nav-link
-                >Đăng nhập</a
-              >
+              <a href="" class="navbar-link" data-nav-link>Trợ lý AI</a>
             </li>
           </ul>
         </nav>
@@ -215,13 +282,14 @@
             <span class="btn-badge">0</span>
           </button>
 
-          <a href="./kttd.html" class="btn has-before">
+          <a href="./login.html" class="btn has-before">
             <span class="span">Bắt đầu ngay</span>
             <ion-icon
               name="arrow-forward-outline"
               aria-hidden="true"
             ></ion-icon>
           </a>
+
           <button
             class="header-action-btn"
             aria-label="open menu"
@@ -230,10 +298,10 @@
             <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
           </button>
         </div>
+
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
-
     <main>
       <article>
         <section

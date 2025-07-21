@@ -1,17 +1,6 @@
-// netlify/functions/gpt.js
-// (Nếu bạn dùng dotenv cho local dev, hãy require nó ở đây. Khi deploy, Netlify sẽ dùng biến môi trường từ UI)
-// require('dotenv').config(); // Bỏ comment nếu cần cho local dev. Với Netlify, biến môi trường được set trên UI.
-
-// KHÔNG dùng: const fetch = require('node-fetch');
-
 exports.handler = async (event, context) => {
-  // Sử dụng dynamic import để tải node-fetch
-  // node-fetch từ v3 là ESM, nên cần import kiểu này trong môi trường CommonJS
   const { default: fetch } = await import("node-fetch");
 
-  // Netlify Functions nhận event và context.
-  // Thông tin request thường nằm trong event.
-  // Chỉ cho phép phương thức POST
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -61,7 +50,7 @@ exports.handler = async (event, context) => {
 
   try {
     const requestBodyToOpenAI = {
-      model: "gpt-3.5-turbo", // Hoặc model bạn muốn
+      model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
         { role: "user", content: userMessage },
@@ -69,7 +58,6 @@ exports.handler = async (event, context) => {
     };
 
     const openaiResponse = await fetch(apiEndpoint, {
-      // fetch giờ đã được import đúng cách
       method: "POST",
       headers: {
         "Content-Type": "application/json",

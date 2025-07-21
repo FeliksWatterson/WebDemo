@@ -327,7 +327,6 @@ document.addEventListener("DOMContentLoaded", () => {
             10
           );
           if (window.innerWidth <= 992) {
-            // Mobile view
             headerOffset = parseInt(
               getComputedStyle(document.documentElement).getPropertyValue(
                 "--header-height-mobile"
