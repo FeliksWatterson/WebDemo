@@ -1,43 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Demo</title>
-    <meta
-      name="title"
-      content="EduWeb - The Best Program to Enroll for Exchange"
-    />
-    <meta
-      name="description"
-      content="This is an education web made by lehoangducmanh"
-    />
+    <title>Bảng Xếp Hạng - EduWeb</title>
 
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
 
-    <link rel="stylesheet" href="assets\css\style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/bxh.css" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
-    <link rel="preload" as="image" href="./assets/images/hero-bg.svg" />
-    <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg" />
-    <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg" />
-    <link rel="preload" as="image" href="./assets/images/hero-shape-1.svg" />
-    <link rel="preload" as="image" href="./assets/images/hero-shape-2.png" />
   </head>
 
   <body id="top">
     <header class="header" data-header>
       <div class="container">
-        <a href="#" class="logo">
+        <a href="./index.html" class="logo">
           <img
             src="./assets/images/logo.svg"
             width="162"
@@ -172,7 +157,7 @@
 
             <li class="navbar-item has-dropdown">
               <a
-                href="./blog.html"
+                href="#"
                 class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
@@ -186,31 +171,22 @@
               ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a href="./blog.html" class="dropdown-link" role="menuitem"
+                  <a href="#" class="dropdown-link" role="menuitem"
                     >Tổng quan</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="#" class="dropdown-link" role="menuitem"
                     >Kế hoạch học tập</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="#" class="dropdown-link" role="menuitem"
                     >Phân tích & tiến độ</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="#" class="dropdown-link" role="menuitem"
                     >Thành tích học tập</a
                   >
                 </li>
@@ -255,14 +231,13 @@
                 </li>
                 <li class="dropdown-item" role="none">
                   <a href="./Bxh.html" class="dropdown-link" role="menuitem"
-                    >Bảng xếp hạng thành tích học tậ
-                    <p></p
-                  ></a>
+                    >Bảng xếp hạng</a
+                  >
                 </li>
               </ul>
             </li>
             <li class="navbar-item">
-              <a href="" class="navbar-link" data-nav-link>Trợ lý AI</a>
+              <a href="#" class="navbar-link" data-nav-link>Trợ lý AI</a>
             </li>
           </ul>
         </nav>
@@ -274,11 +249,6 @@
             title="Search"
           >
             <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-          </button>
-
-          <button class="header-action-btn" aria-label="cart" title="Cart">
-            <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-            <span class="btn-badge">0</span>
           </button>
 
           <a href="./login.html" class="btn has-before">
@@ -301,5 +271,239 @@
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
+
+    <main>
+      <article>
+        <section class="section leaderboard" aria-label="leaderboard">
+          <div class="container">
+            <h2 class="h2 section-title">
+              Bảng Xếp Hạng <span class="span">Thành Tích</span>
+            </h2>
+
+            <div class="leaderboard-filters">
+              <button class="filter-btn active" data-filter="all-time">
+                Toàn thời gian
+              </button>
+              <button class="filter-btn" data-filter="monthly">
+                Tháng này
+              </button>
+              <button class="filter-btn" data-filter="weekly">Tuần này</button>
+            </div>
+
+            <div class="leaderboard-list">
+              <div class="leaderboard-item rank-1">
+                <div class="rank">
+                  <ion-icon name="trophy" class="rank-icon"></ion-icon>
+                  <span>1</span>
+                </div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/cat.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">lehoangducmanh</span>
+                </div>
+                <div class="score">15,000 XP</div>
+              </div>
+              <div class="leaderboard-item rank-2">
+                <div class="rank">
+                  <ion-icon name="trophy" class="rank-icon"></ion-icon>
+                  <span>2</span>
+                </div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/course-1.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">felikswatterson</span>
+                </div>
+                <div class="score">12,500 XP</div>
+              </div>
+              <div class="leaderboard-item rank-3">
+                <div class="rank">
+                  <ion-icon name="trophy" class="rank-icon"></ion-icon>
+                  <span>3</span>
+                </div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/course-2.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">nguyenvanA</span>
+                </div>
+                <div class="score">10,200 XP</div>
+              </div>
+
+              <div class="leaderboard-item">
+                <div class="rank">4</div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/course-3.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">tranvanB</span>
+                </div>
+                <div class="score">9,800 XP</div>
+              </div>
+              <div class="leaderboard-item">
+                <div class="rank">5</div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/blog-1.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">lethiC</span>
+                </div>
+                <div class="score">9,500 XP</div>
+              </div>
+              <div class="leaderboard-item">
+                <div class="rank">6</div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/blog-2.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">phamvanD</span>
+                </div>
+                <div class="score">9,100 XP</div>
+              </div>
+
+              <div class="leaderboard-separator">...</div>
+
+              <div class="leaderboard-item current-user">
+                <div class="rank">125</div>
+                <div class="user-info">
+                  <img
+                    src="./assets/images/about-banner.jpg"
+                    alt="User avatar"
+                    class="avatar"
+                  />
+                  <span class="username">Bạn</span>
+                </div>
+                <div class="score">2,300 XP</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <footer
+      class="footer"
+      style="background-image: url('./assets/images/footer-bg.png')"
+    >
+      <div class="footer-top section">
+        <div class="container grid-list">
+          <div class="footer-brand">
+            <a href="./index.html" class="logo"
+              ><img
+                src="./assets/images/logo-light.svg"
+                width="162"
+                height="50"
+                alt="EduWeb logo"
+            /></a>
+            <p class="footer-brand-text">
+              Nền tảng học tập trực tuyến hàng đầu, đồng hành cùng bạn trên con
+              đường chinh phục tri thức.
+            </p>
+            <div class="wrapper">
+              <span class="span">Địa chỉ:</span>
+              <address class="address">Hà Đông, Hà Nội, Việt Nam</address>
+            </div>
+            <div class="wrapper">
+              <span class="span">Điện thoại:</span
+              ><a href="tel:+84123456789" class="footer-link"
+                >+84 123 456 789</a
+              >
+            </div>
+            <div class="wrapper">
+              <span class="span">Email:</span
+              ><a href="mailto:info@eduweb.com" class="footer-link"
+                >info@eduweb.com</a
+              >
+            </div>
+          </div>
+          <ul class="footer-list">
+            <li><p class="footer-list-title">Nền tảng</p></li>
+            <li>
+              <a href="./index.html#about" class="footer-link">Về EduWeb</a>
+            </li>
+            <li>
+              <a href="./courses.html" class="footer-link">Khóa học</a>
+            </li>
+            <li>
+              <a href="./luyende.html" class="footer-link">Luyện đề</a>
+            </li>
+            <li><a href="./kttd.html" class="footer-link">Thi thử</a></li>
+            <li><a href="./blog.html" class="footer-link">Diễn đàn</a></li>
+          </ul>
+          <ul class="footer-list">
+            <li><p class="footer-list-title">Liên kết nhanh</p></li>
+            <li><a href="#" class="footer-link">Liên hệ</a></li>
+            <li><a href="#" class="footer-link">Điều khoản dịch vụ</a></li>
+            <li><a href="#" class="footer-link">Chính sách bảo mật</a></li>
+            <li><a href="#" class="footer-link">Câu hỏi thường gặp</a></li>
+          </ul>
+          <div class="footer-list">
+            <p class="footer-list-title">Đăng ký nhận tin</p>
+            <p class="footer-list-text">
+              Nhận thông tin mới nhất về các khóa học và ưu đãi.
+            </p>
+            <form action="" class="newsletter-form">
+              <input
+                type="email"
+                name="email_address"
+                placeholder="Email của bạn"
+                required
+                class="input-field"
+              /><button type="submit" class="btn has-before">
+                <span class="span">Đăng ký</span
+                ><ion-icon
+                  name="arrow-forward-outline"
+                  aria-hidden="true"
+                ></ion-icon>
+              </button>
+            </form>
+            <ul class="social-list">
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-facebook"></ion-icon
+                ></a>
+              </li>
+              <li>
+                <a href="#" class="social-link"
+                  ><ion-icon name="logo-youtube"></ion-icon
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="copyright">
+            Bản quyền © 2025 EduWeb bởi
+            <a href="#" class="copyright-link">lehoangducmanh</a>. Đã đăng ký
+            bản quyền.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./assets/js/script.js" defer></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>
