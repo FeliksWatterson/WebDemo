@@ -1,4 +1,0 @@
-[build]
-  # publish = "/" # Hoặc thư mục publish của bạn nếu có build step
-[functions]
-  directory = "netlify/functions/"
