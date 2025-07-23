@@ -5,12 +5,11 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const port = 4000;
 
-const ZOOM_SDK_KEY = process.env.ZOOM_SDK_KEY || "hxkZCuR0RKaKYjJFVNYiUA";
-const ZOOM_SDK_SECRET =
-  process.env.ZOOM_SDK_SECRET || "yk4kJ89xGsPO29Kz5k0oQfk6CNtnXORS";
-
 app.use(express.json());
 app.use(cors());
+
+const MEETING_SDK_KEY = process.env.MEETING_SDK_KEY;
+const MEETING_SDK_SECRET = process.env.MEETING_SDK_SECRET;
 
 app.post("/api/zoom/signature", (req, res) => {
   try {
@@ -24,16 +23,16 @@ app.post("/api/zoom/signature", (req, res) => {
     const exp = iat + 60 * 60 * 2;
 
     const payload = {
-      sdkKey: ZOOM_SDK_KEY,
+      sdkKey: MEETING_SDK_KEY,
       mn: meetingNumber,
-      role: role || 0,
+      role: role,
       iat: iat,
       exp: exp,
-      appKey: ZOOM_SDK_KEY,
-      tokenExp: exp,
+      appKey: MEETING_SDK_KEY,
+      tokenExp: iat + 60 * 60 * 2,
     };
 
-    const signature = jwt.sign(payload, ZOOM_SDK_SECRET, {
+    const signature = jwt.sign(payload, MEETING_SDK_SECRET, {
       algorithm: "HS256",
       header: { alg: "HS256", typ: "JWT" },
     });
@@ -41,7 +40,7 @@ app.post("/api/zoom/signature", (req, res) => {
     res.json({ signature: signature });
   } catch (error) {
     console.error("Lỗi tạo signature:", error);
-    res.status(500).json({ message: "Lỗi phía server khi tạo Zoom signature" });
+    res.status(500).json({ message: "Lỗi phía server khi tạo signature" });
   }
 });
 

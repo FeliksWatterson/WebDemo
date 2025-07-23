@@ -6,16 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi Tiết Phòng Học - EduWeb</title>
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://source.zoom.us/2.18.0/css/bootstrap.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://source.zoom.us/2.18.0/css/react-select.css"
+    />
+
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/phonghoc.css" />
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.18.0/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.18.0/css/react-select.css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+  </head>
   <body id="top">
     <header class="header" data-header>
       <div class="container">
@@ -50,7 +62,9 @@
 
           <ul class="navbar-list">
             <li class="navbar-item">
-              <a href="#home" class="navbar-link" data-nav-link>Trang chủ </a>
+              <a href="index.html" class="navbar-link" data-nav-link
+                >Trang chủ
+              </a>
             </li>
             <li class="navbar-item has-dropdown">
               <a
@@ -293,18 +307,7 @@
             </div>
 
             <div class="room-layout">
-              <div class="main-content-area">
-                <ion-icon
-                  name="desktop-outline"
-                  class="placeholder-icon"
-                ></ion-icon>
-                <p class="section-text">
-                  Khu vực chia sẻ màn hình hoặc mở cam gì đó.
-                </p>
-                <p class="section-text" style="font-size: var(--fs-6)">
-                  (Sau chỗ này làm sau)
-                </p>
-              </div>
+              <div class="main-content-area" id="meeting-sdk-container"></div>
 
               <div class="participant-and-chat-area">
                 <div class="participants-list">
@@ -430,24 +433,13 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-  <div class="room-layout">
-          <div class="main-content-area" id="meeting-sdk-container">
-              </div>
-          </div>
-      </div>
-    </section>
-  </article>
-</main>
 
-<script src="https://source.zoom.us/2.18.0/lib/vendor/react.min.js"></script>
-<script src="https://source.zoom.us/2.18.0/lib/vendor/react-dom.min.js"></script>
-<script src="https://source.zoom.us/2.18.0/lib/vendor/redux.min.js"></script>
-<script src="https://source.zoom.us/2.18.0/lib/vendor/redux-thunk.min.js"></script>
-<script src="https://source.zoom.us/2.18.0/lib/vendor/lodash.min.js"></script>
-<script src="https://source.zoom.us/zoom-meeting-2.18.0.min.js"></script>
-
-<script src="./assets/js/phonghoc.js" defer></script>
-<script src="./assets/js/zoom.js" defer></script>
+    <script src="https://source.zoom.us/2.18.0/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/2.18.0/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/2.18.0/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/2.18.0/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/2.18.0/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-2.18.0.min.js"></script>
+    <script src="./assets/js/zoom.js" defer></script>
   </body>
-
 </html>

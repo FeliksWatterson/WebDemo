@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ---- PHẦN 1: TÍCH HỢP VÀ THAM GIA PHÒNG HỌP ZOOM ----
   const joinZoomMeeting = async () => {
     const meetingSDKContainer = document.getElementById(
       "meeting-sdk-container"
@@ -9,23 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Dữ liệu giả lập - SAU NÀY BẠN SẼ LẤY TỪ DATABASE
     const meetingConfig = {
-      // !!! THAY THÔNG TIN PHÒNG HỌP CỦA BẠN VÀO ĐÂY !!!
-      meetingNumber: "1234567890", // << THAY BẰNG MEETING ID CỦA BẠN
-      passWord: "PASS", // << THAY BẰNG MẬT KHẨU PHÒNG
+      meetingNumber: "3723561392",
+      passWord: "h4td8R",
       userName: "Học Viên " + Math.floor(Math.random() * 1000),
-      userEmail: "", // Email không bắt buộc
-      role: 0, // Vai trò 0 là người tham gia
+      userEmail: "",
+      role: 0,
     };
 
-    // SDK Key được lấy từ tài khoản Zoom của bạn
     const SDK_KEY = "hxkZCuR0RKaKYjJFVNYiUA";
 
     try {
-      console.log("Đang lấy signature từ backend...");
-      // 1. Gọi API backend để lấy signature
-      const response = await fetch("http://localhost:4000/api/zoom/signature", {
+      console.log("Đang lấy SDK Token từ backend...");
+      const response = await fetch("http://localhost:4000/api/zoom/sdk-token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -37,26 +32,24 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.message || "Lỗi khi lấy signature từ server."
+          errorData.message || "Lỗi khi lấy SDK Token từ server."
         );
       }
 
-      const { signature } = await response.json();
-      console.log("Đã nhận signature, đang khởi tạo Zoom...");
-
-      // 2. Khởi tạo Zoom Meeting SDK
+      const { sdkToken } = await response.json();
+      console.log("Đã nhận SDK Token, đang khởi tạo Zoom...");
       ZoomMtg.setZoomJSLib("https://source.zoom.us/2.18.0/lib", "/av");
       ZoomMtg.preLoadWasm();
       ZoomMtg.prepareWebSDK();
 
       ZoomMtg.init({
-        leaveUrl: window.location.origin + "/phonghoc.html", // Trang sẽ chuyển đến khi rời phòng
+        leaveUrl: window.location.origin + "/phonghocchitiet.html",
         isSupportAV: true,
         success: (initSuccess) => {
           console.log("Khởi tạo Zoom SDK thành công:", initSuccess);
           ZoomMtg.join({
             sdkKey: SDK_KEY,
-            signature: signature,
+            signature: sdkToken,
             meetingNumber: meetingConfig.meetingNumber,
             userName: meetingConfig.userName,
             passWord: meetingConfig.passWord,
@@ -74,14 +67,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } catch (error) {
       console.error("Lỗi tổng thể trong quá trình tham gia Zoom:", error);
-      meetingSDKContainer.innerHTML = `<p style="text-align:center; color:red;">Không thể tải phòng học. Hãy chắc chắn rằng backend đang chạy và Meeting ID/Password chính xác.</p>`;
+      meetingSDKContainer.innerHTML = `<p style="text-align:center; color:red;">Không thể tải phòng học. Lỗi: ${error.message}. Hãy kiểm tra lại Backend và Meeting ID.</p>`;
     }
   };
 
-  // Tự động tham gia phòng họp khi trang được tải
   joinZoomMeeting();
 
-  // ---- PHẦN 2: QUẢN LÝ CHAT, TÊN PHÒNG VÀ NGƯỜI THAM GIA ----
   const roomChatMessages = document.getElementById("room-chat-messages");
   const roomChatInput = document.getElementById("room-chat-input");
   const roomChatSendBtn = document.getElementById("room-chat-send-btn");
@@ -110,10 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const messageText = roomChatInput.value.trim();
       if (messageText === "") return;
 
-      addMessageToRoomChat(messageText, "user-message", "Bạn"); // Gửi tin nhắn của bạn
+      addMessageToRoomChat(messageText, "user-message", "Bạn");
       roomChatInput.value = "";
 
-      // Giả lập bot trả lời
       setTimeout(() => {
         addMessageToRoomChat(
           "Tính năng chat sẽ được kết nối với backend sau nhé!",
@@ -132,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Cập nhật tên phòng học từ URL
   const roomTitleElement = document.getElementById("room-dynamic-title");
   const params = new URLSearchParams(window.location.search);
   const roomNameParam = params.get("name");
@@ -142,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     roomTitleElement.textContent = "Phòng học chung";
   }
 
-  // Hiển thị danh sách người tham gia (dữ liệu giả)
   const participantListElement = document.getElementById(
     "room-participant-list"
   );
@@ -165,11 +153,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     participantCountElement.textContent = dummyParticipants.length;
   }
-
-  // Tin nhắn chào mừng ban đầu
-  addMessageToRoomChat(
-    "Chào mừng mọi người đến với phòng học!",
-    "other-message",
-    "EduBot"
-  );
 });

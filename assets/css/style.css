@@ -36,8 +36,6 @@
   --fs-7: 1.3rem;
   --fw-500: 500;
   --fw-600: 600;
-
-  /* cách */
   --section-padding: 75px;
 
   /* bóng, bo */
@@ -115,8 +113,8 @@ address {
 }
 
 html {
-  font-family: var(--ff-poppins);
-  font-size: 10px;
+  font-family: var(--ff-poppins) !important;
+  font-size: 10px !important;
   scroll-behavior: smooth;
 }
 
@@ -147,7 +145,7 @@ body {
   background-color: hsl(0, 0%, 70%);
 }
 
-/* #REUSED STYLE */
+/* refused */
 .container {
   padding-inline: 15px;
 }
@@ -443,7 +441,7 @@ body {
   border-bottom-right-radius: 90px;
 }
 
-/* #CATEGORY */
+/* category */
 .category .section-subtitle {
   color: var(--radical-red);
 }
