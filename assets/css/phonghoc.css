@@ -1,6 +1,3 @@
-/* assets/css/thithu.css */
-
-/* === CSS CHO TRANG THITHU.HTML (Liệt kê phòng) === */
 .study-rooms-section {
   padding-top: calc(var(--section-padding) + 60px);
   padding-bottom: var(--section-padding);
@@ -230,7 +227,7 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  margin-bottom: 20px; /* THÊM KHOẢNG CÁCH VỚI MODULE CHAT BÊN DƯỚI */
+  margin-bottom: 20px;
 }
 
 .participants-list h4 {
@@ -291,17 +288,15 @@
 }
 
 .chat-messages {
-  height: 250px; /* Đặt một chiều cao cố định */
-  /* Các thuộc tính min-height, max-height, height: auto có thể bỏ nếu dùng height cố định */
+  height: 250px;
   overflow-y: auto;
 
   padding: 10px;
-  background-color: var(--isabelline); /* Nền cho vùng chứa tin nhắn */
+  background-color: var(--isabelline);
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Cho phép vùng này chiếm không gian còn lại trong .chat-module */
+  flex-grow: 1;
 }
-
 .chat-messages .message {
   padding: 8px 12px;
   border-radius: var(--radius-10);
@@ -310,7 +305,6 @@
   margin-bottom: 10px;
   font-size: var(--fs-6);
   word-wrap: break-word;
-  /* border: 1px solid transparent; */ /* Có thể bỏ nếu không muốn border cho từng tin nhắn */
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 .chat-messages .message p {
