@@ -1,0 +1,111 @@
+.ai-assistant-page {
+  padding: calc(var(--section-padding) + 20px) 20px 20px;
+  min-height: calc(100vh - 100px);
+}
+
+.chat-container {
+  width: 100%;
+  height: calc(100vh - 220px);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  border: 1px solid var(--platinum);
+  border-radius: var(--radius-10);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  margin-inline: auto;
+}
+
+.message-area {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: var(--radius-10);
+  max-width: 85%;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.message p {
+  margin: 0;
+  font-size: var(--fs-5);
+}
+.user-message {
+  background-color: var(--kappel_15);
+  align-self: flex-end;
+  border-top-right-radius: 0;
+}
+.bot-message {
+  background-color: var(--isabelline);
+  align-self: flex-start;
+  border-top-left-radius: 0;
+}
+.typing-indicator p {
+  font-style: italic;
+  color: var(--gray-web);
+}
+
+.input-area {
+  padding: 15px;
+  border-top: 1px solid var(--platinum);
+}
+
+.prompt-starters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.prompt-starter-btn {
+  background-color: transparent;
+  border: 1px solid var(--platinum);
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: var(--fs-7);
+  color: var(--gray-web);
+  transition: var(--transition-1);
+}
+
+.prompt-starter-btn:hover {
+  background-color: var(--kappel_15);
+  border-color: var(--kappel);
+  color: var(--kappel);
+}
+
+.input-form {
+  display: flex;
+  gap: 10px;
+}
+
+.input-form input {
+  flex-grow: 1;
+  border: 1px solid var(--platinum);
+  padding: 12px 15px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-5);
+}
+.input-form input:focus {
+  outline: none;
+  border-color: var(--kappel);
+}
+
+.input-form .send-btn {
+  background-color: var(--kappel);
+  color: var(--white);
+  border-radius: var(--radius-circle);
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

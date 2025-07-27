@@ -124,3 +124,29 @@
 .test-results .section-text .span {
   display: inline-block;
 }
+
+.test-info .test-filename {
+  font-family: var(--ff-league_spartan);
+  font-size: var(--fs-4);
+  color: var(--eerie-black-1);
+}
+
+.quiz-options label.correct {
+  border: 2px solid #28a745;
+  background-color: #e6ffed;
+  font-weight: bold;
+}
+
+.quiz-options label.incorrect {
+  border: 2px solid #dc3545;
+  background-color: #ffe6e6;
+  text-decoration: line-through;
+}
+.quiz-options input[type="radio"]:disabled + .option-text {
+  color: #6c757d;
+}
+
+.quiz-options label.correct .option-text,
+.quiz-options label.incorrect .option-text {
+  color: #212529;
+}
