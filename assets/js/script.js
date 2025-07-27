@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "allow",
           "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         );
-        iframe.setAttribute("allowfullscreen", "");
+        iframe.setAttribute("allowfullscreens", "");
 
         if (videoBannerImage) {
           videoBannerImage.style.display = "none";
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
       return data.candidates[0].content.parts[0].text;
     } else {
-      throw new Error("Không nhận được phản hồi hợp lệ từ AI.");
+      throw new Error("AI phản hồi bị lỗi.");
     }
   };
 

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "meeting-sdk-container"
     );
     if (!meetingSDKContainer) {
-      console.error("Lỗi: Không tìm thấy thẻ div 'meeting-sdk-container'.");
+      console.error("Không có thẻ div, check lại đi");
       return;
     }
 
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         addMessageToRoomChat(
-          "Tính năng chat sẽ được kết nối với backend sau nhé!",
-          "other-message",
+          "Đợi backend rồi chat sau",
+          "tin nhắn khác",
           "EduBot"
         );
       }, 1000);
@@ -137,10 +137,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const participantCountElement = document.getElementById("participant-count");
   const dummyParticipants = [
     "Nguyễn Văn A",
-    "Trần Thị B",
+    "Hoàng Thị B",
     "Lê Văn C",
-    "Phạm Thị D",
-    "Hoàng Minh H",
+    "Lê Hoàng Đức Mạnh",
     "Bạn",
   ];
 
