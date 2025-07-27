@@ -1,4 +1,3 @@
-// public/assets/js/taode.js (phiên bản đã sửa)
 document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("file-upload-input");
   const uploadButton = document.getElementById("upload-button");
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   async function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
-
     fileNameDisplay.textContent = `Tệp đã chọn: ${file.name}`;
     quizContainer.innerHTML = "";
     progressContainer.style.display = "block";
@@ -25,13 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       updateProgress(0, "Đang tải tệp lên máy chủ...");
-      const uploadResponse = await fetch(
-        "http://localhost:4000/api/quiz/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const uploadResponse = await fetch("/api/quiz/upload", {
+        method: "POST",
+        body: formData,
+      });
 
       if (!uploadResponse.ok) {
         throw new Error("Không thể tải tệp lên.");
@@ -46,9 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function connectToProgressStream(taskId) {
-    const eventSource = new EventSource(
-      `http://localhost:4000/api/quiz/progress/${taskId}`
-    );
+    const eventSource = new EventSource(`/api/quiz/progress/${taskId}`);
 
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);

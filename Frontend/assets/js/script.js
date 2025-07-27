@@ -1,10 +1,6 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // ===================================================================
-  // ===== 1. CÁC HÀM DÙNG CHUNG (HELPER FUNCTIONS) ====================
-  // ===================================================================
-
   const addEventOnElem = function (elem, type, callback) {
     if (!elem) return;
     if (elem.length > 1) {
@@ -16,10 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  /**
-   * [SỬA LẠI] Gửi yêu cầu đến backend của BẠN, không phải Google.
-   * API Key bây giờ đã an toàn.
-   */
   const callGeminiAPI = async (prompt) => {
     const response = await fetch("/api/chat", {
       method: "POST",
@@ -48,9 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return messageDiv;
   };
 
-  // ===================================================================
-  // ===== 2. LOGIC CHUNG CỦA TRANG WEB (NAVBAR, HEADER) ==============
-  // ===================================================================
   const navbar = document.querySelector("[data-navbar]");
   const navTogglers = document.querySelectorAll("[data-nav-toggler]");
   const overlay = document.querySelector("[data-overlay]");
@@ -70,9 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   addEventOnElem(window, "scroll", activeHeader);
 
-  // ===================================================================
-  // ===== 3. LOGIC CHO CHATBOT POP-UP (WIDGET) ========================
-  // ===================================================================
   const chatbotIcon = document.getElementById("chatbot-icon");
   if (chatbotIcon) {
     const chatbotWindow = document.getElementById("chatbot-window");
@@ -121,9 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ===================================================================
-  // ===== 4. LOGIC CHO TRANG TRỢ LÝ AI TOÀN MÀN HÌNH ==================
-  // ===================================================================
   const fullPageContainer = document.querySelector(".ai-assistant-page");
   if (fullPageContainer) {
     const messagesContainer = document.getElementById("fullpage-chat-messages");
