@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Học từ vựng Tùy chỉnh - EduWeb</title>
+    <title>Học Từ Vựng - EduWeb</title>
+    <meta
+      name="title"
+      content="EduWeb - The Best Program to Enroll for Exchange"
+    />
+    <meta
+      name="description"
+      content="This is an education html template made by codewithsadee"
+    />
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/hoctuvung.css" />
+    <link rel="stylesheet" href="./assets/css/.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&family=Poppins:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" as="image" href="./assets/images/hero-bg.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-1.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-2.png" />
   </head>
+
   <body id="top">
     <header class="header" data-header>
       <div class="container">
@@ -46,14 +60,12 @@
               <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
             </button>
           </div>
-
           <ul class="navbar-list">
             <li class="navbar-item">
-              <a href="./index.html" class="navbar-link" data-nav-link
+              <a href="index.html" class="navbar-link" data-nav-link
                 >Trang chủ
               </a>
             </li>
-
             <li class="navbar-item has-dropdown">
               <a
                 href="./luyende.html"
@@ -71,11 +83,13 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./luyende.html?subject=thptqg"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="./taode.html" class="dropdown-link" role="menuitem"
                     >Tạo đề thông minh</a
+                  >
+                </li>
+                <li class="dropdown-item" role="none">
+                  <a href="./tuvung.html" class="dropdown-link" role="menuitem"
+                    >Học từ vựng</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
@@ -91,7 +105,7 @@
 
             <li class="navbar-item has-dropdown">
               <a
-                href="./blog.html"
+                href=""
                 class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
@@ -105,31 +119,20 @@
               ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a href="./blog.html" class="dropdown-link" role="menuitem"
-                    >Tổng quan</a
-                  >
+                  <a href="" class="dropdown-link" role="menuitem">Tổng quan</a>
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="" class="dropdown-link" role="menuitem"
                     >Kế hoạch học tập</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="" class="dropdown-link" role="menuitem"
                     >Phân tích & tiến độ</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="" class="dropdown-link" role="menuitem"
                     >Thành tích học tập</a
                   >
                 </li>
@@ -173,10 +176,7 @@
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a
-                    href="./phonghoc.html"
-                    class="dropdown-link"
-                    role="menuitem"
+                  <a href="./bxh.html" class="dropdown-link" role="menuitem"
                     >Bảng xếp hạng thành tích học tập
                     <p></p
                   ></a>
@@ -184,7 +184,15 @@
               </ul>
             </li>
             <li class="navbar-item">
-              <a href="" class="navbar-link" data-nav-link>Trợ lý AI</a>
+              <a href="troly.html" class="navbar-link" data-nav-link
+                >Trợ lý AI</a
+              >
+            </li>
+            <ul class="navbar-list">
+            <li class="navbar-item">
+              <a href="index.html" class="navbar-link" data-nav-link
+                >Nâng cấp</a>
+              </a>
             </li>
           </ul>
         </nav>
@@ -219,83 +227,133 @@
       </div>
     </header>
 
+
     <main>
       <article>
-        <section class="section vocab-section" aria-label="hoc-tu-vung">
+        <section
+          class="section practice-test-section"
+          id="vocab"
+          aria-label="vocab"
+        >
           <div class="container">
-            <div id="setup-container" class="vocab-container">
-              <h2 class="h2 section-title">Bắt đầu buổi học của bạn</h2>
-              <p>Bạn muốn học bao nhiêu từ vựng hôm nay?</p>
-              <form id="setup-form" class="setup-form">
-                <input
-                  type="number"
-                  id="word-count"
-                  min="1"
-                  max="50"
-                  placeholder="Ví dụ: 5"
-                  required
-                />
-                <button type="submit" class="btn has-before">Xác nhận</button>
-              </form>
+            <div class="test-header">
+              <p class="section-subtitle">Học từ vựng</p>
+              <h2 class="h2 section-title">
+                Chọn <span class="span">bộ từ</span> để bắt đầu
+              </h2>
             </div>
 
-            <div
-              id="input-container"
-              class="vocab-container"
-              style="display: none"
-            >
-              <h2 id="input-title" class="h2 section-title">Nhập từ 1 / 5</h2>
-              <form id="word-input-form">
-                <div class="single-input-wrapper">
-                  <input
-                    type="text"
-                    id="current-word-input"
-                    placeholder="Nhập từ tiếng Anh"
-                    required
-                  />
-                  <input
-                    type="text"
-                    id="current-meaning-input"
-                    placeholder="Nhập nghĩa tiếng Việt"
-                    required
-                  />
-                </div>
-                <button type="submit" id="next-word-btn" class="btn has-before">
-                  Tiếp theo
-                </button>
-              </form>
-            </div>
-
-            <div
-              id="matching-quiz-container"
-              class="vocab-container"
-              style="display: none"
-            >
-              <h2 class="h2 section-title">Ôn tập: Nối từ với nghĩa đúng</h2>
-              <div class="progress-container">
-                <div class="progress-bar-wrapper">
-                  <div id="progress-bar" class="progress-bar"></div>
-                </div>
-                <span id="progress-text" class="h3">0%</span>
-              </div>
-              <div id="matching-game">
-                <div id="word-column" class="match-column"></div>
-                <div id="meaning-column" class="match-column"></div>
-              </div>
-              <p id="match-feedback" class="feedback-text"></p>
-              <button
-                id="reset-btn"
-                class="btn has-before"
-                style="display: none"
+            <div class="test-selection-area" style="margin-top: 50px">
+              <h3
+                class="h3 section-title"
+                style="text-align: left; margin-bottom: 20px"
               >
-                Học lại từ đầu
-              </button>
+                Chọn cách thêm mới hoặc học nhanh (10–15 phút):
+              </h3>
+
+              <ul class="grid-list" id="vocab-list">
+                <li>
+                  <div class="category-card" style="--color: 210, 82%, 45%">
+                    <h3 class="h3">
+                      <a href="add.html" class="card-title">
+                        Tự nhập / Upload
+                      </a>
+                    </h3>
+                    <p
+                      class="card-text"
+                      style="text-align: left; margin-block: 10px 15px"
+                    >
+                      Tạo bộ từ của bạn & luyện ngay
+                    </p>
+                    <a class="btn has-before" href="add.html">
+                      <span class="span">Bắt đầu ▷</span>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="category-card" style="--color: 42, 94%, 55%">
+                    <h3 class="h3">
+                      <a href="learn.html?topic=animals" class="card-title">
+                        Chủ đề: Động vật (25)
+                      </a>
+                    </h3>
+                    <p
+                      class="card-text"
+                      style="text-align: left; margin-block: 10px 15px"
+                    >
+                      Nối từ, chọn nghĩa, gõ lại – như Duolingo
+                    </p>
+                    <a class="btn has-before" href="learn.html?topic=animals">
+                      <span class="span">Bắt đầu ▷</span>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="category-card" style="--color: 351, 83%, 61%">
+                    <h3 class="h3">
+                      <a href="learn.html?topic=jobs" class="card-title">
+                        Chủ đề: Nghề nghiệp (25)
+                      </a>
+                    </h3>
+                    <p
+                      class="card-text"
+                      style="text-align: left; margin-block: 10px 15px"
+                    >
+                      Từ cơ bản nhất về công việc, chức danh
+                    </p>
+                    <a class="btn has-before" href="learn.html?topic=jobs">
+                      <span class="span">Bắt đầu ▷</span>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="category-card" style="--color: 170, 75%, 41%">
+                    <h3 class="h3">
+                      <a href="learn.html?topic=food" class="card-title">
+                        Chủ đề: Đồ ăn & đồ uống (25)
+                      </a>
+                    </h3>
+                    <p
+                      class="card-text"
+                      style="text-align: left; margin-block: 10px 15px"
+                    >
+                      Từ vựng dùng mỗi ngày khi gọi món
+                    </p>
+                    <a class="btn has-before" href="learn.html?topic=food">
+                      <span class="span">Bắt đầu ▷</span>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="category-card" style="--color: 229, 75%, 58%">
+                    <h3 class="h3">
+                      <a href="learn.html?topic=travel" class="card-title">
+                        Chủ đề: Du lịch (25)
+                      </a>
+                    </h3>
+                    <p
+                      class="card-text"
+                      style="text-align: left; margin-block: 10px 15px"
+                    >
+                      Sân bay, khách sạn, lộ trình – đủ cả
+                    </p>
+                    <a class="btn has-before" href="learn.html?topic=travel">
+                      <span class="span">Bắt đầu ▷</span>
+                    </a>
+                  </div>
+                </li>
+
+              </ul>
             </div>
           </div>
         </section>
       </article>
     </main>
-    <footer
+   <footer
       class="footer"
       style="background-image: url('./assets/images/footer-bg.png')"
     >
@@ -394,8 +452,16 @@
       </div>
     </footer>
 
-    <script src="./assets/js/script.js"></script>
-    <script src="./assets/js/hoctuvung.js"></script>
+    <a
+      href="#top"
+      class="back-top-btn"
+      aria-label="back top top"
+      data-back-top-btn
+    >
+      <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="./assets/js/script.js" defer></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"

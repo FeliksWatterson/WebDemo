@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diễn đàn trao đổi - EduWeb</title>
+    <title>Luyện tập từ vựng - EduWeb</title>
+    <meta
+      name="title"
+      content="EduWeb - The Best Program to Enroll for Exchange"
+    />
+    <meta
+      name="description"
+      content="This is an education html template made by codewithsadee"
+    />
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/blog.css" />
+    <link rel="stylesheet" href="./assets/css/tuvung.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +23,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body id="top">
     <header class="header" data-header>
       <div class="container">
@@ -213,129 +222,18 @@
       </div>
     </header>
 
+
     <main>
       <article>
-        <section class="section forum-section" aria-label="forum">
+        <section class="section">
           <div class="container">
-            <div
-              class="forum-header"
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 30px;
-              "
-            >
-              <h2 class="h2 section-title" style="text-align: left">
-                Diễn đàn trao đổi
-              </h2>
-              <a href="#" class="btn has-before" id="create-topic-btn">
-                <span class="span">Tạo chủ đề mới</span>
-                <ion-icon
-                  name="add-circle-outline"
-                  aria-hidden="true"
-                ></ion-icon>
-              </a>
-            </div>
-
-            <div class="forum-topic-list">
-              <div class="topic-item">
-                <div class="topic-icon-container">
-                  <ion-icon
-                    name="chatbubbles-outline"
-                    class="topic-icon"
-                  ></ion-icon>
-                </div>
-                <div class="topic-content">
-                  <h3 class="h3 topic-title">
-                    <a href="topic.html"
-                      >Thắc mắc về cách giải bài tập XYZ trong đề Toán 01</a
-                    >
-                  </h3>
-                  <p class="topic-meta">
-                    Đăng bởi <a href="#" class="topic-author">NguyenVanA</a> -
-                    <span class="topic-date">26/05/2025</span>
-                  </p>
-                </div>
-                <div class="topic-stats">
-                  <span class="replies-count">15 trả lời</span>
-                  <span class="views-count">120 lượt xem</span>
-                </div>
-                <div class="topic-last-reply">
-                  <p>
-                    Trả lời cuối bởi
-                    <a href="#" class="topic-author">TranThiB</a>
-                  </p>
-                  <p><span class="topic-date">27/05/2025 lúc 10:30</span></p>
-                </div>
-              </div>
-
-              <div class="topic-item">
-                <div class="topic-icon-container">
-                  <ion-icon
-                    name="help-circle-outline"
-                    class="topic-icon"
-                  ></ion-icon>
-                </div>
-                <div class="topic-content">
-                  <h3 class="h3 topic-title">
-                    <a href="topic.html"
-                      >Xin kinh nghiệm ôn thi IELTS Reading hiệu quả</a
-                    >
-                  </h3>
-                  <p class="topic-meta">
-                    Đăng bởi <a href="#" class="topic-author">LeVanC</a> -
-                    <span class="topic-date">25/05/2025</span>
-                  </p>
-                </div>
-                <div class="topic-stats">
-                  <span class="replies-count">8 trả lời</span>
-                  <span class="views-count">95 lượt xem</span>
-                </div>
-                <div class="topic-last-reply">
-                  <p>
-                    Trả lời cuối bởi
-                    <a href="#" class="topic-author">PhamDucD</a>
-                  </p>
-                  <p><span class="topic-date">26/05/2025 lúc 17:45</span></p>
-                </div>
-              </div>
-            </div>
-
-            <nav
-              aria-label="Page navigation"
-              class="forum-pagination"
-              style="margin-top: 40px; display: flex; justify-content: center"
-            >
-              <ul
-                class="pagination"
-                style="display: flex; list-style: none; padding: 0; gap: 5px"
-              >
-                <li class="page-item disabled">
-                  <a
-                    class="page-link"
-                    href="#"
-                    tabindex="-1"
-                    aria-disabled="true"
-                    >&laquo;</a
-                  >
-                </li>
-                <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">&raquo;</a>
-                </li>
-              </ul>
-            </nav>
+            <div id="learn-container"></div>
           </div>
         </section>
       </article>
     </main>
 
-    <footer
+   <footer
       class="footer"
       style="background-image: url('./assets/images/footer-bg.png')"
     >
@@ -435,6 +333,7 @@
     </footer>
 
     <script src="./assets/js/script.js" defer></script>
+    <script src="./assets/js/tuvung.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -444,22 +343,4 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
   </body>
-  <div id="chatbot-icon">
-    <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
-  </div>
-
-  <div id="chatbot-window">
-    <div id="chatbot-header">
-      <span>Trợ lý ảo</span>
-      <button id="close-chatbot-btn">&times;</button>
-    </div>
-    <div id="chatbot-messages">
-      <div class="message bot-message">
-        <p>Xin chào! Tôi có thể giúp gì cho bạn?</p>
-      </div>
-    </div>
-    <div id="chatbot-input-area">
-      <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
-      <button id="chatbot-send-btn">Gửi</button>
-    </div>
 </html>
