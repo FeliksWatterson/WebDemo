@@ -1,7 +1,6 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM Elements
   const testInterface = document.querySelector(".test-interface");
   const testSelectionArea = document.querySelector(".test-selection-area");
   const testHeaderTitle = document.querySelector(".test-header .section-title");
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     nextQuestionButton,
     submitTestButton;
 
-  // Test Data (Sample)
   const tests = {
     de_toan_01: {
       name: "Đề thi thử Toán THPT Quốc Gia 2025 - Đề 01",

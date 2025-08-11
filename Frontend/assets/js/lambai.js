@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === questions.length - 1;
-    submitBtn.style.display = index === questions.length - 1 ? "flex" : "none";
+    submitBtn.style.display = "flex";
   }
 
   optionsContainer.addEventListener("change", (event) => {
@@ -112,23 +112,22 @@ document.addEventListener("DOMContentLoaded", () => {
       q.options.forEach((option, optionIndex) => {
         const optionLetter = String.fromCharCode(65 + optionIndex);
 
-        // [THAY ĐỔI] Logic tô màu chữ
-        let spanClass = "option-text"; // Lớp mặc định
+        // gán class cho LABEL để tô màu cả dòng
+        let labelClass = "";
         if (optionLetter === correctAnswer) {
-          spanClass += " correct"; // Đáp án đúng luôn có màu xanh
+          labelClass = "correct"; // dòng đúng -> xanh
         } else if (optionLetter === userAnswer) {
-          spanClass += " incorrect"; // Đáp án người dùng chọn sai có màu đỏ
+          labelClass = "incorrect"; // dòng user chọn sai -> đỏ
         }
 
         optionsHTML += `
-              <li>
-                <label>
-                  <input type="radio" name="review-${index}" ${
-          userAnswer === optionLetter ? "checked" : ""
-        } disabled>
-                  <span class="${spanClass}">${optionLetter}. ${option}</span>
-                </label>
-              </li>`;
+    <li>
+      <label class="${labelClass}">
+        <input type="radio" name="review-${index}"
+               ${userAnswer === optionLetter ? "checked" : ""} disabled>
+        <span class="option-text">${optionLetter}. ${option}</span>
+      </label>
+    </li>`;
       });
       optionsHTML += "</ul>";
 
@@ -139,13 +138,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     testInterface.style.display = "block";
+    // ... sau khi testResultsContainer.style.display = "block";
+    const actions = document.createElement("div");
+    actions.className = "navigation-buttons";
+    actions.style.marginTop = "20px";
+    actions.innerHTML = `
+  <button class="btn has-before" id="retake-btn">
+    <span class="span">Làm lại đề</span>
+  </button>
+  <a class="btn has-before" id="back-to-list-btn" href="taode.html">
+    <span class="span">Tạo đề khác</span>
+  </a>
+`;
+    testInterface.appendChild(actions);
 
-    // Hiển thị điểm số
+    document.getElementById("retake-btn").addEventListener("click", () => {
+      window.location.reload();
+    });
+
     scoreTextElement.textContent = `Bạn đã trả lời đúng ${score}/${questions.length} câu!`;
     testResultsContainer.style.display = "block";
   }
 
-  // Khởi động
   if (quizTitleElement) quizTitleElement.textContent = "Đề thi tự tạo";
   renderQuestion(0);
 });

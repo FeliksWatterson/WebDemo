@@ -150,3 +150,56 @@
 .quiz-options label.incorrect .option-text {
   color: #212529;
 }
+
+.option-text.correct {
+  color: #0f5132;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: inline-block;
+  font-weight: 700;
+}
+
+/* Tô đỏ lựa chọn SAI mà user đã chọn */
+.option-text.incorrect {
+  color: #842029;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: inline-block;
+}
+
+.options-list label,
+.quiz-options label {
+  display: grid;
+  grid-template-columns: 24px 1fr; /* cột 1: radio, cột 2: chữ A/B/C/D + nội dung */
+  align-items: center;
+  gap: 12px;
+}
+
+/* Radio thẳng cột, bỏ margin phải cũ */
+.options-list input[type="radio"],
+.quiz-options input[type="radio"] {
+  margin: 0;
+  justify-self: center;
+  width: auto;
+}
+
+/* Bỏ khoảng thừa bên span */
+.option-text {
+  margin: 0;
+}
+
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.result-actions .btn {
+  min-width: 220px;
+  justify-content: center;
+}

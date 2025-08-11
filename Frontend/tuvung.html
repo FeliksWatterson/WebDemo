@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Làm Bài Thi - EduWeb</title>
+    <title>Học từ vựng Tùy chỉnh - EduWeb</title>
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/luyende.css" />
+    <link rel="stylesheet" href="./assets/css/hoctuvung.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800&family=Poppins:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -49,7 +49,7 @@
 
           <ul class="navbar-list">
             <li class="navbar-item">
-              <a href="index.html" class="navbar-link" data-nav-link
+              <a href="./index.html" class="navbar-link" data-nav-link
                 >Trang chủ
               </a>
             </li>
@@ -71,7 +71,10 @@
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a href="./taode.html" class="dropdown-link" role="menuitem"
+                  <a
+                    href="./luyende.html?subject=thptqg"
+                    class="dropdown-link"
+                    role="menuitem"
                     >Tạo đề thông minh</a
                   >
                 </li>
@@ -88,7 +91,7 @@
 
             <li class="navbar-item has-dropdown">
               <a
-                href=""
+                href="./blog.html"
                 class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
@@ -102,20 +105,31 @@
               ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a href="" class="dropdown-link" role="menuitem">Tổng quan</a>
+                  <a href="./blog.html" class="dropdown-link" role="menuitem"
+                    >Tổng quan</a
+                  >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="" class="dropdown-link" role="menuitem"
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
                     >Kế hoạch học tập</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="" class="dropdown-link" role="menuitem"
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
                     >Phân tích & tiến độ</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="" class="dropdown-link" role="menuitem"
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
                     >Thành tích học tập</a
                   >
                 </li>
@@ -159,7 +173,10 @@
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="./bxh.html" class="dropdown-link" role="menuitem"
+                  <a
+                    href="./phonghoc.html"
+                    class="dropdown-link"
+                    role="menuitem"
                     >Bảng xếp hạng thành tích học tập
                     <p></p
                   ></a>
@@ -201,70 +218,78 @@
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
+
     <main>
       <article>
-        <section class="section practice-test-section" id="practice-test">
+        <section class="section vocab-section" aria-label="hoc-tu-vung">
           <div class="container">
-            <div class="test-header">
-              <p class="section-subtitle">Luyện đề Online</p>
-              <h2 class="h2 section-title">Đề thi tự tạo</h2>
-            </div>
-
-            <div class="test-interface">
-              <div class="test-info">
-                <div class="test-filename">
-                  <span id="quiz-filename">Chúc may mắn!</span>
-                </div>
-                <div class="question-count">
-                  Câu <span id="current-question-number">1</span>/<span
-                    id="total-questions"
-                    >?</span
-                  >
-                </div>
-              </div>
-              <div class="question-area">
-                <h3 class="question-title" id="question-text">
-                  Đang tải câu hỏi...
-                </h3>
-                <ul class="options-list" id="options-container"></ul>
-              </div>
-              <div class="navigation-buttons">
-                <button class="btn has-before" id="prev-question-btn" disabled>
-                  <ion-icon
-                    name="arrow-back-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                  <span class="span">Câu trước</span>
-                </button>
-                <button
-                  class="btn has-before btn-submit-test"
-                  id="submit-test-btn"
-                >
-                  <span class="span">Nộp bài</span>
-                  <ion-icon
-                    name="checkmark-done-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                </button>
-                <button class="btn has-before" id="next-question-btn">
-                  <span class="span">Câu sau</span>
-                  <ion-icon
-                    name="arrow-forward-outline"
-                    aria-hidden="true"
-                  ></ion-icon>
-                </button>
-              </div>
+            <div id="setup-container" class="vocab-container">
+              <h2 class="h2 section-title">Bắt đầu buổi học của bạn</h2>
+              <p>Bạn muốn học bao nhiêu từ vựng hôm nay?</p>
+              <form id="setup-form" class="setup-form">
+                <input
+                  type="number"
+                  id="word-count"
+                  min="1"
+                  max="50"
+                  placeholder="Ví dụ: 5"
+                  required
+                />
+                <button type="submit" class="btn has-before">Xác nhận</button>
+              </form>
             </div>
 
             <div
-              class="test-results"
-              style="display: none; text-align: center; margin-top: 40px"
+              id="input-container"
+              class="vocab-container"
+              style="display: none"
             >
-              <h3
-                id="score-text"
-                class="h3 section-title"
-                style="margin-bottom: 20px"
-              ></h3>
+              <h2 id="input-title" class="h2 section-title">Nhập từ 1 / 5</h2>
+              <form id="word-input-form">
+                <div class="single-input-wrapper">
+                  <input
+                    type="text"
+                    id="current-word-input"
+                    placeholder="Nhập từ tiếng Anh"
+                    required
+                  />
+                  <input
+                    type="text"
+                    id="current-meaning-input"
+                    placeholder="Nhập nghĩa tiếng Việt"
+                    required
+                  />
+                </div>
+                <button type="submit" id="next-word-btn" class="btn has-before">
+                  Tiếp theo
+                </button>
+              </form>
+            </div>
+
+            <div
+              id="matching-quiz-container"
+              class="vocab-container"
+              style="display: none"
+            >
+              <h2 class="h2 section-title">Ôn tập: Nối từ với nghĩa đúng</h2>
+              <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                  <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <span id="progress-text" class="h3">0%</span>
+              </div>
+              <div id="matching-game">
+                <div id="word-column" class="match-column"></div>
+                <div id="meaning-column" class="match-column"></div>
+              </div>
+              <p id="match-feedback" class="feedback-text"></p>
+              <button
+                id="reset-btn"
+                class="btn has-before"
+                style="display: none"
+              >
+                Học lại từ đầu
+              </button>
             </div>
           </div>
         </section>
@@ -369,6 +394,8 @@
       </div>
     </footer>
 
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/hoctuvung.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -377,7 +404,5 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-    <script src="./assets/js/script.js" defer></script>
-    <script src="./assets/js/lambai.js"></script>
   </body>
 </html>
