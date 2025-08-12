@@ -1,9 +1,7 @@
-// /assets/js/auth.js
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector(".login-container form");
   const registerForm = document.getElementById("registerForm");
 
-  // ====== LOGIN ======
   if (loginForm) {
     const emailInput = loginForm.querySelector("#username");
     const passwordInput = loginForm.querySelector("#password");
@@ -81,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ====== REGISTER ======
   if (registerForm) {
     const emailEl = document.getElementById("email");
     const passEl = document.getElementById("regPassword");
@@ -147,9 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.token) {
           localStorage.setItem("token", data.token);
           alert("Đăng ký thành công!");
-          window.location.href = "/learn.html";
+          window.location.href = "/index.html";
         } else {
-          // Trong trường hợp backend không trả token sau register
           alert("Đăng ký thành công! Hãy đăng nhập.");
           window.location.href = "/auth.html#login";
         }
@@ -163,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ====== COMMON FUNCTIONS ======
   function showError(afterEl, msg) {
     const p = document.createElement("p");
     p.className = "error-message";

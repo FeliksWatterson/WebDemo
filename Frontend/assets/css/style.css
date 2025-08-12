@@ -1906,4 +1906,106 @@ body {
     align-items: center;
   }
 }
+/* My Set Card */
+.topic-card.myset-card.pretty {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 20px; border-radius: 16px;
+  background: linear-gradient(135deg,#eef6ff 0%, #e7f0ff 40%, #f6fbff 100%);
+  border: 1px solid #cfe3ff;
+  box-shadow: 0 6px 18px rgba(14, 68, 136, 0.08);
+  text-decoration: none;
+}
+.topic-card.myset-card.pretty .myset-chip{
+  align-self: flex-start;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; letter-spacing:.3px;
+  background:#0b5ed7; color:#fff;
+}
+.topic-card.myset-card.pretty .myset-title{
+  font-size: 20px; font-weight: 800; color:#0b2b5c; line-height:1.2;
+}
+.topic-card.myset-card.pretty .myset-sub{
+  color:#274; opacity:.85; font-size:14px;
+}
+.topic-card.myset-card.pretty .myset-actions .btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 14px; border-radius:12px; margin-top:4px;
+}
+.topic-card.myset-card.pretty:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(14, 68, 136, 0.12);
+  transition: all .18s ease;
+}
+
+.myset-section{margin:28px 0 18px}
+.myset-banner{
+  display:flex;flex-direction:column;gap:10px;
+  padding:28px; border-radius:16px;
+  background:linear-gradient(180deg,#eaf2ff 0%,#eef5ff 100%);
+  border:1px solid #dbe8ff; box-shadow:0 10px 30px rgba(30,60,114,.08)
+}
+.myset-top{
+  display:inline-block; padding:6px 12px; border-radius:999px;
+  background:#106eea; color:#fff; font-weight:700; font-size:14px
+}
+.myset-title{font-size:34px; font-weight:800; line-height:1.25; color:#0b132b}
+.myset-sub{font-size:18px; color:#2a7f62}
+.myset-actions .btn{margin-top:6px}
+
+.add-two{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:22px}
+.add-two .add-choice{
+  border:1px solid #e9ecef; border-radius:16px; padding:22px 24px;
+  background:#fff; box-shadow:0 6px 18px rgba(16,30,70,.06);
+  transition:transform .15s ease, box-shadow .15s ease
+}
+.add-two .add-choice:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(16,30,70,.1)}
+.add-two .title{font-size:22px; font-weight:700; color:#172b4d; margin-bottom:6px}
+.add-two .desc{font-size:15px; color:#6c757d; margin:0 0 14px}
+.add-two .actions{margin-top:auto}
+@media (max-width: 860px){ .add-two{grid-template-columns:1fr} .myset-title{font-size:28px} }
+
+/* 3 ô nằm trên 1 hàng ở desktop */
+.add-two{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(260px,1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* nếu JS có thêm class .solo thì vẫn giữ layout 3 cột */
+.add-two.solo{
+  grid-template-columns: repeat(3, minmax(260px,1fr));
+}
+
+/* thẻ ô lựa chọn */
+.add-choice{
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid var(--platinum, #e5e7eb);
+  border-radius: 14px;
+  padding: 22px 24px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03);
+  transition: transform .08s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.add-choice:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(16,24,40,.06);
+  border-color: rgba(59,130,246,.35);
+}
+.add-choice .card-title{
+  font-size: 20px; font-weight: 700; margin: 0 0 8px;
+}
+.add-choice .card-sub{
+  margin: 0; color: #667085; line-height: 1.5;
+}
+
+@media (max-width: 1024px){
+  .add-two{ grid-template-columns: repeat(2, minmax(240px,1fr)); }
+  .add-two.solo{ grid-template-columns: repeat(2, minmax(240px,1fr)); }
+}
+@media (max-width: 640px){
+  .add-two{ grid-template-columns: 1fr; }
+  .add-two.solo{ grid-template-columns: 1fr; }
+}
 
