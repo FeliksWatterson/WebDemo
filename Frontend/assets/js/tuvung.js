@@ -1,4 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
+  function decodeJwtPayload(token) {
+    try {
+      const b = token.split(".")[1];
+      const s = atob(b.replace(/-/g, "+").replace(/_/g, "/"));
+      return JSON.parse(s);
+    } catch {
+      return null;
+    }
+  }
+  function currentUserId() {
+    const t = localStorage.getItem("token");
+    if (!t) return null;
+    const p = decodeJwtPayload(t);
+    return p?.sub || p?.userId || p?._id || p?.email || null;
+  }
+  function vocabKey() {
+    const uid = currentUserId();
+    return uid ? `userVocabulary:${uid}` : "userVocabulary:guest";
+  }
+  function readVocabCache() {
+    try {
+      return JSON.parse(localStorage.getItem(vocabKey()) || "[]");
+    } catch {
+      return [];
+    }
+  }
+  function writeVocabCache(arr) {
+    try {
+      localStorage.setItem(vocabKey(), JSON.stringify(arr || []));
+    } catch {}
+  }
+  (function migrateLegacyKey() {
+    try {
+      const legacy = localStorage.getItem("userVocabulary");
+      if (legacy) {
+        localStorage.setItem(vocabKey(), legacy);
+        localStorage.removeItem("userVocabulary");
+      }
+    } catch {}
+  })();
+
   const isLoggedIn = () => !!localStorage.getItem("token");
   const authHeader = () =>
     isLoggedIn()
@@ -87,17 +128,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function mountMySetTileInAddTwo() {
     if (!containerTwo) return;
-
     let count = 0;
     try {
-      const local = JSON.parse(localStorage.getItem("userVocabulary") || "[]");
+      const local = JSON.parse(localStorage.getItem(vocabKey()) || "[]");
       count = Array.isArray(local) ? local.length : 0;
     } catch {}
     if (!count && isLoggedIn()) {
       const data = await apiSafe("/api/vocab");
       const arr = Array.isArray(data?.vocabulary) ? data.vocabulary : [];
       count = arr.length;
-      if (count) localStorage.setItem("userVocabulary", JSON.stringify(arr));
+      if (count) localStorage.setItem(vocabKey(), JSON.stringify(arr));
     }
     if (!count) return;
 
@@ -107,10 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
     myCard.dataset.type = "myset";
     myCard.setAttribute("tabindex", "0");
     myCard.innerHTML = `
-    <h3 class="card-title">Bộ từ của bạn</h3>
-    <p class="card-sub">Bạn đã lưu <strong>${count}</strong> từ. Bấm để học ngay.</p>
-  `;
-
+      <h3 class="card-title">Bộ từ của bạn</h3>
+      <p class="card-sub">Bạn đã lưu <strong>${count}</strong> từ. Bấm để học ngay.</p>
+    `;
     myCard.addEventListener(
       "click",
       () => (window.location.href = "learn.html")
@@ -121,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "learn.html";
       }
     });
-
     containerTwo.appendChild(myCard);
   }
 
@@ -130,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (async () => {
       let vocabulary = [];
       try {
-        vocabulary = JSON.parse(localStorage.getItem("userVocabulary") || "[]");
+        vocabulary = JSON.parse(localStorage.getItem(vocabKey()) || "[]");
       } catch {
         vocabulary = [];
       }
@@ -144,10 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 word: String(v.word || "").trim(),
                 meaning: String(v.meaning || "").trim(),
               }));
-              localStorage.setItem(
-                "userVocabulary",
-                JSON.stringify(normalized)
-              );
+              localStorage.setItem(vocabKey(), JSON.stringify(normalized));
             }
           });
         }
@@ -165,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
           word: String(v.word || "").trim(),
           meaning: String(v.meaning || "").trim(),
         }));
-        localStorage.setItem("userVocabulary", JSON.stringify(normalized));
+        localStorage.setItem(vocabKey(), JSON.stringify(normalized));
         startLearning(normalized, learnContainer);
       } else {
         learnContainer.innerHTML =
@@ -313,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const cap of [800, 600, 500, 400, 300, 200, 100]) {
       try {
         data = cleaned.slice(0, cap);
-        localStorage.setItem("userVocabulary", JSON.stringify(data));
+        localStorage.setItem(vocabKey(), JSON.stringify(data));
         ok = true;
         break;
       } catch {}
