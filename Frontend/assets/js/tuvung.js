@@ -216,9 +216,6 @@ function parseRawText(txt) {
   return clean.length ? clean : out1;
 }
 
-/* =========================================================
-   Lưu bộ từ vào localStorage
-   ========================================================= */
 async function saveVocabulary(vocabulary) {
   if (!Array.isArray(vocabulary)) {
     alert("Dữ liệu không hợp lệ.");
@@ -278,7 +275,6 @@ function createWordEntryForm(count, container, onBack) {
     container.appendChild(back);
   }
 
-  // Header tiến độ nhập (khác tiến độ làm bài)
   const header = document.createElement("div");
   header.id = "entry-progress";
   header.style.cssText = "margin:6px 0 12px; color:#666; font-weight:600;";
@@ -288,8 +284,7 @@ function createWordEntryForm(count, container, onBack) {
   wrapper.className = "entry-box";
   container.appendChild(wrapper);
 
-  // State
-  let idx = 0; // 0-based
+  let idx = 0;
   const words = Array.from({ length: count }, () => ({
     word: "",
     meaning: "",

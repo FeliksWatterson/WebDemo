@@ -157,3 +157,55 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", initAuthUI);
+
+async function initAuthUI() {
+  const token = localStorage.getItem("token");
+  const header = document.querySelector(".header .header-actions");
+  if (!header) return;
+
+  let authBox = document.getElementById("auth-box");
+  if (!authBox) {
+    authBox = document.createElement("div");
+    authBox.id = "auth-box";
+    authBox.style.display = "flex";
+    authBox.style.alignItems = "center";
+    authBox.style.gap = "10px";
+    header.innerHTML = "";
+    header.appendChild(authBox);
+  }
+
+  if (!token) {
+    authBox.innerHTML = `
+      <a href="/auth.html#login" class="btn has-before">
+        <span class="span">Đăng nhập</span>
+      </a>
+      <a href="/auth.html#register" class="btn has-before">
+        <span class="span">Đăng ký</span>
+      </a>
+    `;
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error("unauthorized");
+    const me = await res.json();
+
+    authBox.innerHTML = `
+      <span id="account-link" style="cursor:pointer; font-weight:600; color:var(--oxford-blue);">
+        Xin chào, ${me.email}
+      </span>
+    `;
+
+    document.getElementById("account-link")?.addEventListener("click", () => {
+      window.location.href = "/account.html";
+    });
+  } catch (e) {
+    localStorage.removeItem("token");
+    initAuthUI();
+  }
+}

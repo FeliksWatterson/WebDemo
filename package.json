@@ -1,26 +1,18 @@
 {
-  "name": "web-demo-final",
+  "name": "eduweb-server",
   "version": "1.0.0",
-  "description": "An educational web platform with AI features.",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FeliksWatterson/WebDemo.git"
-  },
-  "author": "lehoangducmanh",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FeliksWatterson/WebDemo/issues"
-  },
-  "homepage": "https://github.com/FeliksWatterson/WebDemo#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.7.0",
     "pdf-parse": "^1.1.1",
