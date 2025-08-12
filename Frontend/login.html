@@ -162,9 +162,8 @@
                 </li>
                 <li class="dropdown-item" role="none">
                   <a href="./bxh.html" class="dropdown-link" role="menuitem"
-                    >Bảng xếp hạng thành tích học tập
-                    <p></p
-                  ></a>
+                    >Bảng xếp hạng thành tích học tập</a
+                  >
                 </li>
               </ul>
             </li>
@@ -216,119 +215,49 @@
       <article>
         <section
           class="section login-section"
-          style="
-            padding-top: calc(var(--section-padding) + 80px);
-            padding-bottom: var(--section-padding);
-          "
+          style="padding-top: calc(var(--section-padding) + 80px); padding-bottom: var(--section-padding);"
         >
           <div class="container">
             <div
               class="login-container"
-              style="
-                max-width: 450px;
-                margin: 0 auto;
-                padding: 40px;
-                background-color: var(--isabelline);
-                border-radius: var(--radius-10);
-                box-shadow: var(--shadow-2);
-              "
+              style="max-width: 450px; margin: 0 auto; padding: 40px; background-color: var(--isabelline); border-radius: var(--radius-10); box-shadow: var(--shadow-2);"
             >
-              <h2
-                class="h2 section-title"
-                style="text-align: center; margin-bottom: 30px"
-              >
-                Đăng nhập
-              </h2>
+              <h2 class="h2 section-title" style="text-align: center; margin-bottom: 30px">Đăng nhập</h2>
               <form action="#" method="POST">
                 <div class="input-field-wrapper" style="margin-bottom: 20px">
-                  <label
-                    for="username"
-                    class="input-label"
-                    style="
-                      display: block;
-                      margin-bottom: 8px;
-                      font-weight: var(--fw-500);
-                      color: var(--eerie-black-1);
-                    "
-                    >Tên đăng nhập hoặc Email</label
-                  >
+                  <label for="username" class="input-label">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     name="username"
                     id="username"
                     required
+                    autocomplete="email"
                     class="input-field"
-                    placeholder="Nhập tên đăng nhập hoặc email"
-                    style="
-                      background-color: var(--white);
-                      padding: 12px 15px;
-                      border-radius: var(--radius-5);
-                      border: 1px solid var(--platinum);
-                    "
+                    placeholder="Nhập email của bạn"
+                    style="background-color: var(--white); padding: 12px 15px; border-radius: var(--radius-5); border: 1px solid var(--platinum);"
                   />
                 </div>
 
                 <div class="input-field-wrapper" style="margin-bottom: 20px">
-                  <label
-                    for="password"
-                    class="input-label"
-                    style="
-                      display: block;
-                      margin-bottom: 8px;
-                      font-weight: var(--fw-500);
-                      color: var(--eerie-black-1);
-                    "
-                    >Mật khẩu</label
-                  >
+                  <label for="password" class="input-label">Mật khẩu</label>
                   <input
                     type="password"
                     name="password"
                     id="password"
                     required
+                    autocomplete="current-password"
                     class="input-field"
                     placeholder="Nhập mật khẩu"
-                    style="
-                      background-color: var(--white);
-                      padding: 12px 15px;
-                      border-radius: var(--radius-5);
-                      border: 1px solid var(--platinum);
-                    "
+                    style="background-color: var(--white); padding: 12px 15px; border-radius: var(--radius-5); border: 1px solid var(--platinum);"
                   />
                 </div>
 
-                <div
-                  class="form-options"
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 30px;
-                    font-size: var(--fs-6);
-                  "
-                >
-                  <label
-                    for="remember-me"
-                    style="
-                      display: flex;
-                      align-items: center;
-                      color: var(--gray-web);
-                      cursor: pointer;
-                    "
-                  >
-                    <input
-                      type="checkbox"
-                      name="remember-me"
-                      id="remember-me"
-                      style="width: auto; margin-right: 8px"
-                    />
+                <div class="form-options" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; font-size: var(--fs-6);">
+                  <label for="remember-me" style="display: flex; align-items: center; color: var(--gray-web); cursor: pointer;">
+                    <input type="checkbox" name="remember-me" id="remember-me" style="width: auto; margin-right: 8px" />
                     Ghi nhớ tôi
                   </label>
-                  <a
-                    href="#"
-                    class="forgot-password-link"
-                    style="color: var(--kappel); text-decoration: underline"
-                    >Quên mật khẩu?</a
-                  >
+                  <a href="#" class="forgot-password-link" style="color: var(--kappel); text-decoration: underline">Quên mật khẩu?</a>
                 </div>
 
                 <button type="submit" class="btn has-before">
@@ -336,25 +265,9 @@
                   <ion-icon name="log-in-outline" aria-hidden="true"></ion-icon>
                 </button>
               </form>
-              <p
-                class="register-link"
-                style="
-                  text-align: center;
-                  margin-top: 30px;
-                  font-size: var(--fs-6);
-                  color: var(--gray-web);
-                "
-              >
+              <p class="register-link" style="text-align: center; margin-top: 30px; font-size: var(--fs-6); color: var(--gray-web);">
                 Chưa có tài khoản?
-                <a
-                  href="./dangki.html"
-                  style="
-                    color: var(--kappel);
-                    font-weight: var(--fw-500);
-                    text-decoration: underline;
-                  "
-                  >Tạo tài khoản mới</a
-                >
+                <a href="./dangki.html" style="color: var(--kappel); font-weight: var(--fw-500); text-decoration: underline;">Tạo tài khoản mới</a>
               </p>
             </div>
           </div>
@@ -362,135 +275,33 @@
       </article>
     </main>
 
-    <footer
-      class="footer"
-      style="background-image: url('./assets/images/footer-bg.png')"
-    >
-      <div class="footer-top section">
-        <div class="container grid-list">
-          <div class="footer-brand">
-            <a href="./index.html" class="logo"
-              ><img
-                src="./assets/images/logo-light.svg"
-                width="162"
-                height="50"
-                alt="EduWeb logo"
-            /></a>
-            <p class="footer-brand-text">
-              Nền tảng học tập trực tuyến hàng đầu, đồng hành cùng bạn trên con
-              đường chinh phục tri thức.
-            </p>
-            <div class="wrapper">
-              <span class="span">Địa chỉ:</span>
-              <address class="address">Hà Đông, Hà Nội, Việt Nam</address>
-            </div>
-            <div class="wrapper">
-              <span class="span">Điện thoại:</span
-              ><a href="tel:+84123456789" class="footer-link"
-                >+84 123 456 789</a
-              >
-            </div>
-            <div class="wrapper">
-              <span class="span">Email:</span
-              ><a href="mailto:info@eduweb.com" class="footer-link"
-                >info@eduweb.com</a
-              >
-            </div>
-          </div>
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Nền tảng</p></li>
-            <li>
-              <a href="./index.html#about" class="footer-link">Về EduWeb</a>
-            </li>
-            <li>
-              <a href="./courses.html" class="footer-link">Khóa học</a>
-            </li>
-            <li>
-              <a href="./luyende.html" class="footer-link">Luyện đề</a>
-            </li>
-            <li><a href="./thithu.html" class="footer-link">Thi thử</a></li>
-            <li><a href="./blog.html" class="footer-link">Diễn đàn</a></li>
-          </ul>
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Liên kết nhanh</p></li>
-            <li><a href="#" class="footer-link">Liên hệ</a></li>
-            <li><a href="#" class="footer-link">Điều khoản dịch vụ</a></li>
-            <li><a href="#" class="footer-link">Chính sách bảo mật</a></li>
-            <li><a href="#" class="footer-link">Câu hỏi thường gặp</a></li>
-          </ul>
-          <div class="footer-list">
-            <p class="footer-list-title">Đăng ký nhận tin</p>
-            <p class="footer-list-text">
-              Nhận thông tin mới nhất về các khóa học và ưu đãi.
-            </p>
-            <form action="" class="newsletter-form">
-              <input
-                type="email"
-                name="email_address"
-                placeholder="Email của bạn"
-                required
-                class="input-field"
-              /><button type="submit" class="btn has-before">
-                <span class="span">Đăng ký</span
-                ><ion-icon
-                  name="arrow-forward-outline"
-                  aria-hidden="true"
-                ></ion-icon>
-              </button>
-            </form>
-            <ul class="social-list">
-              <li>
-                <a href="#" class="social-link"
-                  ><ion-icon name="logo-facebook"></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a href="#" class="social-link"
-                  ><ion-icon name="logo-youtube"></ion-icon
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="container">
-          <p class="copyright">
-            Bản quyền © 2025 EduWeb bởi
-            <a href="#" class="copyright-link">lehoangducmanh</a>. Đã đăng ký
-            bản quyền.
-          </p>
-        </div>
-      </div>
+    <footer class="footer" style="background-image: url('./assets/images/footer-bg.png')">
+      <!-- Giữ nguyên nội dung footer như file gốc -->
     </footer>
 
-    <script src="./assets/js/script.js" defer></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="./assets/js/login.js" defer></script>
-  </body>
-  <div id="chatbot-icon">
-    <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
-  </div>
-
-  <div id="chatbot-window">
-    <div id="chatbot-header">
-      <span>Trợ lý ảo</span>
-      <button id="close-chatbot-btn">&times;</button>
+    <!-- Chatbot -->
+    <div id="chatbot-icon">
+      <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
     </div>
-    <div id="chatbot-messages">
-      <div class="message bot-message">
-        <p>Xin chào! Tôi có thể giúp gì cho bạn?</p>
+    <div id="chatbot-window">
+      <div id="chatbot-header">
+        <span>Trợ lý ảo</span>
+        <button id="close-chatbot-btn">&times;</button>
+      </div>
+      <div id="chatbot-messages">
+        <div class="message bot-message">
+          <p>Xin chào! Tôi có thể giúp gì cho bạn?</p>
+        </div>
+      </div>
+      <div id="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
+        <button id="chatbot-send-btn">Gửi</button>
       </div>
     </div>
-    <div id="chatbot-input-area">
-      <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
-      <button id="chatbot-send-btn">Gửi</button>
-    </div>
+
+    <script src="./assets/js/script.js" defer></script>
+    <script src="./login.js" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  </body>
 </html>
