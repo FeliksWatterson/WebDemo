@@ -14,27 +14,54 @@
       rel="stylesheet"
     />
     <style>
-      /* nhỏ gọn phần tab */
+      /* ===== Segmented tabs (Đăng nhập / Đăng ký) ===== */
       .auth-tabs {
+        max-width: 360px;
+        margin: 0 auto 24px;
         display: flex;
-        gap: 8px;
-        justify-content: center;
-        margin-bottom: 24px;
+        gap: 4px;
+        background: var(--white);
+        border: 1px solid var(--platinum);
+        border-radius: 999px;
+        padding: 4px;
+        box-shadow: var(--shadow-1);
       }
       .auth-tab {
-        border: 1px solid var(--platinum);
-        background: var(--white);
-        padding: 10px 14px;
-        border-radius: 999px;
-        cursor: pointer;
-        font-weight: 600;
+        flex: 1;
+        border: 0;
+        background: transparent;
         color: var(--eerie-black-1);
+        padding: 10px 16px;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: background-color 0.2s ease, color 0.2s ease,
+          box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+      .auth-tab:not(.active):hover {
+        background: hsla(210, 82%, 45%, 0.08);
       }
       .auth-tab.active {
         background: var(--kappel);
         color: #fff;
-        border-color: var(--kappel);
+        box-shadow: 0 6px 16px hsla(210, 82%, 45%, 0.22);
       }
+      .auth-tab:focus-visible {
+        outline: 2px solid var(--kappel);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--kappel);
+      }
+      @media (max-width: 420px) {
+        .auth-tabs {
+          max-width: 100%;
+        }
+        .auth-tab {
+          padding: 10px 12px;
+          font-size: var(--fs-5);
+        }
+      }
+
+      /* Card & layout */
       .auth-card {
         max-width: 520px;
         margin: 0 auto;
@@ -46,11 +73,36 @@
       .hidden {
         display: none !important;
       }
+
       .login-container form button[type="submit"],
       #panel-register #registerForm button[type="submit"] {
         display: block;
         margin: 30px auto 0;
         text-align: center;
+      }
+      .auth-card .btn.has-before {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px; /* khoảng cách giữa chữ và icon */
+        text-align: unset !important;
+        white-space: nowrap; /* tránh xuống dòng chữ */
+      }
+
+      /* đảm bảo icon đứng cạnh chữ, không absolute/float */
+      .auth-card .btn.has-before ion-icon {
+        position: static !important;
+        width: 1.2em;
+        height: 1.2em;
+        margin-left: 6px;
+        flex: 0 0 auto;
+        transform: translateY(1px); /* vi chỉnh icon hơi thấp */
+      }
+
+      /* (tuỳ chọn) cho cả hai nút full width giống nhau */
+      .login-container form button[type="submit"],
+      #panel-register #registerForm button[type="submit"] {
+        width: 100%;
       }
     </style>
   </head>
@@ -258,7 +310,6 @@
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
-    <!-- /Header -->
 
     <main>
       <article>
@@ -369,8 +420,7 @@
                           type="checkbox"
                           id="remember-me"
                           style="width: auto; margin-right: 8px"
-                        />
-                        Ghi nhớ tôi
+                        />Ghi nhớ tôi
                       </label>
                       <a
                         href="#"
@@ -388,6 +438,7 @@
                       ></ion-icon>
                     </button>
                   </form>
+
                   <p
                     class="register-link"
                     style="
@@ -412,7 +463,6 @@
                 </div>
               </div>
 
-              <!-- Register Panel -->
               <div
                 id="panel-register"
                 role="tabpanel"
@@ -519,7 +569,8 @@
                         href="#"
                         style="color: var(--kappel); text-decoration: underline"
                         >điều khoản dịch vụ</a
-                      >&nbsp;và&nbsp;<a
+                      >&nbsp;và&nbsp;
+                      <a
                         href="#"
                         style="color: var(--kappel); text-decoration: underline"
                         >chính sách bảo mật</a
@@ -558,14 +609,12 @@
                   >
                 </p>
               </div>
-              <!-- /Register Panel -->
             </div>
           </div>
         </section>
       </article>
     </main>
 
-    <!-- Footer rút gọn -->
     <footer
       class="footer"
       style="background-image: url('./assets/images/footer-bg.png')"
@@ -580,14 +629,12 @@
       </div>
     </footer>
 
-    <!-- Chatbot (giữ nguyên nếu cần) -->
     <div id="chatbot-icon">
       <img src="./assets/images/chatbot-icon.svg" alt="Chatbot" />
     </div>
     <div id="chatbot-window">
       <div id="chatbot-header">
-        <span>Trợ lý ảo</span>
-        <button id="close-chatbot-btn">&times;</button>
+        <span>Trợ lý ảo</span><button id="close-chatbot-btn">&times;</button>
       </div>
       <div id="chatbot-messages">
         <div class="message bot-message">
@@ -595,12 +642,14 @@
         </div>
       </div>
       <div id="chatbot-input-area">
-        <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." />
-        <button id="chatbot-send-btn">Gửi</button>
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Nhập tin nhắn..."
+        /><button id="chatbot-send-btn">Gửi</button>
       </div>
     </div>
 
-    <!-- Scripts -->
     <script src="./assets/js/script.js" defer></script>
     <script src="./assets/js/auth.js" defer></script>
     <script
@@ -612,7 +661,6 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
 
-    <!-- Toggle 2 tab: login/register + đọc hash -->
     <script>
       (function () {
         const tabLogin = document.getElementById("tab-login");
@@ -622,21 +670,17 @@
 
         function activate(which) {
           const isLogin = which === "login";
-          // Tabs
           tabLogin.classList.toggle("active", isLogin);
           tabRegister.classList.toggle("active", !isLogin);
           tabLogin.setAttribute("aria-selected", String(isLogin));
           tabRegister.setAttribute("aria-selected", String(!isLogin));
-          // Panels
           panelLogin.classList.toggle("hidden", !isLogin);
           panelRegister.classList.toggle("hidden", isLogin);
         }
-
         function syncByHash() {
           const h = (location.hash || "#login").replace("#", "");
           activate(h === "register" ? "register" : "login");
         }
-
         tabLogin.addEventListener("click", () => {
           history.replaceState(null, "", "#login");
           activate("login");
@@ -657,7 +701,6 @@
             activate("login");
           }
         });
-
         window.addEventListener("hashchange", syncByHash);
         syncByHash();
       })();
