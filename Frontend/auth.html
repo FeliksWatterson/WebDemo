@@ -14,7 +14,6 @@
       rel="stylesheet"
     />
     <style>
-      /* ===== Segmented tabs (Đăng nhập / Đăng ký) ===== */
       .auth-tabs {
         max-width: 360px;
         margin: 0 auto 24px;
@@ -84,22 +83,18 @@
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 10px; /* khoảng cách giữa chữ và icon */
+        gap: 10px;
         text-align: unset !important;
-        white-space: nowrap; /* tránh xuống dòng chữ */
+        white-space: nowrap;
       }
-
-      /* đảm bảo icon đứng cạnh chữ, không absolute/float */
       .auth-card .btn.has-before ion-icon {
         position: static !important;
         width: 1.2em;
         height: 1.2em;
         margin-left: 6px;
         flex: 0 0 auto;
-        transform: translateY(1px); /* vi chỉnh icon hơi thấp */
+        transform: translateY(1px);
       }
-
-      /* (tuỳ chọn) cho cả hai nút full width giống nhau */
       .login-container form button[type="submit"],
       #panel-register #registerForm button[type="submit"] {
         width: 100%;
@@ -109,7 +104,7 @@
   <body id="top">
     <header class="header" data-header>
       <div class="container">
-        <a href="index.html" class="logo">
+        <a href="#" class="logo">
           <img
             src="./assets/images/logo.svg"
             width="162"
@@ -120,7 +115,7 @@
 
         <nav class="navbar" data-navbar>
           <div class="wrapper">
-            <a href="index.html" class="logo">
+            <a href="#" class="logo">
               <img
                 src="./assets/images/logo.svg"
                 width="162"
@@ -128,6 +123,7 @@
                 alt="EduWeb logo"
               />
             </a>
+
             <button
               class="nav-close-btn"
               aria-label="close menu"
@@ -136,14 +132,12 @@
               <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
             </button>
           </div>
-
           <ul class="navbar-list">
             <li class="navbar-item">
               <a href="index.html" class="navbar-link" data-nav-link
-                >Trang chủ</a
-              >
+                >Trang chủ
+              </a>
             </li>
-
             <li class="navbar-item has-dropdown">
               <a
                 href="./luyende.html"
@@ -183,37 +177,38 @@
 
             <li class="navbar-item has-dropdown">
               <a
-                href="#"
+                href=""
                 class="navbar-link"
                 data-nav-link
                 aria-haspopup="true"
                 aria-expanded="false"
-              >
-                Góc học tập
+                >Góc học tập
                 <ion-icon
                   name="chevron-down-outline"
                   class="dropdown-arrow"
                   aria-hidden="true"
-                ></ion-icon>
-              </a>
+                ></ion-icon
+              ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
-                  <a href="#" class="dropdown-link" role="menuitem"
-                    >Tổng quan</a
+                  <a href="class.html" class="dropdown-link" role="menuitem"
+                    >Lớp học</a
                   >
+                <li class="dropdown-item" role="none">
+                  <a href="" class="dropdown-link" role="menuitem">Tổng quan</a>
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="#" class="dropdown-link" role="menuitem"
+                  <a href="" class="dropdown-link" role="menuitem"
                     >Kế hoạch học tập</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="#" class="dropdown-link" role="menuitem"
+                  <a href="" class="dropdown-link" role="menuitem"
                     >Phân tích & tiến độ</a
                   >
                 </li>
                 <li class="dropdown-item" role="none">
-                  <a href="#" class="dropdown-link" role="menuitem"
+                  <a href="" class="dropdown-link" role="menuitem"
                     >Thành tích học tập</a
                   >
                 </li>
@@ -227,14 +222,13 @@
                 data-nav-link
                 aria-haspopup="true"
                 aria-expanded="false"
-              >
-                Cộng đồng
+                >Cộng đồng
                 <ion-icon
                   name="chevron-down-outline"
                   class="dropdown-arrow"
                   aria-hidden="true"
-                ></ion-icon>
-              </a>
+                ></ion-icon
+              ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
                   <a href="./blog.html" class="dropdown-link" role="menuitem"
@@ -259,25 +253,23 @@
                 </li>
                 <li class="dropdown-item" role="none">
                   <a href="./bxh.html" class="dropdown-link" role="menuitem"
-                    >Bảng xếp hạng</a
-                  >
+                    >Bảng xếp hạng thành tích học tập
+                    <p></p
+                  ></a>
                 </li>
               </ul>
             </li>
-
             <li class="navbar-item">
               <a href="troly.html" class="navbar-link" data-nav-link
                 >Trợ lý AI</a
               >
             </li>
-
             <ul class="navbar-list">
-              <li class="navbar-item">
-                <a href="index.html" class="navbar-link" data-nav-link
-                  >Nâng cấp</a
-                >
-              </li>
-            </ul>
+            <li class="navbar-item">
+              <a href="index.html" class="navbar-link" data-nav-link
+                >Nâng cấp</a>
+              </a>
+            </li>
           </ul>
         </nav>
 
@@ -290,7 +282,7 @@
             <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
           </button>
 
-          <a href="./auth.html#login" class="btn has-before">
+          <a href="./auth.html" class="btn has-before">
             <span class="span">Bắt đầu ngay</span>
             <ion-icon
               name="arrow-forward-outline"

@@ -16,16 +16,13 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// uploads
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 
-// middleware chung
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: false }));
 
-// API health & debug log
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, time: new Date().toISOString() });
 });
@@ -36,7 +33,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// ENV check
 if (!process.env.GEMINI_API_KEY) {
   console.error("Missing GEMINI_API_KEY in .env");
   process.exit(1);
@@ -46,7 +42,6 @@ const MONGO_URI = process.env.MONGODB_URI;
 const MONGO_DB = process.env.MONGODB_DB || "eduweb";
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
 
-// Mongo
 mongoose
   .connect(MONGO_URI, { dbName: MONGO_DB })
   .then(() => console.log("MongoDB connected"))
@@ -55,7 +50,6 @@ mongoose
     process.exit(1);
   });
 
-// Schemas
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, index: true },
   password: String,
@@ -104,7 +98,42 @@ const Vocab = mongoose.model("Vocab", vocabSchema);
 const Progress = mongoose.model("Progress", progressSchema);
 const Test = mongoose.model("Test", testSchema);
 
-// Helpers
+const roomSchema = new mongoose.Schema({
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true },
+  name: { type: String, required: true },
+  joinCode: { type: String, unique: true, index: true },
+  members: [
+    {
+      uid: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      email: String,
+      joinedAt: { type: Date, default: Date.now },
+    },
+  ],
+  assignments: [
+    {
+      testId: { type: mongoose.Schema.Types.ObjectId, ref: "Test" },
+      name: String,
+      timeLimit: Number,
+      assignedAt: { type: Date, default: Date.now },
+    },
+  ],
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+const Room = mongoose.model("Room", roomSchema);
+
+async function genJoinCode() {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  for (let tries = 0; tries < 10; tries++) {
+    let code = "";
+    for (let i = 0; i < 6; i++)
+      code += alphabet[Math.floor(Math.random() * alphabet.length)];
+    const exists = await Room.findOne({ joinCode: code }).lean();
+    if (!exists) return code;
+  }
+  return "ROOM" + Date.now().toString(36).slice(-6).toUpperCase();
+}
+
 function signToken(user) {
   return jwt.sign({ uid: user._id, email: user.email }, JWT_SECRET, {
     expiresIn: "30d",
@@ -123,7 +152,6 @@ function auth(req, res, next) {
   }
 }
 
-// ====== API ROUTES (đặt TRƯỚC static) ======
 app.post("/api/auth/register", async (req, res) => {
   const { email, password } = req.body || {};
   if (!email || !password)
@@ -289,6 +317,176 @@ app.delete("/api/tests/:id", auth, async (req, res) => {
   res.json({ ok: true });
 });
 
+app.post("/api/rooms", auth, async (req, res) => {
+  const name = String(req.body?.name || "").trim();
+  if (!name) return res.status(400).json({ error: "Thiếu tên phòng" });
+
+  const owner = await User.findById(req.user.uid)
+    .lean()
+    .catch(() => null);
+  const email = owner?.email || req.user?.email || "";
+  if (!email) return res.status(401).json({ error: "Unauthorized" });
+
+  const joinCode = await genJoinCode();
+
+  const room = await Room.create({
+    owner: req.user.uid,
+    name,
+    joinCode,
+    members: [{ uid: req.user.uid, email }],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  res.json({ id: room._id, name: room.name, joinCode: room.joinCode });
+});
+
+app.post("/api/rooms/join", auth, async (req, res) => {
+  const joinCode = String(req.body?.joinCode || "")
+    .trim()
+    .toUpperCase();
+  if (!joinCode) return res.status(400).json({ error: "Thiếu mã phòng" });
+
+  const room = await Room.findOne({ joinCode }).exec();
+  if (!room) return res.status(404).json({ error: "Không tìm thấy phòng" });
+
+  const me = await User.findById(req.user.uid).lean();
+  const has = room.members.some((m) => String(m.uid) === String(req.user.uid));
+  if (!has) {
+    room.members.push({ uid: req.user.uid, email: me?.email || "" });
+    room.updatedAt = new Date();
+    await room.save();
+  }
+
+  res.json({ id: room._id, name: room.name, joinCode: room.joinCode });
+});
+
+app.get("/api/rooms", auth, async (req, res) => {
+  const myId = new mongoose.Types.ObjectId(req.user.uid);
+  const rooms = await Room.find({
+    $or: [{ owner: myId }, { "members.uid": myId }],
+  })
+    .select("_id name joinCode owner createdAt updatedAt")
+    .sort({ updatedAt: -1 })
+    .lean();
+
+  res.json({ items: rooms });
+});
+
+app.get("/api/rooms/:id", auth, async (req, res) => {
+  const r = await Room.findById(req.params.id).lean();
+  if (!r) return res.status(404).json({ error: "Not found" });
+
+  const isMember =
+    String(r.owner) === String(req.user.uid) ||
+    r.members.some((m) => String(m.uid) === String(req.user.uid));
+  if (!isMember) return res.status(403).json({ error: "Forbidden" });
+
+  res.json({
+    id: r._id,
+    name: r.name,
+    joinCode: r.joinCode,
+    owner: r.owner,
+    members: r.members,
+    assignments: r.assignments,
+  });
+});
+
+app.post("/api/rooms/:id/assign", auth, async (req, res) => {
+  const room = await Room.findById(req.params.id);
+  if (!room) return res.status(404).json({ error: "Not found" });
+  if (String(room.owner) !== String(req.user.uid))
+    return res.status(403).json({ error: "Only owner can assign" });
+
+  const testId = String(req.body?.testId || "").trim();
+  if (!testId) return res.status(400).json({ error: "Thiếu testId" });
+
+  const t = await Test.findOne({ _id: testId, uid: req.user.uid }).lean();
+  if (!t) return res.status(404).json({ error: "Không tìm thấy đề" });
+
+  const exists = room.assignments.some(
+    (a) => String(a.testId) === String(testId)
+  );
+  if (!exists) {
+    room.assignments.unshift({
+      testId: t._id,
+      name: t.name,
+      timeLimit: t.timeLimit || 0,
+      assignedAt: new Date(),
+    });
+    room.updatedAt = new Date();
+    await room.save();
+  }
+
+  res.json({ ok: true, assignments: room.assignments });
+});
+
+app.get("/api/rooms/:id/tests", auth, async (req, res) => {
+  const r = await Room.findById(req.params.id).lean();
+  if (!r) return res.status(404).json({ error: "Not found" });
+  const isMember =
+    String(r.owner) === String(req.user.uid) ||
+    r.members.some((m) => String(m.uid) === String(req.user.uid));
+  if (!isMember) return res.status(403).json({ error: "Forbidden" });
+  const items = (r.assignments || []).map((a) => ({
+    id: a.testId,
+    name: a.name,
+    timeLimit: a.timeLimit || 0,
+  }));
+  res.json({ items });
+});
+
+app.get("/api/rooms/:id/tests/:testId", auth, async (req, res) => {
+  const room = await Room.findById(req.params.id).lean();
+  if (!room) return res.status(404).json({ error: "Not found" });
+  const isMember =
+    String(room.owner) === String(req.user.uid) ||
+    room.members.some((m) => String(m.uid) === String(req.user.uid));
+  if (!isMember) return res.status(403).json({ error: "Forbidden" });
+
+  const allowed = room.assignments.some(
+    (a) => String(a.testId) === String(req.params.testId)
+  );
+  if (!allowed) return res.status(404).json({ error: "Not found" });
+
+  const t = await Test.findById(req.params.testId).lean();
+  if (!t) return res.status(404).json({ error: "Not found" });
+
+  res.json({
+    id: t._id,
+    name: t.name,
+    timeLimit: t.timeLimit || 0,
+    questions: t.questions || [],
+  });
+});
+
+app.post("/api/rooms/:id/leave", auth, async (req, res) => {
+  const room = await Room.findById(req.params.id);
+  if (!room) return res.status(404).json({ error: "Not found" });
+  if (String(room.owner) === String(req.user.uid))
+    return res.status(400).json({
+      error: "Chủ phòng không thể rời. Hãy chuyển chủ hoặc xoá phòng.",
+    });
+
+  room.members = room.members.filter(
+    (m) => String(m.uid) !== String(req.user.uid)
+  );
+  room.updatedAt = new Date();
+  await room.save();
+
+  res.json({ ok: true });
+});
+
+app.delete("/api/rooms/:id", auth, async (req, res) => {
+  const room = await Room.findById(req.params.id).lean();
+  if (!room) return res.status(404).json({ error: "Not found" });
+  if (String(room.owner) !== String(req.user.uid))
+    return res.status(403).json({ error: "Only owner can delete" });
+
+  await Room.deleteOne({ _id: room._id });
+  res.json({ ok: true });
+});
+
 const upload = multer({ dest: uploadsDir });
 
 async function generateQuestionsFromChunk(textChunk) {
@@ -407,21 +605,13 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// 404 JSON cho /api/*
 app.use("/api", (req, res) => {
   res.status(404).json({ error: "Not found" });
 });
 
-// ====== STATIC SERVE (đặt SAU CÙNG) ======
 const STATIC_DIR = path.join(__dirname, "Frontend");
 app.use(express.static(STATIC_DIR));
 app.get("/", (_, res) => res.sendFile(path.join(STATIC_DIR, "index.html")));
-
-// (tùy chọn) SPA fallback cho các route khác không phải /api
-// app.get("*", (req, res) => {
-//   if (req.path.startsWith("/api/")) return res.status(404).json({ error: "Not found" });
-//   res.sendFile(path.join(STATIC_DIR, "index.html"));
-// });
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

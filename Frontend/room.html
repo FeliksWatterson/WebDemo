@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thêm từ vựng - EduWeb</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Demo</title>
+    <meta
+      name="title"
+      content="EduWeb - The Best Program to Enroll for Exchange"
+    />
+    <meta
+      name="description"
+      content="This is an education web made by lehoangducmanh"
+    />
 
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="./assets/css/style.css" />
-  <link rel="stylesheet" href="./assets/css/tuvung.css" />
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <link rel="stylesheet" href="assets\css\luyende.css" />
+    <link rel="stylesheet" href="assets\css\class.css" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.23/mammoth.browser.min.js" defer></script>
-  <script src="./assets/js/tuvung.js" defer></script>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preload" as="image" href="./assets/images/hero-bg.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-1.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-2.png" />
+  </head>
+
   <body id="top">
-   <header class="header" data-header>
+    <header class="header" data-header>
       <div class="container">
         <a href="#" class="logo">
           <img
@@ -219,145 +237,73 @@
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
+     <main>
+          <article class="section">
+        <div class="container room-layout">
+          <aside class="room-sidebar">
+            <div class="card">
+              <div class="room-card-title-row">
+                <h3 class="h3" style="margin:0">Phòng</h3>
+                <button id="open-room-actions" class="icon-btn" title="Sửa phòng">
+                  <ion-icon name="create-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
 
+              <p class="muted" id="room-title" style="margin:8px 0 10px"></p>
 
-    <main>
-      <article>
-        <section class="section">
-  <div class="container">
-    <h2 class="h2 section-title" style="text-align:center">Thêm bộ từ vựng mới</h2>
+              <div class="field" style="align-items:center">
+                <label class="muted" style="min-width:88px">Mã tham gia</label>
+                <code id="join-code" class="pill" style="flex:1"></code>
+                <button id="copy-code" class="btn outline" style="padding:6px 10px">Sao chép</button>
+              </div>
 
-    <div class="add-two">
-      <div class="add-choice" id="card-manual" data-type="manual" tabindex="0">
-        <h3>Tự nhập từ</h3>
-        <p class="muted">Tạo bộ từ của bạn để luyện ngay.</p>
+              <div class="stats" style="margin-top:10px">
+                <span class="pill" id="stat-assign">0 đề</span>
+                <span class="pill" id="stat-members">0 thành viên</span>
+              </div>
+            </div>
 
-        <div class="panel">
-          <div class="row">
-            <input type="number" id="word-count" class="input-field" placeholder="Nhập số lượng từ…">
-            <button id="manual-go" class="btn has-before">Bắt đầu</button>
+            <div id="members-wrap" class="card" style="display:none">
+              <h3 class="h3">Thành viên</h3>
+              <ul id="members" class="category-list" style="margin-top:6px"></ul>
+            </div>
+          </aside>
+
+          <section class="room-main">
+            <h2 class="h2 section-title" style="text-align:left;margin-bottom:12px">Đề trong phòng</h2>
+            <div id="assigned" class="room-tests-grid"></div>
+            <p id="assigned-empty" class="muted" style="text-align:center;margin-top:12px;display:none">(Chưa có đề trong phòng)</p>
+          </section>
+        </div>
+
+        <div id="room-actions-modal" class="modal" aria-hidden="true">
+          <div class="modal__backdrop" data-close></div>
+          <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="room-actions-title">
+            <button class="modal__close" title="Đóng" data-close>&times;</button>
+            <h3 id="room-actions-title" class="h3">Tùy chọn phòng</h3>
+
+            <div class="modal__section">
+              <h4 class="modal__subtitle">Gán đề vào phòng</h4>
+              <ul id="tests" class="category-list modal__list"></ul>
+              <button id="assign-btn" class="btn has-before" style="margin-top:10px">
+                <span class="span">Gán đề đã chọn</span>
+              </button>
+            </div>
+
+            <hr style="margin:16px 0;opacity:.25" />
+
+            <div class="modal__section">
+              <button id="delete-btn" class="btn outline danger">Xoá phòng</button>
+            </div>
           </div>
-          <div id="word-entry-section" class="mt20"></div>
         </div>
-      </div>
-
-      <div class="add-choice" id="card-import" data-type="import" tabindex="0">
-        <h3>Import file</h3>
-        <p class="muted">Hỗ trợ .txt, .json, .pdf, .docx</p>
-        <div class="panel">
-          <input id="file-upload" type="file" class="file-hidden" accept=".txt,.json,.pdf,.docx">
-          <label for="file-upload" class="btn has-before">Chọn file</label>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
       </article>
     </main>
 
-   <footer
-      class="footer"
-      style="background-image: url('./assets/images/footer-bg.png')"
-    >
-      <div class="footer-top section">
-        <div class="container grid-list">
-          <div class="footer-brand">
-            <a href="./index.html" class="logo"
-              ><img
-                src="./assets/images/logo-light.svg"
-                width="162"
-                height="50"
-                alt="EduWeb logo"
-            /></a>
-            <p class="footer-brand-text">
-              Nền tảng học tập trực tuyến hàng đầu, đồng hành cùng bạn trên con
-              đường chinh phục tri thức.
-            </p>
-            <div class="wrapper">
-              <span class="span">Địa chỉ:</span>
-              <address class="address">Hà Đông, Hà Nội, Việt Nam</address>
-            </div>
-            <div class="wrapper">
-              <span class="span">Điện thoại:</span
-              ><a href="tel:+84123456789" class="footer-link"
-                >+84 123 456 789</a
-              >
-            </div>
-            <div class="wrapper">
-              <span class="span">Email:</span
-              ><a href="mailto:info@eduweb.com" class="footer-link"
-                >info@eduweb.com</a
-              >
-            </div>
-          </div>
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Nền tảng</p></li>
-            <li>
-              <a href="./index.html#about" class="footer-link">Về EduWeb</a>
-            </li>
-            <li>
-              <a href="./luyende.html" class="footer-link">Luyện đề</a>
-            </li>
-            <li><a href="./thithu.html" class="footer-link">Thi thử</a></li>
-            <li><a href="./blog.html" class="footer-link">Diễn đàn</a></li>
-          </ul>
-          <ul class="footer-list">
-            <li><p class="footer-list-title">Liên kết nhanh</p></li>
-            <li><a href="#" class="footer-link">Liên hệ</a></li>
-            <li><a href="#" class="footer-link">Điều khoản dịch vụ</a></li>
-            <li><a href="#" class="footer-link">Chính sách bảo mật</a></li>
-            <li><a href="#" class="footer-link">Câu hỏi thường gặp</a></li>
-          </ul>
-          <div class="footer-list">
-            <p class="footer-list-title">Đăng ký nhận tin</p>
-            <p class="footer-list-text">
-              Nhận thông tin mới nhất về các khóa học và ưu đãi.
-            </p>
-            <form action="" class="newsletter-form">
-              <input
-                type="email"
-                name="email_address"
-                placeholder="Email của bạn"
-                required
-                class="input-field"
-              /><button type="submit" class="btn has-before">
-                <span class="span">Đăng ký</span
-                ><ion-icon
-                  name="arrow-forward-outline"
-                  aria-hidden="true"
-                ></ion-icon>
-              </button>
-            </form>
-            <ul class="social-list">
-              <li>
-                <a href="#" class="social-link"
-                  ><ion-icon name="logo-facebook"></ion-icon
-                ></a>
-              </li>
-              <li>
-                <a href="#" class="social-link"
-                  ><ion-icon name="logo-youtube"></ion-icon
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="container">
-          <p class="copyright">
-            Bản quyền © 2025 EduWeb bởi
-            <a href="#" class="copyright-link">lehoangducmanh</a>. Đã đăng ký
-            bản quyền.
-          </p>
-        </div>
-      </div>
-    </footer>
+
+
+
     <script src="./assets/js/script.js"></script>
-    <script>
-  if (window.pdfjsLib) {
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-  }
-</script>
+    <script src="./assets/js/room.js"></script>
+  </body>
 </html>

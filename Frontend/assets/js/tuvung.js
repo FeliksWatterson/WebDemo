@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const t = localStorage.getItem("token");
     if (!t) return null;
     const p = decodeJwtPayload(t);
-    return p?.sub || p?.userId || p?._id || p?.email || null;
+    return p?.uid || p?.sub || p?.userId || p?._id || p?.email || null;
   }
   function vocabKey() {
     const uid = currentUserId();
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (containerTwo && choices.length) {
     const activate = (type) => {
       if (type === "myset") {
-        window.location.href = "learn.html";
+        window.location.href = "tests.html";
         return;
       }
       choices.forEach((c) => c.classList.remove("active"));
@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
       containerTwo.classList.remove("solo");
       if (wordEntrySec) wordEntrySec.innerHTML = "";
     };
-
     choices.forEach((card) => {
       card.addEventListener("click", (e) => {
         const tag = e.target.tagName.toLowerCase();
@@ -106,66 +105,140 @@ document.addEventListener("DOMContentLoaded", () => {
         activate(card.dataset.type);
       });
     });
-
     manualGoBtn?.addEventListener("click", (e) => {
       e.stopPropagation();
       const n = parseInt(wordCountEl.value, 10);
       if (n > 0) {
         activate("manual");
         createWordEntryForm(n, wordEntrySec, resetChoices);
-      } else {
-        alert("Vui lòng nhập số lượng từ lớn hơn 0.");
-      }
+      } else alert("Vui lòng nhập số lượng từ lớn hơn 0.");
     });
-
     fileInput?.addEventListener("change", (e) => {
       activate("import");
       handleFileUpload(e);
     });
-
     mountMySetTileInAddTwo();
   }
 
   async function mountMySetTileInAddTwo() {
     if (!containerTwo) return;
     let count = 0;
-    try {
-      const local = JSON.parse(localStorage.getItem(vocabKey()) || "[]");
-      count = Array.isArray(local) ? local.length : 0;
-    } catch {}
-    if (!count && isLoggedIn()) {
-      const data = await apiSafe("/api/vocab");
-      const arr = Array.isArray(data?.vocabulary) ? data.vocabulary : [];
-      count = arr.length;
-      if (count) localStorage.setItem(vocabKey(), JSON.stringify(arr));
+    if (isLoggedIn()) {
+      const data = await apiSafe("/api/tests");
+      const items = Array.isArray(data?.items) ? data.items : [];
+      count = items.length;
     }
-    if (!count) return;
-
     const myCard = document.createElement("div");
     myCard.id = "card-myset";
     myCard.className = "add-choice";
     myCard.dataset.type = "myset";
     myCard.setAttribute("tabindex", "0");
     myCard.innerHTML = `
-      <h3 class="card-title">Bộ từ của bạn</h3>
-      <p class="card-sub">Bạn đã lưu <strong>${count}</strong> từ. Bấm để học ngay.</p>
-    `;
-    myCard.addEventListener(
-      "click",
-      () => (window.location.href = "learn.html")
-    );
+      <h3 class="card-title">Đề của bạn</h3>
+      <p class="card-sub">Bạn đã tạo <strong>${count}</strong> đề. Bấm để chọn và làm.</p>`;
+    const go = () => (window.location.href = "tests.html");
+    myCard.addEventListener("click", go);
     myCard.addEventListener("keypress", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        window.location.href = "learn.html";
+        go();
       }
     });
     containerTwo.appendChild(myCard);
   }
 
   const learnContainer = document.getElementById("learn-container");
+
+  // Lấy index đáp án đúng từ 1 câu hỏi (để rút nghĩa đúng)
+  function getCorrectIndexFromQuestion(q) {
+    const ans = q?.answer ?? q?.correct ?? q?.correctAnswer ?? q?.answerIndex;
+    if (typeof ans === "number") return ans;
+
+    if (typeof ans === "string") {
+      const s = ans.trim();
+      const letter = s.toUpperCase();
+      if (["A", "B", "C", "D"].includes(letter))
+        return { A: 0, B: 1, C: 2, D: 3 }[letter];
+      // khớp theo text
+      const i = (q.options || []).findIndex((o) => String(o).trim() === s);
+      if (i >= 0) return i;
+    }
+
+    // cuối cùng thử answerText/correctText
+    const target = String(
+      q.answerText || q.correctText || q.answer || ""
+    ).trim();
+    if (target) {
+      const i2 = (q.options || []).findIndex(
+        (o) => String(o).trim() === target
+      );
+      if (i2 >= 0) return i2;
+    }
+    return null;
+  }
+
   if (learnContainer) {
     (async () => {
+      const qs = new URLSearchParams(location.search);
+      const roomId = qs.get("room");
+      const testId = qs.get("test");
+
+      // Ưu tiên mở ĐỀ nếu có ?test=...
+      if (testId) {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          location.href = "./auth.html#login";
+          return;
+        }
+        const url = roomId
+          ? `/api/rooms/${roomId}/tests/${testId}`
+          : `/api/tests/${testId}`;
+
+        const res = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        });
+
+        if (!res.ok) {
+          const t = await res.text().catch(() => "");
+          let m = "Không tải được đề.";
+          try {
+            const j = JSON.parse(t || "{}");
+            m = j.error || j.message || m;
+          } catch {}
+          learnContainer.innerHTML = `<p>${m}</p>`;
+          return;
+        }
+
+        const test = await res.json();
+
+        // Chuyển đề -> danh sách cặp {word, meaning} theo UI học cũ
+        const pairs = [];
+        const qsArr = Array.isArray(test.questions) ? test.questions : [];
+        for (const q of qsArr) {
+          const word = String(q.text || q.word || "").trim();
+          let meaning = "";
+          const ci = getCorrectIndexFromQuestion(q);
+          if (ci != null && Array.isArray(q.options) && q.options[ci] != null) {
+            meaning = String(q.options[ci]).trim();
+          } else {
+            meaning = String(q.answerText || q.correctText || "").trim();
+          }
+          if (word && meaning) pairs.push({ word, meaning });
+        }
+
+        if (!pairs.length) {
+          learnContainer.innerHTML = `<p>Đề này chưa có dữ liệu hợp lệ để học.</p>`;
+          return;
+        }
+
+        // GIỮ NGUYÊN giao diện học cũ
+        startLearning(pairs, learnContainer);
+        return;
+      }
+
       let vocabulary = [];
       try {
         vocabulary = JSON.parse(localStorage.getItem(vocabKey()) || "[]");
@@ -238,9 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await mammoth.extractRawText({ arrayBuffer: buf });
         const data = parseRawText(result.value || "");
         return saveVocabulary(data);
-      } else {
-        alert("Định dạng chưa hỗ trợ. Chọn .txt, .json, .pdf hoặc .docx");
-      }
+      } else alert("Định dạng chưa hỗ trợ. Chọn .txt, .json, .pdf hoặc .docx");
     } catch (err) {
       console.error(err);
       alert("Lỗi xử lý file: " + (err?.message || err));
@@ -301,17 +372,13 @@ document.addEventListener("DOMContentLoaded", () => {
             bufVI.push(t);
             mode = "VI";
           }
-        } else {
-          bufENG.push(t);
-        }
+        } else bufENG.push(t);
       } else {
         if (!hasNonAscii(t) && isAsciiWord(t) && /^[A-Z]/.test(t)) {
           flush();
           bufENG.push(t);
           mode = "ENG";
-        } else {
-          bufVI.push(t);
-        }
+        } else bufVI.push(t);
       }
     }
     flush();
@@ -319,6 +386,42 @@ document.addEventListener("DOMContentLoaded", () => {
       (p) => p.word && p.meaning && p.meaning.split(/\s+/).length <= 12
     );
     return clean.length ? clean : out1;
+  }
+
+  function buildTestFromPairs(pairs, nameHint = "") {
+    const pick = (arr, n) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a.slice(0, n);
+    };
+    const meanings = [
+      ...new Set(pairs.map((p) => String(p.meaning || "").trim())),
+    ].filter(Boolean);
+    const questions = pairs.map((p) => {
+      const correct = String(p.meaning || "").trim();
+      let distractors = meanings.filter((m) => m && m !== correct);
+      distractors = pick(distractors, 3);
+      while (distractors.length < 3 && meanings.length) {
+        const any = meanings[Math.floor(Math.random() * meanings.length)];
+        if (any && any !== correct && !distractors.includes(any))
+          distractors.push(any);
+        else break;
+      }
+      const opts = pick([correct, ...distractors], 4);
+      const idx = Math.max(0, opts.indexOf(correct));
+      const letter = "ABCD"[idx] || "A";
+      return {
+        text: String(p.word || "").trim(),
+        options: opts,
+        answer: letter,
+      };
+    });
+    const name =
+      nameHint?.trim() || `Bộ đề ${new Date().toLocaleString("vi-VN")}`;
+    return { name, timeLimit: 0, questions };
   }
 
   async function saveVocabulary(vocabulary) {
@@ -329,8 +432,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const cleaned = [];
     const seen = new Set();
     for (const it of vocabulary) {
-      const w = String(it?.word || "").trim();
-      const m = String(it?.meaning || "").trim();
+      const w = String(it?.word || "").trim(),
+        m = String(it?.meaning || "").trim();
       if (!w || !m) continue;
       const k = (w + "||" + m).toLowerCase();
       if (seen.has(k)) continue;
@@ -366,8 +469,12 @@ document.addEventListener("DOMContentLoaded", () => {
           body: { vocabulary: data },
         });
       } catch {}
+      try {
+        const payload = buildTestFromPairs(data);
+        await apiSafe("/api/tests", { method: "POST", body: payload });
+      } catch {}
     }
-    window.location.href = "learn.html";
+    window.location.href = "tests.html";
   }
 
   function createWordEntryForm(count, container, onBack) {
@@ -413,8 +520,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <button id="next-word" class="btn has-before" style="flex:1; justify-content:center">${
             isLast ? "Hoàn tất" : "Tiếp theo"
           }</button>
-        </div>
-      `;
+        </div>`;
       const wordInput = wrapper.querySelector("#word");
       const meaningInput = wrapper.querySelector("#meaning");
       const prevBtn = wrapper.querySelector("#prev-word");
@@ -483,44 +589,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderStep();
   }
 
-  function getPresetVocabulary(topic) {
-    const presets = {
-      animals: [
-        { word: "Dog", meaning: "Con chó" },
-        { word: "Cat", meaning: "Con mèo" },
-        { word: "Elephant", meaning: "Con voi" },
-        { word: "Lion", meaning: "Sư tử" },
-        { word: "Tiger", meaning: "Con hổ" },
-        { word: "Monkey", meaning: "Con khỉ" },
-      ],
-      jobs: [
-        { word: "Doctor", meaning: "Bác sĩ" },
-        { word: "Teacher", meaning: "Giáo viên" },
-        { word: "Engineer", meaning: "Kỹ sư" },
-        { word: "Singer", meaning: "Ca sĩ" },
-        { word: "Artist", meaning: "Họa sĩ" },
-        { word: "Chef", meaning: "Đầu bếp" },
-      ],
-      food: [
-        { word: "Apple", meaning: "Quả táo" },
-        { word: "Rice", meaning: "Cơm" },
-        { word: "Water", meaning: "Nước" },
-        { word: "Bread", meaning: "Bánh mì" },
-        { word: "Chicken", meaning: "Thịt gà" },
-        { word: "Fish", meaning: "Cá" },
-      ],
-      travel: [
-        { word: "Airplane", meaning: "Máy bay" },
-        { word: "Hotel", meaning: "Khách sạn" },
-        { word: "Beach", meaning: "Bãi biển" },
-        { word: "Passport", meaning: "Hộ chiếu" },
-        { word: "Suitcase", meaning: "Va-li" },
-        { word: "Map", meaning: "Bản đồ" },
-      ],
-    };
-    return presets[topic] || [];
-  }
-
   function startLearning(vocabulary, container) {
     const original = [...vocabulary];
     let queue = [...vocabulary].sort(() => Math.random() - 0.5);
@@ -554,20 +622,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const pct = Math.round((done / original.length) * 100);
       if (!progressEl) return;
       progressEl.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <div style="font-weight:600;color:#111;">Tiến độ làm bài</div>
-        <div style="opacity:.85">${done}/${original.length} (${pct}%)</div>
-      </div>
-      <div style="height:8px;background:#eee;border-radius:9999px;overflow:hidden;">
-        <div style="height:100%;width:${pct}%;background:hsl(210,82%,45%);"></div>
-      </div>
-    `;
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div style="font-weight:600;color:#111;">Tiến độ làm bài</div>
+          <div style="opacity:.85">${done}/${original.length} (${pct}%)</div>
+        </div>
+        <div style="height:8px;background:#eee;border-radius:9999px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:hsl(210,82%,45%);"></div>
+        </div>`;
     }
     function initLearnUI() {
-      container.innerHTML = `
-      <div id="learn-progress" style="margin:0 0 14px;"></div>
-      <div id="question-area"></div>
-    `;
+      container.innerHTML = `<div id="learn-progress" style="margin:0 0 14px;"></div><div id="question-area"></div>`;
       progressEl = container.querySelector("#learn-progress");
       qArea = container.querySelector("#question-area");
       updateProgress();
@@ -577,31 +641,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const pct = Math.round((correctCount / original.length) * 100);
       const wrongCount = wrongOnce.size;
       container.innerHTML = `
-      <div class="complete-card">
-        <div class="emoji">🎉</div>
-        <h3 class="title">Chúc mừng! Bạn đã hoàn thành bài học.</h3>
-        <p class="sub">Tiếp tục luyện tập mỗi ngày để nhớ lâu hơn nhé.</p>
-        <div class="stats">
-          <div class="stat"><span>${
-            original.length
-          }</span><small>Tổng số từ</small></div>
-          <div class="stat"><span>${correctCount}</span><small>Trả lời đúng</small></div>
-          <div class="stat"><span>${wrongCount}</span><small>Câu sai (ít nhất 1 lần)</small></div>
-          <div class="stat"><span>${wrongTotal}</span><small>Lần trả lời sai</small></div>
-          <div class="stat"><span>${pct}%</span><small>Độ chính xác</small></div>
-          <div class="stat"><span>${spent}s</span><small>Thời gian</small></div>
-        </div>
-        <div class="actions">
-          ${
-            wrongCount > 0
-              ? `<button id="retry-wrong" class="btn has-before">Làm lại câu sai</button>`
-              : ""
-          }
-          <button id="retry-all" class="btn outline">Luyện lại toàn bộ</button>
-          <a class="btn outline" href="tuvung.html">Quay lại chọn chủ đề</a>
-        </div>
-      </div>
-    `;
+        <div class="complete-card">
+          <div class="emoji">🎉</div>
+          <h3 class="title">Chúc mừng! Bạn đã hoàn thành bài học.</h3>
+          <p class="sub">Tiếp tục luyện tập mỗi ngày để nhớ lâu hơn nhé.</p>
+          <div class="stats">
+            <div class="stat"><span>${
+              original.length
+            }</span><small>Tổng số từ</small></div>
+            <div class="stat"><span>${correctCount}</span><small>Trả lời đúng</small></div>
+            <div class="stat"><span>${wrongCount}</span><small>Câu sai (ít nhất 1 lần)</small></div>
+            <div class="stat"><span>${wrongTotal}</span><small>Lần trả lời sai</small></div>
+            <div class="stat"><span>${pct}%</span><small>Độ chính xác</small></div>
+            <div class="stat"><span>${spent}s</span><small>Thời gian</small></div>
+          </div>
+          <div class="actions">
+            ${
+              wrongCount > 0
+                ? `<button id="retry-wrong" class="btn has-before">Làm lại câu sai</button>`
+                : ""
+            }
+            <button id="retry-all" class="btn outline">Luyện lại toàn bộ</button>
+            <a class="btn outline" href="tuvung.html">Quay lại chọn chủ đề</a>
+          </div>
+        </div>`;
       document.getElementById("retry-wrong")?.addEventListener("click", () => {
         const wrongList = original.filter((w) =>
           wrongOnce.has(w.word + "||" + w.meaning)
@@ -644,7 +707,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!queue.length) return renderComplete();
         busy = false;
         const card = queue[0];
-        const canMatch = original.length >= 4 && askedCount >= MATCH_AFTER;
+        const canMatch =
+          original.length >= 4 &&
+          askedCount >= Math.max(5, Math.ceil(original.length * 0.35));
         const type = pickType(canMatch);
         askedCount++;
         if (type === "multiple-choice-meaning") renderMC(card);
@@ -679,11 +744,7 @@ document.addEventListener("DOMContentLoaded", () => {
       qArea.innerHTML = "";
       const box = document.createElement("div");
       box.className = "question-card";
-      box.innerHTML = `
-      <h3>Từ "<strong>${card.word}</strong>" có nghĩa là gì?</h3>
-      <div class="options"></div>
-      <div class="explain" style="margin-top:10px; display:none;"></div>
-    `;
+      box.innerHTML = `<h3>Từ "<strong>${card.word}</strong>" có nghĩa là gì?</h3><div class="options"></div><div class="explain" style="margin-top:10px; display:none;"></div>`;
       const opts = box.querySelector(".options");
       const explain = box.querySelector(".explain");
       getFourOptions(card.meaning).forEach((text) => {
@@ -721,13 +782,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const form = document.createElement("form");
       form.className = "question-card";
       form.innerHTML = `
-      <h3>Viết nghĩa của từ "<strong>${card.word}</strong>":</h3>
-      <input type="text" id="writing-answer" class="input-field input-answer" placeholder="Nhập nghĩa..." autocomplete="off" autocapitalize="none" spellcheck="false">
-      <div class="question-actions">
-        <button type="submit" class="btn has-before"><span class="span">Kiểm tra</span></button>
-      </div>
-      <div class="explain" style="margin-top:10px; display:none;"></div>
-    `;
+        <h3>Viết nghĩa của từ "<strong>${card.word}</strong>":</h3>
+        <input type="text" id="writing-answer" class="input-field input-answer" placeholder="Nhập nghĩa..." autocomplete="off" autocapitalize="none" spellcheck="false">
+        <div class="question-actions"><button type="submit" class="btn has-before"><span class="span">Kiểm tra</span></button></div>
+        <div class="explain" style="margin-top:10px; display:none;"></div>`;
       qArea.appendChild(form);
       const input = form.querySelector("#writing-answer");
       const explain = form.querySelector(".explain");
@@ -742,8 +800,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         if (busy) return;
         busy = true;
-        const user = norm(input.value);
-        const correct = norm(card.meaning);
+        const user = (input.value || "").toLowerCase().trim();
+        const correct = (card.meaning || "").toLowerCase().trim();
         const ok = user.length > 0 && user === correct;
         if (ok) {
           input.classList.remove("wrong");
@@ -769,13 +827,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const form = document.createElement("form");
       form.className = "question-card";
       form.innerHTML = `
-      <h3>Viết từ tiếng Anh cho nghĩa "<strong>${card.meaning}</strong>":</h3>
-      <input type="text" id="writing-rev-answer" class="input-field input-answer" placeholder="Nhập từ tiếng Anh..." autocomplete="off" autocapitalize="none" spellcheck="false">
-      <div class="question-actions">
-        <button type="submit" class="btn has-before"><span class="span">Kiểm tra</span></button>
-      </div>
-      <div class="explain" style="margin-top:10px; display:none;"></div>
-    `;
+        <h3>Viết từ tiếng Anh cho nghĩa "<strong>${card.meaning}</strong>":</h3>
+        <input type="text" id="writing-rev-answer" class="input-field input-answer" placeholder="Nhập từ tiếng Anh..." autocomplete="off" autocapitalize="none" spellcheck="false">
+        <div class="question-actions"><button type="submit" class="btn has-before"><span class="span">Kiểm tra</span></button></div>
+        <div class="explain" style="margin-top:10px; display:none;"></div>`;
       qArea.appendChild(form);
       const input = form.querySelector("#writing-rev-answer");
       const explain = form.querySelector(".explain");
@@ -790,8 +845,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         if (busy) return;
         busy = true;
-        const user = norm(input.value);
-        const correct = norm(card.word);
+        const user = (input.value || "").toLowerCase().trim();
+        const correct = (card.word || "").toLowerCase().trim();
         const ok = user.length > 0 && user === correct;
         if (ok) {
           input.classList.remove("wrong");

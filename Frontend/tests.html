@@ -4,24 +4,31 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Học Từ Vựng - EduWeb</title>
+    <title>Web Demo</title>
     <meta
       name="title"
       content="EduWeb - The Best Program to Enroll for Exchange"
     />
     <meta
       name="description"
-      content="This is an education html template made by codewithsadee"
+      content="This is an education web made by lehoangducmanh"
     />
+
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/.css" />
+
+    <link rel="stylesheet" href="assets\css\style.css" />
+    <link rel="stylesheet" href="assets\css\tuvung.css" />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
     <link rel="preload" as="image" href="./assets/images/hero-bg.svg" />
     <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg" />
     <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg" />
@@ -119,6 +126,10 @@
               ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
+                  <a href="class.html" class="dropdown-link" role="menuitem"
+                    >Lớp học</a
+                  >
+                <li class="dropdown-item" role="none">
                   <a href="" class="dropdown-link" role="menuitem">Tổng quan</a>
                 </li>
                 <li class="dropdown-item" role="none">
@@ -206,7 +217,7 @@
             <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
           </button>
 
-          <a href="./login.html" class="btn has-before">
+          <a href="./auth.html" class="btn has-before">
             <span class="span">Bắt đầu ngay</span>
             <ion-icon
               name="arrow-forward-outline"
@@ -226,135 +237,22 @@
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
-
-
     <main>
       <article>
-        <section
-          class="section practice-test-section"
-          id="vocab"
-          aria-label="vocab"
-        >
+        <section class="section">
           <div class="container">
-            <div class="test-header">
-              <p class="section-subtitle">Học từ vựng</p>
-              <h2 class="h2 section-title">
-                Chọn <span class="span">bộ từ</span> để bắt đầu
-              </h2>
-            </div>
+            <h2 class="h2 section-title" style="text-align:center; margin-bottom:18px;">
+              Đề của bạn
+            </h2>
 
-            <div class="test-selection-area" style="margin-top: 50px">
-              <h3
-                class="h3 section-title"
-                style="text-align: left; margin-bottom: 20px"
-              >
-                Chọn cách thêm mới hoặc học nhanh (10–15 phút):
-              </h3>
-
-              <ul class="grid-list" id="vocab-list">
-                <li>
-                  <div class="category-card" style="--color: 210, 82%, 45%">
-                    <h3 class="h3">
-                      <a href="add.html" class="card-title">
-                        Tự nhập / Upload
-                      </a>
-                    </h3>
-                    <p
-                      class="card-text"
-                      style="text-align: left; margin-block: 10px 15px"
-                    >
-                      Tạo bộ từ của bạn & luyện ngay
-                    </p>
-                    <a class="btn has-before" href="add.html">
-                      <span class="span">Bắt đầu ▷</span>
-                    </a>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="category-card" style="--color: 42, 94%, 55%">
-                    <h3 class="h3">
-                      <a href="learn.html?topic=animals" class="card-title">
-                        Chủ đề: Động vật (25)
-                      </a>
-                    </h3>
-                    <p
-                      class="card-text"
-                      style="text-align: left; margin-block: 10px 15px"
-                    >
-                      Nối từ, chọn nghĩa, gõ lại – như Duolingo
-                    </p>
-                    <a class="btn has-before" href="learn.html?topic=animals">
-                      <span class="span">Bắt đầu ▷</span>
-                    </a>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="category-card" style="--color: 351, 83%, 61%">
-                    <h3 class="h3">
-                      <a href="learn.html?topic=jobs" class="card-title">
-                        Chủ đề: Nghề nghiệp (25)
-                      </a>
-                    </h3>
-                    <p
-                      class="card-text"
-                      style="text-align: left; margin-block: 10px 15px"
-                    >
-                      Từ cơ bản nhất về công việc, chức danh
-                    </p>
-                    <a class="btn has-before" href="learn.html?topic=jobs">
-                      <span class="span">Bắt đầu ▷</span>
-                    </a>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="category-card" style="--color: 170, 75%, 41%">
-                    <h3 class="h3">
-                      <a href="learn.html?topic=food" class="card-title">
-                        Chủ đề: Đồ ăn & đồ uống (25)
-                      </a>
-                    </h3>
-                    <p
-                      class="card-text"
-                      style="text-align: left; margin-block: 10px 15px"
-                    >
-                      Từ vựng dùng mỗi ngày khi gọi món
-                    </p>
-                    <a class="btn has-before" href="learn.html?topic=food">
-                      <span class="span">Bắt đầu ▷</span>
-                    </a>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="category-card" style="--color: 229, 75%, 58%">
-                    <h3 class="h3">
-                      <a href="learn.html?topic=travel" class="card-title">
-                        Chủ đề: Du lịch (25)
-                      </a>
-                    </h3>
-                    <p
-                      class="card-text"
-                      style="text-align: left; margin-block: 10px 15px"
-                    >
-                      Sân bay, khách sạn, lộ trình – đủ cả
-                    </p>
-                    <a class="btn has-before" href="learn.html?topic=travel">
-                      <span class="span">Bắt đầu ▷</span>
-                    </a>
-                  </div>
-                </li>
-
-              </ul>
-            </div>
+            <!-- Lưới thẻ (dùng đúng class .add-two/.add-choice y hệt bên tuvung) -->
+            <div id="tests-grid" class="add-two"></div>
           </div>
         </section>
-
       </article>
     </main>
-   <footer
+
+     <footer
       class="footer"
       style="background-image: url('./assets/images/footer-bg.png')"
     >
@@ -453,23 +351,7 @@
       </div>
     </footer>
 
-    <a
-      href="#top"
-      class="back-top-btn"
-      aria-label="back top top"
-      data-back-top-btn
-    >
-      <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-    </a>
-
     <script src="./assets/js/script.js" defer></script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
+    <script src="./assets/js/tests.js"></script>
   </body>
 </html>

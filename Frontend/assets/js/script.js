@@ -189,10 +189,33 @@ async function initAuthUI() {
   }
 
   try {
-    const res = await fetch("/api/me", {
+    const API_BASE = "http://localhost:4000";
+
+    let res = await fetch("/api/me", {
       headers: { Authorization: `Bearer ${token}` },
     });
-    if (!res.ok) throw new Error("unauthorized");
+
+    // nếu chạy ở origin khác làm 404/Not Found → thử lại đúng host backend
+    if (!res.ok) {
+      try {
+        res = await fetch(API_BASE + "/api/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } catch (_) {}
+    }
+
+    if (res.status === 401) {
+      // chỉ coi là hết hạn khi THẬT SỰ 401
+      localStorage.removeItem("token");
+      await initAuthUI();
+      return;
+    }
+
+    if (!res.ok) {
+      // đừng xóa token chỉ vì 404/500 từ origin sai
+      console.warn("ME check failed:", res.status);
+      return;
+    }
     const me = await res.json();
 
     authBox.innerHTML = `

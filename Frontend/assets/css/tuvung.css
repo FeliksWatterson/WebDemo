@@ -308,3 +308,11 @@
   pointer-events: none;
   opacity: 0.9;
 }
+.question-card .options .btn {
+  width: 100%;
+  text-align: left;
+  margin: 6px 0;
+}
+.question-actions .btn {
+  justify-content: center;
+}
