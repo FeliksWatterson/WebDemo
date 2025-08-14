@@ -1,7 +1,6 @@
 const rdMembers = document.getElementById("rd-members");
 (() => {
-  const API_BASE = "http://localhost:4000";
-
+  const API_BASE = window.API_BASE ?? "";
   function makeHeaders() {
     const token = localStorage.getItem("token") || "";
     return {
@@ -11,8 +10,10 @@ const rdMembers = document.getElementById("rd-members");
   }
 
   async function api(path, options = {}) {
-    const res = await fetch(API_BASE + path, {
+    const url = /^https?:\/\//.test(path) ? path : API_BASE + path;
+    const res = await fetch(url, {
       ...options,
+      mode: "cors",
       headers: { ...makeHeaders(), ...(options.headers || {}) },
     });
     const txt = await res.text();
@@ -69,7 +70,7 @@ const rdMembers = document.getElementById("rd-members");
 
     async function loadRooms() {
       try {
-        const { items = [] } = await api("/api/rooms"); // server trả { items }
+        const { items = [] } = await api("/api/rooms");
         if (!items.length) {
           if (elRooms) elRooms.innerHTML = "";
           setHidden(elRoomsEmpty, false);
@@ -81,25 +82,30 @@ const rdMembers = document.getElementById("rd-members");
           items.forEach((r) => {
             const item = li(
               `<div class="room-row">
-                    <div>
-                    <div><b>${r.name || "(Không tên)"}</b></div>
-                    <div class="muted">Mã: ${r.joinCode}</div>
-                    </div>
-                    <div class="room-actions">
-                    <a class="btn-detail" href="room.html?id=${
-                      r._id
-                    }">Chi tiết</a>
-                    </div>
-                </div>`
+                 <div>
+                   <div><b>${r.name || "(Không tên)"}</b></div>
+                   <div class="muted">Mã: ${r.joinCode}</div>
+                 </div>
+                 <div class="room-actions">
+                   <a class="btn-detail" href="room.html?id=${
+                     r._id
+                   }">Chi tiết</a>
+                 </div>
+               </div>`
             );
-            item
-              .querySelector(".btn-detail")
-              .addEventListener("click", () => openRoom(r._id));
+            const btn = item.querySelector(".btn-detail");
+            btn.addEventListener("click", (e) => {
+              if (!document.getElementById("roomDetail")) return;
+              e.preventDefault();
+              openRoom(r._id);
+            });
             elRooms.appendChild(item);
           });
         }
       } catch (e) {
-        alert("Lỗi tải danh sách phòng: " + e.message);
+        if (/Failed to fetch|Network|HTTP\s\d+/.test(String(e.message || "")))
+          alert("Lỗi tải danh sách phòng: " + e.message);
+        else console.error(e);
       }
     }
 
@@ -111,7 +117,7 @@ const rdMembers = document.getElementById("rd-members");
           method: "POST",
           body: JSON.stringify({ name }),
         });
-        elRoomName.value = "";
+        if (elRoomName) elRoomName.value = "";
         await loadRooms();
       } catch (e) {
         alert(e.message);
@@ -126,7 +132,7 @@ const rdMembers = document.getElementById("rd-members");
           method: "POST",
           body: JSON.stringify({ joinCode: code }),
         });
-        elJoinCode.value = "";
+        if (elJoinCode) elJoinCode.value = "";
         await loadRooms();
       } catch (e) {
         alert(e.message);
@@ -137,15 +143,17 @@ const rdMembers = document.getElementById("rd-members");
       try {
         const r = await api(`/api/rooms/${id}`);
         currentRoomId = r.id;
-        rdAssignedUl.innerHTML =
-          (r.assignments || [])
-            .map(
-              (a) =>
-                `<li>${a.name}${
-                  a.timeLimit ? " (" + a.timeLimit + "p)" : ""
-                }</li>`
-            )
-            .join("") || "<li>(Chưa có)</li>";
+        if (rdAssignedUl) {
+          rdAssignedUl.innerHTML =
+            (r.assignments || [])
+              .map(
+                (a) =>
+                  `<li>${a.name}${
+                    a.timeLimit ? " (" + a.timeLimit + "p)" : ""
+                  }</li>`
+              )
+              .join("") || "<li>(Chưa có)</li>";
+        }
         if (rdMembers) {
           rdMembers.innerHTML =
             (r.members || [])
@@ -153,25 +161,29 @@ const rdMembers = document.getElementById("rd-members");
               .join("") || "<li>(Trống)</li>";
         }
         const tests = await api("/api/tests");
-        rdAssignUl.innerHTML =
-          (tests.items || [])
-            .map(
-              (t) =>
-                `<li><label><input type="checkbox" value="${t._id}"> ${t.name}${
-                  t.timeLimit ? " (" + t.timeLimit + "p)" : ""
-                }</label></li>`
-            )
-            .join("") || "<li>(Không có danh sách đề)</li>";
+        if (rdAssignUl) {
+          rdAssignUl.innerHTML =
+            (tests.items || [])
+              .map(
+                (t) =>
+                  `<li><label><input type="checkbox" value="${t._id}"> ${
+                    t.name
+                  }${t.timeLimit ? " (" + t.timeLimit + "p)" : ""}</label></li>`
+              )
+              .join("") || "<li>(Không có danh sách đề)</li>";
+        }
         setHidden(boxDetail, false);
       } catch (e) {
-        alert(e.message);
+        if (/Failed to fetch|Network|HTTP\s\d+/.test(String(e.message || "")))
+          alert(e.message);
+        else console.error(e);
       }
     }
 
     async function assignTest() {
-      if (!currentRoomId) return;
+      if (!currentRoomId || !rdAssignUl || !rdAssignedUl) return;
       const ids = Array.from(
-        rdAssignUl?.querySelectorAll("input[type=checkbox]:checked") || []
+        rdAssignUl.querySelectorAll("input[type=checkbox]:checked")
       ).map((i) => i.value);
       if (!ids.length) return alert("Chọn ít nhất một đề");
       try {

@@ -149,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const learnContainer = document.getElementById("learn-container");
 
-  // Lấy index đáp án đúng từ 1 câu hỏi (để rút nghĩa đúng)
   function getCorrectIndexFromQuestion(q) {
     const ans = q?.answer ?? q?.correct ?? q?.correctAnswer ?? q?.answerIndex;
     if (typeof ans === "number") return ans;
@@ -159,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const letter = s.toUpperCase();
       if (["A", "B", "C", "D"].includes(letter))
         return { A: 0, B: 1, C: 2, D: 3 }[letter];
-      // khớp theo text
       const i = (q.options || []).findIndex((o) => String(o).trim() === s);
       if (i >= 0) return i;
     }
@@ -213,8 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const test = await res.json();
-
-        // Chuyển đề -> danh sách cặp {word, meaning} theo UI học cũ
         const pairs = [];
         const qsArr = Array.isArray(test.questions) ? test.questions : [];
         for (const q of qsArr) {
@@ -234,7 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        // GIỮ NGUYÊN giao diện học cũ
         startLearning(pairs, learnContainer);
         return;
       }

@@ -378,14 +378,12 @@
   background: #ffe9ee;
 }
 
-/* Nút Bắt đầu nhỏ gọn hơn trong card đề (cột phải) */
 .room-tests-grid .add-choice .btn {
   padding: 8px 14px;
   font-size: 14px;
   border-radius: 10px;
 }
 
-/* Căn hàng checkbox + tên đề trong popup Gán đề */
 .modal__list {
   margin: 0;
   padding: 0;

@@ -11,9 +11,13 @@
       Authorization: "Bearer " + token,
     };
   }
+
   async function api(p, o = {}) {
-    const r = await fetch(p, {
+    const base = window.API_BASE || "";
+    const url = /^https?:\/\//.test(p) ? p : base + p;
+    const r = await fetch(url, {
       ...o,
+      mode: "cors",
       headers: { ...headers(), ...(o.headers || {}) },
     });
     const t = await r.text();
@@ -24,6 +28,7 @@
     if (!r.ok) throw new Error(d.error || d.message || `HTTP ${r.status}`);
     return d;
   }
+
   function uid() {
     try {
       const b = token.split(".")[1];
@@ -32,6 +37,7 @@
       return null;
     }
   }
+
   function esc(s) {
     return String(s || "").replace(
       /[&<>"']/g,
@@ -46,7 +52,6 @@
     );
   }
 
-  // Elements
   const elCode = document.getElementById("join-code");
   const elRoomTitle = document.getElementById("room-title");
   const wrapMembers = document.getElementById("members-wrap");
@@ -57,7 +62,6 @@
   const grid = document.getElementById("assigned");
   const emptyNote = document.getElementById("assigned-empty");
 
-  // Modal
   const modal = document.getElementById("room-actions-modal");
   const openActionsBtn = document.getElementById("open-room-actions");
   const closeEls = Array.from(
@@ -88,7 +92,6 @@
     if (e.key === "Escape") closeModal();
   });
 
-  // Card đề: giống trang tests
   function card(test, hue, room) {
     const id = test._id || test.id;
     const title = esc(test.name || "Bài kiểm tra");
@@ -134,7 +137,6 @@
     if (elRoomTitle)
       elRoomTitle.textContent = room.name ? `Phòng: ${room.name}` : "";
 
-    // Members
     if (Array.isArray(room.members) && room.members.length) {
       if (wrapMembers) wrapMembers.style.display = "";
       if (ulMembers) {
@@ -181,20 +183,18 @@
       document.getElementById("stat-assign").textContent = metas.length + " đề";
     } catch {}
 
-    // Quyền chủ phòng → thấy nút bút chì & xoá phòng; người thường → ẩn
     const owner = String(room.owner) === String(uid());
     if (openActionsBtn) openActionsBtn.style.display = owner ? "" : "none";
     if (btnDelete) btnDelete.style.display = owner ? "" : "none";
   }
 
-  // Mở modal khi ấn bút chì (và nạp danh sách đề lúc mở)
   openActionsBtn?.addEventListener("click", async () => {
     await populateTestsList(currentRoom || {});
     openModal();
   });
 
-  // Gán đề
   btnAssign?.addEventListener("click", async () => {
+    if (!ulTests) return;
     const ids = Array.from(
       ulTests.querySelectorAll('input[type="checkbox"]:checked')
     ).map((i) => i.value);
@@ -213,14 +213,12 @@
     alert("Đã gán đề");
   });
 
-  // Xoá phòng
   btnDelete?.addEventListener("click", async () => {
     if (!confirm("Xoá phòng này?")) return;
     await api(`/api/rooms/${roomId}`, { method: "DELETE" });
     location.href = "./class.html";
   });
 
-  // Copy mã tham gia
   const copyBtn = document.getElementById("copy-code");
   copyBtn?.addEventListener("click", () => {
     const code = elCode?.textContent?.trim();
@@ -231,5 +229,10 @@
     );
   });
 
-  loadRoom().catch((e) => alert(e.message || "Lỗi tải phòng"));
+  loadRoom().catch((e) => {
+    const msg = String(e?.message || "");
+    if (/Failed to fetch|Network|HTTP\s\d+/.test(msg))
+      alert(msg || "Lỗi tải phòng");
+    else console.error(e);
+  });
 })();

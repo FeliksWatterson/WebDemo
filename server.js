@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
@@ -7,8 +7,6 @@ const pdfParse = require("pdf-parse");
 const fs = require("fs");
 const fetch = require("node-fetch");
 const { v4: uuidv4 } = require("uuid");
-const path = require("path");
-
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
@@ -27,9 +25,8 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, time: new Date().toISOString() });
 });
 app.use((req, res, next) => {
-  if (req.path.startsWith("/api/")) {
+  if (req.path.startsWith("/api/"))
     console.log(`[API] ${req.method} ${req.originalUrl}`);
-  }
   next();
 });
 
@@ -55,7 +52,6 @@ const userSchema = new mongoose.Schema({
   password: String,
   createdAt: { type: Date, default: Date.now },
 });
-
 const vocabSchema = new mongoose.Schema({
   uid: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true },
   vocabulary: [
@@ -66,7 +62,6 @@ const vocabSchema = new mongoose.Schema({
   ],
   updatedAt: { type: Date, default: Date.now },
 });
-
 const progressSchema = new mongoose.Schema({
   uid: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true },
   stats: {
@@ -77,7 +72,6 @@ const progressSchema = new mongoose.Schema({
   },
   updatedAt: { type: Date, default: Date.now },
 });
-
 const testSchema = new mongoose.Schema({
   uid: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true },
   name: String,
@@ -92,12 +86,6 @@ const testSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
-
-const User = mongoose.model("User", userSchema);
-const Vocab = mongoose.model("Vocab", vocabSchema);
-const Progress = mongoose.model("Progress", progressSchema);
-const Test = mongoose.model("Test", testSchema);
-
 const roomSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true },
   name: { type: String, required: true },
@@ -120,6 +108,11 @@ const roomSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
+
+const User = mongoose.model("User", userSchema);
+const Vocab = mongoose.model("Vocab", vocabSchema);
+const Progress = mongoose.model("Progress", progressSchema);
+const Test = mongoose.model("Test", testSchema);
 const Room = mongoose.model("Room", roomSchema);
 
 async function genJoinCode() {
@@ -369,7 +362,6 @@ app.get("/api/rooms", auth, async (req, res) => {
     .select("_id name joinCode owner createdAt updatedAt")
     .sort({ updatedAt: -1 })
     .lean();
-
   res.json({ items: rooms });
 });
 
@@ -530,10 +522,8 @@ app.get("/api/quiz/progress/:taskId", async (req, res) => {
     "Cache-Control": "no-cache",
     Connection: "keep-alive",
   });
-
-  const sendProgress = (progress, message) => {
+  const sendProgress = (progress, message) =>
     res.write(`data: ${JSON.stringify({ progress, message })}\n\n`);
-  };
 
   try {
     sendProgress(10, "Đã nhận yêu cầu, bắt đầu phân tích tệp PDF...");
@@ -544,9 +534,8 @@ app.get("/api/quiz/progress/:taskId", async (req, res) => {
 
     const chunkSize = 15000;
     const textChunks = [];
-    for (let i = 0; i < textContent.length; i += chunkSize) {
+    for (let i = 0; i < textContent.length; i += chunkSize)
       textChunks.push(textContent.substring(i, i + chunkSize));
-    }
 
     let allQuestions = [];
     for (let i = 0; i < textChunks.length; i++) {
@@ -610,8 +599,8 @@ app.use("/api", (req, res) => {
 });
 
 const STATIC_DIR = path.join(__dirname, "Frontend");
-app.use(express.static(STATIC_DIR));
-app.get("/", (_, res) => res.sendFile(path.join(STATIC_DIR, "index.html")));
+app.use(express.static(STATIC_DIR, { extensions: ["html"] }));
+app.get("/", (_, res) => res.sendFile(path.join(STATIC_DIR, "class.html")));
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
