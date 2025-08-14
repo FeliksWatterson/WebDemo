@@ -152,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function getCorrectIndexFromQuestion(q) {
     const ans = q?.answer ?? q?.correct ?? q?.correctAnswer ?? q?.answerIndex;
     if (typeof ans === "number") return ans;
-
     if (typeof ans === "string") {
       const s = ans.trim();
       const letter = s.toUpperCase();
@@ -161,8 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const i = (q.options || []).findIndex((o) => String(o).trim() === s);
       if (i >= 0) return i;
     }
-
-    // cuối cùng thử answerText/correctText
     const target = String(
       q.answerText || q.correctText || q.answer || ""
     ).trim();
@@ -175,42 +172,77 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
+  function getPrefetchedTest(id) {
+    try {
+      const raw = sessionStorage.getItem("pretest:" + id);
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      if (!obj || !obj.data) return null;
+      if (Date.now() - (obj.t || 0) > 10 * 60 * 1000) return null;
+      return obj.data;
+    } catch {
+      return null;
+    }
+  }
+
   if (learnContainer) {
     (async () => {
       const qs = new URLSearchParams(location.search);
       const roomId = qs.get("room");
       const testId = qs.get("test");
 
-      // Ưu tiên mở ĐỀ nếu có ?test=...
       if (testId) {
         const token = localStorage.getItem("token");
         if (!token) {
           location.href = "./auth.html#login";
           return;
         }
-        const url = roomId
-          ? `/api/rooms/${roomId}/tests/${testId}`
-          : `/api/tests/${testId}`;
 
-        const res = await fetch(url, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        });
+        learnContainer.innerHTML = `
+          <div style="padding:24px 0">
+            <div style="height:10px;background:#eee;border-radius:9999px;overflow:hidden;margin-bottom:12px">
+              <div id="ldbar" style="height:100%;width:35%;background:hsl(210,82%,45%);transition:width .6s"></div>
+            </div>
+            <div style="color:#667">Đang tải đề…</div>
+          </div>`;
 
-        if (!res.ok) {
-          const t = await res.text().catch(() => "");
-          let m = "Không tải được đề.";
+        const pre = getPrefetchedTest(testId);
+        let test = pre || null;
+        if (!test) {
+          const url = roomId
+            ? `/api/rooms/${roomId}/tests/${testId}`
+            : `/api/tests/${testId}`;
+
+          const ctrl = new AbortController();
+          const to = setTimeout(() => ctrl.abort(), 10000);
           try {
-            const j = JSON.parse(t || "{}");
-            m = j.error || j.message || m;
-          } catch {}
-          learnContainer.innerHTML = `<p>${m}</p>`;
-          return;
+            const res = await fetch(url, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+              signal: ctrl.signal,
+              credentials: "same-origin",
+            });
+            const t = await res.text().catch(() => "");
+            if (!res.ok) {
+              let m = "Không tải được đề.";
+              try {
+                const j = JSON.parse(t || "{}");
+                m = j.error || j.message || m;
+              } catch {}
+              learnContainer.innerHTML = `<p style="color:#b00">${m}</p>`;
+              return;
+            }
+            test = JSON.parse(t || "{}");
+          } catch {
+            learnContainer.innerHTML = `<p style="color:#b00">Mạng chậm hoặc máy chủ bận. Thử lại sau nhé.</p>`;
+            return;
+          } finally {
+            clearTimeout(to);
+          }
         }
 
-        const test = await res.json();
         const pairs = [];
         const qsArr = Array.isArray(test.questions) ? test.questions : [];
         for (const q of qsArr) {
@@ -308,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return saveVocabulary(data);
       } else alert("Định dạng chưa hỗ trợ. Chọn .txt, .json, .pdf hoặc .docx");
     } catch (err) {
-      console.error(err);
       alert("Lỗi xử lý file: " + (err?.message || err));
     }
   }
@@ -711,8 +742,7 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (type === "matching") renderMatching(card);
         else if (type === "writing-reverse") renderWritingReverse(card);
         else renderWriting(card);
-      } catch (err) {
-        console.error("Render error:", err);
+      } catch {
         if (queue.length) {
           queue.push(queue.shift());
           next(300);
@@ -736,7 +766,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return shuffle([correctMeaning, ...wrongs]).slice(0, 4);
     }
     function renderMC(card) {
-      qArea.innerHTML = "";
       const box = document.createElement("div");
       box.className = "question-card";
       box.innerHTML = `<h3>Từ "<strong>${card.word}</strong>" có nghĩa là gì?</h3><div class="options"></div><div class="explain" style="margin-top:10px; display:none;"></div>`;
@@ -770,10 +799,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         opts.appendChild(btn);
       });
+      const qArea = document.getElementById("question-area");
+      qArea.innerHTML = "";
       qArea.appendChild(box);
     }
     function renderWriting(card) {
-      qArea.innerHTML = "";
       const form = document.createElement("form");
       form.className = "question-card";
       form.innerHTML = `
@@ -781,6 +811,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" id="writing-answer" class="input-field input-answer" placeholder="Nhập nghĩa..." autocomplete="off" autocapitalize="none" spellcheck="false">
         <div class="question-actions"><button type="submit" class="btn has-before"><span class="span">Kiểm tra</span></button></div>
         <div class="explain" style="margin-top:10px; display:none;"></div>`;
+      const qArea = document.getElementById("question-area");
+      qArea.innerHTML = "";
       qArea.appendChild(form);
       const input = form.querySelector("#writing-answer");
       const explain = form.querySelector(".explain");
@@ -818,7 +850,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
     function renderWritingReverse(card) {
-      qArea.innerHTML = "";
       const form = document.createElement("form");
       form.className = "question-card";
       form.innerHTML = `
@@ -826,6 +857,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" id="writing-rev-answer" class="input-field input-answer" placeholder="Nhập từ tiếng Anh..." autocomplete="off" autocapitalize="none" spellcheck="false">
         <div class="question-actions"><button type="submit" class="btn has-before"><span class="span">Kiểm tra</span></button></div>
         <div class="explain" style="margin-top:10px; display:none;"></div>`;
+      const qArea = document.getElementById("question-area");
+      qArea.innerHTML = "";
       qArea.appendChild(form);
       const input = form.querySelector("#writing-rev-answer");
       const explain = form.querySelector(".explain");
@@ -863,7 +896,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
     function renderMatching(card) {
-      qArea.innerHTML = "";
       const box = document.createElement("div");
       box.className = "question-card";
       box.innerHTML = `<h3>Nối từ với nghĩa đúng:</h3>`;
@@ -967,6 +999,8 @@ document.addEventListener("DOMContentLoaded", () => {
       board.appendChild(colL);
       board.appendChild(colR);
       box.appendChild(board);
+      const qArea = document.getElementById("question-area");
+      qArea.innerHTML = "";
       qArea.appendChild(box);
     }
     initLearnUI();

@@ -19,6 +19,23 @@ if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 
 app.use(cors());
 app.use(express.json({ limit: "2mb" }));
+const compression = require("compression");
+app.use(compression());
+
+app.use((req, res, next) => {
+  const t0 = Date.now();
+  res.on("finish", () => {
+    if (req.path.startsWith("/api/")) {
+      console.log(
+        `[${res.statusCode}] ${req.method} ${req.originalUrl} - ${
+          Date.now() - t0
+        }ms`
+      );
+    }
+  });
+  next();
+});
+
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/api/health", (req, res) => {
@@ -362,6 +379,7 @@ app.get("/api/rooms", auth, async (req, res) => {
     .select("_id name joinCode owner createdAt updatedAt")
     .sort({ updatedAt: -1 })
     .lean();
+
   res.json({ items: rooms });
 });
 
