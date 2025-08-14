@@ -231,4 +231,80 @@ async function initAuthUI() {
     localStorage.removeItem("token");
     initAuthUI();
   }
+
+  function loadScriptOnce(src) {
+    const KEY = `__script_loaded:${src}`;
+    if (window[KEY]) return window[KEY];
+    window[KEY] = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      s.onload = () => resolve();
+      s.onerror = (e) => reject(e);
+      document.head.appendChild(s);
+    });
+    return window[KEY];
+  }
+
+  // Mammoth (UMD) → tải bằng <script>
+  let mammothReady = null;
+  async function getMammoth() {
+    if (!mammothReady) {
+      await loadScriptOnce(
+        "https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"
+      );
+      mammothReady = window.mammoth; // global
+    }
+    return mammothReady;
+  }
+
+  // pdf.js (ESM) → import() động
+  let pdfMod = null;
+  async function getPdf() {
+    if (!pdfMod) {
+      pdfMod = await import(
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.mjs"
+      );
+      pdfMod.GlobalWorkerOptions.workerSrc =
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.mjs";
+    }
+    return pdfMod;
+  }
+
+  const fileInput = document.getElementById("import-file");
+  fileInput?.addEventListener("change", async (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+
+    const ext = (f.name.split(".").pop() || "").toLowerCase();
+    try {
+      if (ext === "pdf") {
+        const pdfjs = await getPdf();
+        const buf = await f.arrayBuffer();
+        const doc = await pdfjs.getDocument({ data: buf }).promise;
+
+        let fullText = "";
+        const pages = doc.numPages;
+        for (let i = 1; i <= pages; i++) {
+          const page = await doc.getPage(i);
+          const content = await page.getTextContent();
+          fullText += content.items.map((it) => it.str).join(" ") + "\n";
+        }
+        console.log("PDF extracted length:", fullText.length);
+      } else if (ext === "docx") {
+        const mammoth = await getMammoth();
+        const arrayBuffer = await f.arrayBuffer();
+        const { value: html } = await mammoth.convertToHtml({ arrayBuffer });
+        const text = html.replace(/<[^>]*>/g, " ");
+        console.log("DOCX extracted length:", text.length);
+      } else {
+        alert("Chỉ hỗ trợ PDF hoặc DOCX");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Không đọc được file. Vui lòng thử lại.");
+    } finally {
+      e.target.value = "";
+    }
+  });
 }
