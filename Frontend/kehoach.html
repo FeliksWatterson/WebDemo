@@ -4,28 +4,169 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luyện tập từ vựng - EduWeb</title>
+    <title>Web Demo</title>
     <meta
       name="title"
       content="EduWeb - The Best Program to Enroll for Exchange"
     />
     <meta
       name="description"
-      content="This is an education html template made by codewithsadee"
+      content="This is an education web made by lehoangducmanh"
     />
+
     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="./assets/css/tuvung.css" />
+
+    <link rel="stylesheet" href="assets\css\style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-  </head>
 
-  <body id="top">
-    <header class="header" data-header>
+    <link rel="preload" as="image" href="./assets/images/hero-bg.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-1.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-banner-2.jpg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-1.svg" />
+    <link rel="preload" as="image" href="./assets/images/hero-shape-2.png" />
+    <style>
+    .chart-card canvas {
+      width: 100% !important;
+      max-height: 280px; 
+    }
+    .side-card {
+    max-height: 400px;
+        overflow-y: auto;  
+    }
+    .plan-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px;
+      margin: 16px 0;
+      background: var(--isabelline, #f9f9f9);
+      border-radius: 10px;
+    }
+    .plan-filters select, .plan-filters button {
+      padding: 8px 12px;
+      border: 1px solid var(--platinum, #ddd);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin: 20px 0;
+    }
+    .kpi-card {
+      background: #fff;
+      border: 1px solid var(--platinum, #ddd);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .kpi-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--kappel, hsl(210,82%,45%));
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 992px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    .chart-card, .side-card {
+      background: #fff;
+      border: 1px solid var(--platinum, #ddd);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .chart-card h3, .side-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .alert {
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .alert-success { background: #ecfdf5; border: 1px solid #10b981; }
+    .alert-info    { background: #eff6ff; border: 1px solid #3b82f6; }
+    .alert-warning { background: #fffbeb; border: 1px solid #f59e0b; }
+    .alert-danger  { background: #fef2f2; border: 1px solid #ef4444; }
+
+    #taskList li {
+      border: 1px solid var(--platinum, #ddd);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .task-title { font-weight: 600; margin-bottom: 6px; }
+    .progress-bar {
+      height: 8px;
+      background: #eee;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--kappel, hsl(210,82%,45%));
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+    .notification-success { border-left: 4px solid #10b981; }
+    .notification-info    { border-left: 4px solid #3b82f6; }
+    .notification-warning { border-left: 4px solid #f59e0b; }
+    .notification-danger  { border-left: 4px solid #ef4444; }
+    .notification-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    </style>
+    </head>
+<body>
+  <header class="header" data-header>
       <div class="container">
         <a href="#" class="logo">
           <img
@@ -114,6 +255,10 @@
               ></a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-item" role="none">
+                  <a href="class.html" class="dropdown-link" role="menuitem"
+                    >Lớp học</a
+                  >
+                <li class="dropdown-item" role="none">
                   <a href="" class="dropdown-link" role="menuitem">Tổng quan</a>
                 </li>
                 <li class="dropdown-item" role="none">
@@ -201,7 +346,7 @@
             <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
           </button>
 
-          <a href="./login.html" class="btn has-before">
+          <a href="./auth.html" class="btn has-before">
             <span class="span">Bắt đầu ngay</span>
             <ion-icon
               name="arrow-forward-outline"
@@ -221,21 +366,41 @@
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
     </header>
+    <main class="container section">
+    <h1 class="h2 section-title">Kế hoạch học tập</h1>
+    <p class="section-text">Chỉ số mỗi ngày dựa trên mục tiêu phút/ngày. 100% = đạt mục tiêu.</p>
 
+    <div class="plan-filters">
+      <select id="rangeSel">
+        <option value="7">7 ngày</option>
+        <option value="14">14 ngày</option>
+        <option value="30" selected>30 ngày</option>
+      </select>
+      <label> Mục tiêu (phút/ngày):
+        <input id="targetMinutes" type="number" min="10" step="5" value="60" style="width:110px">
+      </label>
+      <button id="applyBtn">Áp dụng</button>
+    </div>
 
-    <main>
-      <article>
-        <section class="section">
-          <div class="container">
-            <a href="tests.html" class="back-link">
-              <ion-icon name="arrow-back-outline"></ion-icon>
-              <span>Trở về</span>
-            </a>
-            <div id="learn-container"></div>
-          </div>
-        </section>
-      </article>
-    </main>
+    <div class="kpi-grid">
+      <div class="kpi-card"><h3>Phút hôm nay</h3><div id="kpi-today" class="kpi-value">—</div></div>
+      <div class="kpi-card"><h3>% hôm nay</h3><div id="kpi-todayPct" class="kpi-value">—</div></div>
+      <div class="kpi-card"><h3>Mục tiêu</h3><div id="kpi-target" class="kpi-value">60'</div></div>
+      <div class="kpi-card"><h3>Chuỗi ngày đạt</h3><div id="kpi-streak" class="kpi-value">0</div></div>
+    </div>
+
+    <div class="main-grid">
+      <div class="chart-card">
+        <h3>Biểu đồ phần trăm theo ngày</h3>
+        <canvas id="chartTimeline"></canvas>
+      </div>
+      <aside class="side-card">
+        <h3>Nhiệm vụ sắp tới</h3>
+        <ul id="taskList"></ul>
+      </aside>
+    </div>
+  </main>
+
 
    <footer
       class="footer"
@@ -335,26 +500,8 @@
         </div>
       </div>
     </footer>
+    <script src="./assets/js/kehoach.js" defer></script>
     <script src="./assets/js/script.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.18/mammoth.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
-    <script src="./assets/js/tuvung.js"></script>
-    <script>
-      let _start = Date.now();
-      function endSessionAndLog(){
-        const mins = Math.round((Date.now() - _start)/60000);
-        if (window.logStudyMinutes) window.logStudyMinutes(mins);
-      }
-      window.addEventListener("beforeunload", endSessionAndLog);
-    </script>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>

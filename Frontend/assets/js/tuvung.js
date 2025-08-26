@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Global state management
   const AppState = {
     timers: new Set(),
     listeners: new Set(),
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  // Utility functions
   const Utils = {
     debounce(func, wait) {
       let timeout;
@@ -91,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
 
-  // JWT and user management
   function decodeJwtPayload(token) {
     try {
       const b = token.split(".")[1];
@@ -128,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch {}
   }
 
-  // Migration function (run once)
   (function migrateLegacyKey() {
     try {
       const legacy = localStorage.getItem("userVocabulary");
@@ -139,14 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch {}
   })();
 
-  // Auth helpers
   const isLoggedIn = () => !!localStorage.getItem("token");
   const authHeader = () =>
     isLoggedIn()
       ? { Authorization: "Bearer " + localStorage.getItem("token") }
       : {};
 
-  // Optimized API function
   async function apiSafe(
     path,
     { method = "GET", body } = {},
@@ -171,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // DOM elements
   const containerTwo = document.querySelector(".add-two");
   const manualCard = document.getElementById("card-manual");
   const importCard = document.getElementById("card-import");
@@ -182,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("file-upload");
   const learnContainer = document.getElementById("learn-container");
 
-  // Initialize add vocabulary section
   if (containerTwo && choices.length) {
     const activate = (type) => {
       if (type === "myset") {
@@ -200,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (wordEntrySec) wordEntrySec.innerHTML = "";
     };
 
-    // Event handlers with cleanup
     choices.forEach((card) => {
       const handler = (e) => {
         const tag = e.target.tagName.toLowerCase();
@@ -239,7 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
     mountMySetTileInAddTwo();
   }
 
-  // Mount my test tile
   async function mountMySetTileInAddTwo() {
     if (!containerTwo) return;
 
@@ -270,7 +260,6 @@ document.addEventListener("DOMContentLoaded", () => {
     containerTwo.appendChild(myCard);
   }
 
-  // Question processing helpers
   function getCorrectIndexFromQuestion(q) {
     const ans = q?.answer ?? q?.correct ?? q?.correctAnswer ?? q?.answerIndex;
     if (typeof ans === "number") return ans;
@@ -307,7 +296,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Learning container initialization
   if (learnContainer) {
     (async () => {
       const qs = new URLSearchParams(location.search);
@@ -321,7 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        // Show loading
         learnContainer.innerHTML = `
           <div style="padding:24px 0">
             <div style="height:10px;background:#eee;border-radius:9999px;overflow:hidden;margin-bottom:12px">
@@ -365,7 +352,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
-        // Process test questions
         const pairs = [];
         const qsArr = Array.isArray(test.questions) ? test.questions : [];
         for (const q of qsArr) {
@@ -389,12 +375,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Load vocabulary from cache or API
       let vocabulary = readVocabCache();
       if (Array.isArray(vocabulary) && vocabulary.length) {
         startLearning(vocabulary, learnContainer);
 
-        // Update from server in background
         if (isLoggedIn()) {
           apiSafe("/api/vocab").then((data) => {
             const arr = Array.isArray(data?.vocabulary) ? data.vocabulary : [];
@@ -416,7 +400,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Load from server
       const data = await apiSafe("/api/vocab", {}, 7000);
       const arr = Array.isArray(data?.vocabulary) ? data.vocabulary : [];
       if (arr.length) {
@@ -433,7 +416,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
   }
 
-  // File upload handler
   async function handleFileUpload(event) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -472,7 +454,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Text parsing function (optimized)
   function parseRawText(txt) {
     const raw = String(txt || "");
     const isAsciiWord = (w) => /^[A-Za-z][A-Za-z()\/''-]*$/.test(w);
@@ -506,7 +487,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .map((l) => l.trim())
       .filter(Boolean);
 
-    // Try line-by-line parsing first
     const out1 = [];
     for (const line of lines) {
       const pair = trySplitLine(line);
@@ -514,7 +494,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (out1.length >= 2) return out1;
 
-    // Fallback to token-based parsing
     const tokens = text.split(/\s+/).filter(Boolean);
     const out2 = [];
     let mode = "ENG";
@@ -557,7 +536,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return clean.length ? clean : out1;
   }
 
-  // Test builder
   function buildTestFromPairs(pairs, nameHint = "") {
     const pick = (arr, n) => Utils.shuffle(arr).slice(0, n);
     const meanings = [
@@ -592,7 +570,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return { name, timeLimit: 0, questions };
   }
 
-  // Save vocabulary function
   async function saveVocabulary(vocabulary) {
     if (!Array.isArray(vocabulary)) {
       alert("Dữ liệu không hợp lệ.");
@@ -620,7 +597,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Try to save with different caps to avoid quota issues
     let data = cleaned.slice();
     let ok = false;
     for (const cap of [800, 600, 500, 400, 300, 200, 100]) {
@@ -639,7 +615,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Save to server if logged in
     if (isLoggedIn()) {
       try {
         await apiSafe("/api/vocab", {
@@ -657,9 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "tests.html";
   }
 
-  // Word entry form (optimized)
   function createWordEntryForm(count, container, onBack) {
-    // Clean up previous state
     AppState.cleanup();
     container.innerHTML = "";
 
@@ -732,7 +705,6 @@ document.addEventListener("DOMContentLoaded", () => {
         words[idx].meaning = meaningInput.value.trim();
       };
 
-      // Event handlers
       const wordKeyHandler = (e) => {
         if (e.isComposing) return;
         if (e.key === "Enter" && !e.shiftKey) {
@@ -781,7 +753,6 @@ document.addEventListener("DOMContentLoaded", () => {
           AppState.isProcessing = false;
           renderStep();
         } else {
-          // Final validation
           for (let i = 0; i < words.length; i++) {
             if (!words[i].word || !words[i].meaning) {
               idx = i;
@@ -795,22 +766,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
-      // Add event listeners
       AppState.addListener(wordInput, "keydown", wordKeyHandler);
       AppState.addListener(meaningInput, "keydown", meaningKeyHandler);
       AppState.addListener(prevBtn, "click", prevHandler);
       AppState.addListener(nextBtn, "click", nextHandler);
 
-      // Focus appropriate field
       (wordInput.value ? meaningInput : wordInput).focus();
     };
 
     renderStep();
   }
 
-  // Learning system (heavily optimized)
   function startLearning(vocabulary, container) {
-    // Clean up previous state
     AppState.cleanup();
 
     const original = [...vocabulary];
@@ -884,7 +851,6 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>`;
 
-      // Add retry handlers
       const retryWrong = document.getElementById("retry-wrong");
       const retryAll = document.getElementById("retry-all");
 
@@ -961,7 +927,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const type = pickType(canMatch);
         askedCount++;
 
-        // Clear previous question
         if (qArea) qArea.innerHTML = "";
 
         switch (type) {
@@ -1049,8 +1014,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const clickHandler = () => {
           if (AppState.isProcessing) return;
-
-          // Disable all buttons
           [...opts.children].forEach((b) => (b.disabled = true));
 
           const isCorrect = text === card.meaning;
@@ -1279,12 +1242,10 @@ document.addEventListener("DOMContentLoaded", () => {
       qArea.appendChild(box);
     };
 
-    // Initialize and start
     initLearnUI();
     scheduleNextQuestion();
   }
 
-  // Cleanup on page unload
   window.addEventListener("beforeunload", () => {
     AppState.cleanup();
   });
